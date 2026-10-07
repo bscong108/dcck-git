@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi" class="handout">
+<head>
+<meta charset="utf-8">
+<title>YC-01 – Tiếp cận bệnh nhân nguy kịch (Handout)</title>
+<style>
+:root{--co-che:#1F5AA6;--nguy:#C0392B;--dieu-tri:#2E7D32;--bay:#D9822B;--nen:#FBFAF6;--chu:#2B2B2B;--vien:#D8D4C8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--nen);color:var(--chu);font-family:"Segoe UI",Arial,sans-serif;font-size:13px;line-height:1.35}
+.page{width:420mm;min-height:297mm;margin:0 auto;padding:10mm 12mm;display:grid;gap:5mm;
+  grid-template-columns:1fr 1.6fr 1fr;grid-template-rows:auto 1fr auto;
+  grid-template-areas:"hd hd hd" "trai giua phai" "duoi duoi duoi"}
+header{grid-area:hd;display:flex;align-items:baseline;gap:6mm;border-bottom:2.5px solid var(--chu);padding-bottom:2mm}
+header h1{margin:0;font-size:26px} header .ma{font-weight:700;color:var(--co-che);font-size:20px;white-space:nowrap}
+header .meta{margin-left:auto;font-size:11px;color:#666}
+.cot{display:flex;flex-direction:column;gap:4mm}
+.trai{grid-area:trai}.phai{grid-area:phai}.giua{grid-area:giua}.duoi{grid-area:duoi;display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:4mm}
+.o{border:1.5px solid var(--vien);border-radius:6px;padding:3mm 4mm;background:#fff}
+.o h2{margin:0 0 2mm;font-size:14px;text-transform:uppercase;letter-spacing:.3px}
+.o.co-che h2{color:var(--co-che)}.o.nguy h2{color:var(--nguy)}.o.dieu-tri h2{color:var(--dieu-tri)}.o.bay h2{color:var(--bay)}
+.o.nguy{border-color:var(--nguy)}.o.bay{border-color:var(--bay)}
+.giua .o{height:100%} .giua svg{width:100%;height:auto}
+ul{margin:0;padding-left:4mm} li{margin:1mm 0} ol{margin:0;padding-left:5mm}
+table{border-collapse:collapse;width:100%} td,th{border:1px solid var(--vien);padding:1mm 2mm;text-align:left;vertical-align:top}
+th{background:#F3F1EA}
+.so{font-size:16px;font-weight:700;color:var(--nguy)}
+.src{font-size:9.5px;color:#777;white-space:nowrap}
+footer{font-size:10px;color:#666;grid-column:1/-1}
+.handout .k{color:transparent!important;border-bottom:1.5px dashed #8a8a8a;-webkit-print-color-adjust:exact}
+.handout .k *{visibility:hidden}
+.handout text.k,.handout tspan.k{fill:transparent!important}
+.handout .an-o-handout{visibility:hidden}
+@page{size:A3 landscape;margin:0}
+@media print{body{background:#fff}.o{break-inside:avoid;box-shadow:none}}
+@media (max-width:980px){.page{width:auto;grid-template-columns:1fr;grid-template-areas:"hd" "giua" "trai" "phai" "duoi"}.duoi{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+ <header><span class="ma">YC-01</span><h1>Tiếp cận bệnh nhân nguy kịch: ABCDE, ổn định trước, chẩn đoán song song</h1><span class="meta">ĐCCK · Cuốn 1 Y học cấp cứu · L2 · biên soạn 2026-09-28 · nguồn: [RCUK 2024] [Thim 2012] [ERC 2025 ALS] [ICM-EG] [OHCC] [OHAM] [CDTE] [COST]</span></header>
+
+ <section class="cot trai">
+  <div class="o nguy"><h2>Ngưỡng và đích phải thuộc</h2>
+   <table>
+    <tr><td>Nhìn nhanh ban đầu</td><td><span class="so k">≈30 giây</span> <span class="src">[RCUK 2024]</span></td></tr>
+    <tr><td>Tần số thở bình thường / báo động</td><td><span class="k">12–20</span> / <span class="so k">&gt;25 hoặc đang tăng</span> <span class="src">[RCUK 2024 B]</span></td></tr>
+    <tr><td>Đích SpO2</td><td><span class="k">94–98%</span>; nguy cơ tăng CO2 <span class="k">88–92%</span> <span class="src">[RCUK 2024 A]</span></td></tr>
+    <tr><td>Đổ đầy mao mạch</td><td>bình thường <span class="k">&lt;2 giây</span> (ấn 5 giây) <span class="src">[RCUK 2024 C]</span></td></tr>
+    <tr><td>Áp lực mạch bình thường</td><td><span class="k">35–45 mmHg</span> <span class="src">[RCUK 2024 C]</span></td></tr>
+    <tr><td>Thiểu niệu</td><td><span class="k">&lt;0,5 mL/kg/giờ</span> <span class="src">[RCUK 2024 C]</span></td></tr>
+    <tr><td>Lactat gợi ý giảm tưới máu</td><td><span class="so k">&gt;2 mmol/L</span> <span class="src">[OHAM tr.328]</span></td></tr>
+    <tr><td>Gọi hỗ trợ khẩn</td><td>HA trung bình <span class="k">&lt;60 mmHg</span> hoặc đang giảm <span class="src">[OHAM tr.328]</span></td></tr>
+    <tr><td>Hạ đường huyết cần xử trí (mất ý thức)</td><td><span class="so k">&lt;4,0 mmol/L</span> <span class="src">[RCUK 2024 D]</span></td></tr>
+   </table>
+  </div>
+  <div class="o co-che"><h2>Nền tảng: dây chuyền oxy</h2>
+   <ul>
+    <li>DO2 = <span class="k">cung lượng tim × CaO2</span> <span class="src">[COST tr.218]</span></li>
+    <li>CaO2 bình thường <span class="k">20,0 mL O2/100 mL</span> (Hb 15, SaO2 98%) <span class="src">[COST tr.218]</span></li>
+    <li>O2 hòa tan chỉ <span class="k">khoảng 2%</span> <span class="src">[COST tr.216]</span></li>
+    <li>SpO2 bình thường không loại trừ thiếu oxy mô: <span class="k">giảm CO, thiếu máu, CO, cyanid</span> <span class="src">[COST tr.241]</span></li>
+    <li>Mất máu → <span class="k">phản xạ áp cảm</span> → nhịp nhanh, co mạch → huyết áp giữ được, nên tụt áp là <span class="k">dấu hiệu muộn</span> <span class="src">[COST tr.166; OHAM tr.328]</span></li>
+   </ul>
+  </div>
+ </section>
+
+ <section class="giua">
+  <div class="o co-che"><h2>Sơ đồ trung tâm: ABCDE theo dây chuyền oxy và theo thời gian</h2>
+   <svg viewBox="0 0 800 600" role="img" aria-label="Dây chuyền oxy và ABCDE">
+    <defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2B2B2B"/></marker></defs>
+    <text x="400" y="22" text-anchor="middle" font-size="15" font-weight="700" fill="#1F5AA6">Oxy đi từ không khí đến tế bào não: mỗi mắt xích là một chữ cái</text>
+    <!-- chuỗi 5 ô -->
+    <g font-size="14">
+     <rect x="10" y="40" width="140" height="90" rx="10" fill="#fff" stroke="#C0392B" stroke-width="2.5"/>
+     <text x="80" y="65" text-anchor="middle" font-weight="700" fill="#C0392B" font-size="22">A</text>
+     <text x="80" y="88" text-anchor="middle">Đường thở</text>
+     <text x="80" y="112" text-anchor="middle" class="k">khí vào được?</text>
+     <line x1="150" y1="85" x2="170" y2="85" stroke="#2B2B2B" stroke-width="2.5" marker-end="url(#m)"/>
+     <rect x="172" y="40" width="140" height="90" rx="10" fill="#fff" stroke="#C0392B" stroke-width="2.5"/>
+     <text x="242" y="65" text-anchor="middle" font-weight="700" fill="#C0392B" font-size="22">B</text>
+     <text x="242" y="88" text-anchor="middle">Phổi</text>
+     <text x="242" y="112" text-anchor="middle" class="k">PaO2, SaO2</text>
+     <line x1="312" y1="85" x2="332" y2="85" stroke="#2B2B2B" stroke-width="2.5" marker-end="url(#m)"/>
+     <rect x="334" y="40" width="140" height="90" rx="10" fill="#fff" stroke="#C0392B" stroke-width="2.5"/>
+     <text x="404" y="65" text-anchor="middle" font-weight="700" fill="#C0392B" font-size="22">C</text>
+     <text x="404" y="88" text-anchor="middle">Tim, mạch, Hb</text>
+     <text x="404" y="112" text-anchor="middle" class="k">CO × CaO2</text>
+     <line x1="474" y1="85" x2="494" y2="85" stroke="#2B2B2B" stroke-width="2.5" marker-end="url(#m)"/>
+     <rect x="496" y="40" width="140" height="90" rx="10" fill="#fff" stroke="#1F5AA6" stroke-width="2.5"/>
+     <text x="566" y="65" text-anchor="middle" font-weight="700" fill="#1F5AA6" font-size="22">D</text>
+     <text x="566" y="88" text-anchor="middle">Não</text>
+     <text x="566" y="112" text-anchor="middle" class="k">ý thức, đường máu</text>
+     <line x1="636" y1="85" x2="656" y2="85" stroke="#2B2B2B" stroke-width="2.5" marker-end="url(#m)"/>
+     <rect x="658" y="40" width="132" height="90" rx="10" fill="#fff" stroke="#1F5AA6" stroke-width="2.5"/>
+     <text x="724" y="65" text-anchor="middle" font-weight="700" fill="#1F5AA6" font-size="22">E</text>
+     <text x="724" y="88" text-anchor="middle">Toàn thân</text>
+     <text x="724" y="112" text-anchor="middle" class="k">manh mối, giữ ấm</text>
+    </g>
+    <!-- vòng D -> A -->
+    <path d="M566 132 C566 160, 80 160, 80 134" fill="none" stroke="#D9822B" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#m)"/>
+    <text x="323" y="182" text-anchor="middle" font-size="13" fill="#D9822B"><tspan class="k">hôn mê gây tắc đường thở</tspan> (vòng D → A) [RCUK 2024 A; Thim 2012]</text>
+    <text x="400" y="204" text-anchor="middle" font-size="12" fill="#555">Thứ tự A → B → C: nối từ dây chuyền oxy [suy luận cơ chế]; bằng chứng cho ABCDE là đồng thuận chuyên gia [Thim 2012]</text>
+
+    <!-- trục thời gian -->
+    <text x="400" y="228" text-anchor="middle" font-size="15" font-weight="700" fill="#2E7D32">Bậc thang theo thời gian (sắp xếp giảng dạy; mốc có nguồn ghi nguồn)</text>
+    <line x1="30" y1="250" x2="770" y2="250" stroke="#2B2B2B" stroke-width="2.5" marker-end="url(#m)"/>
+    <g font-size="12.5">
+     <rect x="20" y="262" width="180" height="150" rx="8" fill="#fff" stroke="#2E7D32" stroke-width="2"/>
+     <text x="110" y="282" text-anchor="middle" font-weight="700" fill="#2E7D32">0–30 giây</text>
+     <text x="30" y="304">An toàn, nhìn tổng thể</text>
+     <text x="30" y="324" class="k">Hỏi một câu</text>
+     <text x="30" y="344" class="k">Gọi hỗ trợ</text>
+     <text x="30" y="364">Không thở bình thường:</text>
+     <text x="30" y="384" class="k">hồi sinh tim phổi</text>
+     <text x="30" y="404" fill="#777" font-size="10">[RCUK 2024]</text>
+
+     <rect x="210" y="262" width="190" height="150" rx="8" fill="#fff" stroke="#2E7D32" stroke-width="2"/>
+     <text x="305" y="282" text-anchor="middle" font-weight="700" fill="#2E7D32">30 giây–5 phút</text>
+     <text x="220" y="304">Vòng ABCDE, sửa tại chỗ</text>
+     <text x="220" y="324">Oxy <tspan class="k">15 L/phút</tspan> mặt nạ có túi</text>
+     <text x="220" y="344">Monitor: <tspan class="k">SpO2, ECG, HA</tspan></text>
+     <text x="220" y="364">Kim <tspan class="k">14–16 G</tspan>, lấy máu trước</text>
+     <text x="220" y="384">Đường máu mao mạch</text>
+     <text x="220" y="404" fill="#777" font-size="10">[RCUK 2024 A, C, D]</text>
+
+     <rect x="410" y="262" width="180" height="150" rx="8" fill="#fff" stroke="#2E7D32" stroke-width="2"/>
+     <text x="500" y="282" text-anchor="middle" font-weight="700" fill="#2E7D32">5–30 phút</text>
+     <text x="420" y="304">Đánh giá lại <tspan class="k">mỗi 5 phút</tspan></text>
+     <text x="420" y="324">Lặp bolus nếu chưa đáp ứng</text>
+     <text x="420" y="344">Dừng dịch nếu <tspan class="k">suy tim</tspan></text>
+     <text x="420" y="364">Báo cáo bằng <tspan class="k">SBAR</tspan></text>
+     <text x="420" y="384">ECG 12 CĐ nếu đau ngực</text>
+     <text x="420" y="404" fill="#777" font-size="10">[RCUK 2024 C; ICM-EG 2.1]</text>
+
+     <rect x="600" y="262" width="180" height="150" rx="8" fill="#fff" stroke="#1F5AA6" stroke-width="2"/>
+     <text x="690" y="282" text-anchor="middle" font-weight="700" fill="#1F5AA6">30–60 phút trở đi</text>
+     <text x="610" y="304" class="k">Cái gì giết nhanh nhất?</text>
+     <text x="610" y="324" class="k">Chỉ có thế thôi sao?</text>
+     <text x="610" y="344">Điều trị có giúp chẩn đoán?</text>
+     <text x="610" y="364">Chọn <tspan class="k">mức chăm sóc</tspan></text>
+     <text x="610" y="384">Kế hoạch theo dõi 24 giờ</text>
+     <text x="610" y="404" fill="#777" font-size="10">[CDTE ch1; ERC 2025 ALS]</text>
+    </g>
+
+    <!-- vòng đánh giá lại -->
+    <rect x="150" y="432" width="500" height="54" rx="27" fill="#FBFAF6" stroke="#C0392B" stroke-width="2.5"/>
+    <text x="400" y="456" text-anchor="middle" font-size="15" font-weight="700" fill="#C0392B">Sửa vấn đề đe dọa tính mạng trước khi đi tiếp</text>
+    <text x="400" y="477" text-anchor="middle" font-size="13">Đánh giá lại đến khi ổn định; xấu đi thì quay về A <tspan fill="#777" font-size="10">[RCUK 2024; Thim 2012]</tspan></text>
+
+    <!-- song song -->
+    <text x="400" y="516" text-anchor="middle" font-size="14" font-weight="700" fill="#1F5AA6">Song song: một người đánh giá, người khác gắn monitor, đặt đường truyền, hỏi người nhà</text>
+    <text x="400" y="538" text-anchor="middle" font-size="12" fill="#777">[RCUK 2024 nguyên tắc 6; CDTE ch1 tr.2]</text>
+    <text x="400" y="566" text-anchor="middle" font-size="13">Đánh giá ban đầu ở cửa khoa trong <tspan class="k">15 phút</tspan> <tspan fill="#777" font-size="10">[NHSE-RCEM 2022]</tspan>; thang cảnh báo sớm không là thước đo duy nhất <tspan fill="#777" font-size="10">[RCEM 2017 tr.2]</tspan></text>
+    <text x="400" y="590" text-anchor="middle" font-size="10" fill="#777">Sơ đồ vẽ mới, tổng hợp từ RCUK 2024, Thim 2012, CDTE ch1, ICM-EG, ERC 2025 ALS, COST</text>
+   </svg>
+  </div>
+ </section>
+
+ <section class="cot phai">
+  <div class="o dieu-tri"><h2>Liều vòng đầu</h2>
+   <table>
+    <tr><th>Can thiệp</th><th>Liều, tốc độ</th></tr>
+    <tr><td>Oxy, mặt nạ có túi</td><td><span class="k">15 L/phút</span>, chuẩn độ theo đích <span class="src">[RCUK 2024 A]</span></td></tr>
+    <tr><td>Venturi (nguy cơ tăng CO2)</td><td><span class="k">28% hoặc 24%, 4 L/phút</span> <span class="src">[RCUK 2024 B]</span></td></tr>
+    <tr><td>Bolus tinh thể khi tụt HA</td><td><span class="k">500 mL trong &lt;15 phút</span>; suy tim, chấn thương <span class="k">250 mL</span> <span class="src">[RCUK 2024 C]</span></td></tr>
+    <tr><td>Đích HA (bối cảnh chung)</td><td>HA nền, hoặc tâm thu <span class="k">&gt;100 mmHg</span> <span class="src">[RCUK 2024 C]</span></td></tr>
+    <tr><td>Glucose 10% (đường máu &lt;4,0, mất ý thức)</td><td><span class="k">50 mL</span> TM, lặp mỗi phút tới tổng <span class="k">250 mL</span> <span class="src">[RCUK 2024 D]</span></td></tr>
+    <tr><td>Nghi hội chứng vành cấp</td><td>aspirin <span class="k">300 mg</span> uống; oxy chỉ khi SpO2 &lt;94% <span class="src">[RCUK 2024 C]</span></td></tr>
+   </table>
+  </div>
+  <div class="o bay"><h2>Cạm bẫy</h2>
+   <ul>
+    <li><span class="k">Huyết áp bình thường</span> không loại trừ sốc <span class="src">[RCUK 2024 C]</span></li>
+    <li>SpO2 <span class="k">không phát hiện tăng CO2</span> <span class="src">[RCUK 2024 B]</span></li>
+    <li>Đi tiếp khi chữ trước <span class="k">chưa được sửa</span></li>
+    <li><span class="k">Không đánh giá lại</span> sau can thiệp <span class="src">[Thim 2012]</span></li>
+    <li>Quên <span class="k">đường máu</span> ở người lơ mơ <span class="src">[RCUK 2024 D]</span></li>
+    <li>Neo vào nguyên nhân đầu tiên <span class="src">[CDTE ch1 tr.3]</span></li>
+    <li>ABCDE cho người <span class="k">đã ngừng tim</span> <span class="src">[Thim 2012]</span></li>
+    <li>Gọi hỗ trợ muộn; được gọi vì <span class="k">lo lắng lâm sàng</span> <span class="src">[ERC 2025 ALS tr.2]</span></li>
+   </ul>
+  </div>
+ </section>
+
+ <section class="duoi">
+  <div class="o"><h2>Mẹo nhớ</h2>
+   <ul>
+    <li>"Hỏi một câu, biết ba chữ": trả lời bình thường = <span class="k">A thông, đang thở, não được tưới máu</span> (tự tạo, theo RCUK 2024)</li>
+    <li>"Máu trên sàn và bốn chỗ nữa": <span class="k">ngực, bụng, chậu, xương dài</span> (kinh điển, ICM-EG 1.5)</li>
+    <li>ACVPU: tỉnh, <span class="k">lú lẫn mới</span>, lời nói, đau, không đáp ứng (RCUK 2024)</li>
+   </ul>
+  </div>
+  <div class="o"><h2>Take-home</h2>
+   <ol>
+    <li>Bệnh khác nhau, suy sụp chung ba hệ; không cần biết nguyên nhân để bắt đầu <span class="src">[ICM-EG 1.1]</span></li>
+    <li>Điều trị ban đầu thường đi trước chẩn đoán <span class="src">[ICM-EG 1.1]</span></li>
+    <li>Ngừng tim trong viện thường có báo trước <span class="src">[ERC 2025 ALS tr.10]</span></li>
+    <li>Kíp làm song song, báo cáo SBAR <span class="src">[RCUK 2024; ICM-EG 2.1]</span></li>
+    <li>Xong một vòng thì làm lại</li>
+   </ol>
+  </div>
+  <div class="o nguy"><h2>Mâu thuẫn nguồn</h2>
+   <ul>
+    <li>🟠 Oxy: lưu lượng cao cho mọi người bệnh [Thim 2012] so với chuẩn độ 94–98%, tránh 100% [RCUK 2024; OHCC tr.359]</li>
+    <li>🟠 Đích HA: tâm thu &gt;100 [RCUK 2024] so với 80–90 trong chấn thương chảy máu [EU-Trauma 2023 KC13]</li>
+    <li>🟠 Kíp đáp ứng nhanh giảm tử vong: chưa chứng minh [OHCC tr.8] so với khuyến cáo yếu, bằng chứng thấp [ERC 2025 ALS tr.11]</li>
+    <li>🟡 NEWS: cải thiện kết cục [ICM-EG 1.1] so với độ chính xác cần xác nhận [NICE 2016]</li>
+    <li>🟡 AVPU [Thim 2012] so với ACVPU [RCUK 2024]</li>
+   </ul>
+  </div>
+ </section>
+ <footer>Nguồn: RCUK 2024 (The ABCDE approach, cập nhật 7/2024); Thim 2012 (Int J Gen Med 5:117); ERC 2025 ALS (Resuscitation 215:110769); NHSE-RCEM 2022; RCEM 2017; NICE 2016; ICM-EG 2023; OHCC 4e 2025; OHAM 4e 2019; CDTE 7e ch1; Costanzo 6e 2018. Biên soạn 2026-09-28. Tài liệu học tập, không phải chỉ định điều trị; liều và ngưỡng phải đối chiếu dược thư và guideline hiện hành.</footer>
+</div>
+</body>
+</html>
