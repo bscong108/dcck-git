@@ -1,5 +1,7 @@
 # ĐCCK · Học sâu
 
+**Mới dùng lần đầu: đọc [HUONG-DAN-SU-DUNG.md](HUONG-DAN-SU-DUNG.md).**
+
 Ứng dụng học tập cho bộ 9 cuốn ĐCCK (464 bài). Chạy hoàn toàn trên máy: mở `index.html` bằng trình duyệt (Chrome, Edge, Firefox), không cần cài đặt, không cần mạng.
 
 Ứng dụng đi theo đúng chu trình trong `PHUONG-PHAP-HOC.md`: truy hồi chủ động, ôn giãn cách, tự giải thích (Feynman).
