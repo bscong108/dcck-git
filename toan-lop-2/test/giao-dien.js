@@ -132,12 +132,12 @@ async function choiHet(page) {
 
   /* 5. Phiếu trên lớp: mở danh sách, rồi làm hết mọi phần của mọi phiếu */
   await page.evaluate(() => __toan2.veTrangChu()); await page.click('#nut-phieu'); await page.waitForSelector('.nhom-phieu'); await anh('14-ds-phieu');
+  const phan = await page.evaluate(() => [...document.querySelectorAll('.nut-phan')].map(b => [b.dataset.id, +b.dataset.k]));
   await page.evaluate(() => { const d = document.querySelector('.nhom-phieu'); if (d) d.open = true; });
   await page.click('.nhom-phieu[open] .nut-phan >> nth=0'); await page.waitForSelector('#cau-chinh');
   await page.waitForSelector('.hop-thoai', { timeout: 1500 }).catch(() => null);
   if (await page.$('.hop-thoai')) { await anh('14b-kien-thuc-phieu'); await page.click('.ht-dong'); }
   await anh('15-phieu-cau');
-  const phan = await page.evaluate(() => [...document.querySelectorAll('.nut-phan')].map(b => [b.dataset.id, +b.dataset.k]));
   const chup = { 'cau-dat-tinh': 0, 'cau-so-sanh': 0, 'cau-dung-sai': 0, 'thapSo': 0, 'luoiSo': 0, 'tach': 0, 'thuoc': 0 };
   let soCauPhieu = 0;
   for (const [id, k] of phan) {
@@ -151,6 +151,7 @@ async function choiHet(page) {
       soCauPhieu++;
     }
   }
+  if (!phan.length || !soCauPhieu) throw new Error('không tìm thấy phần phiếu nào');
   console.log('đã làm hết', phan.length, 'phần phiếu,', soCauPhieu, 'câu');
 
   /* 6. Thử thách hôm nay, ôn lỗi, tia chớp */
