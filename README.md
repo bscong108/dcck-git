@@ -44,3 +44,7 @@ test/                   kiem-tra.js (bộ phân tích), giao-dien.js (Playwright
 ```
 
 Kiểm tra: `node test/kiem-tra.js`.
+
+## Ứng dụng khác trong repo
+
+- [`toan-lop-2/`](toan-lop-2/HUONG-DAN.md) — **Đảo Toán Lớp 2**: trò chơi qua màn luyện Toán lớp 2 từ cơ bản đến nâng cao, có gợi ý từng bước và phần phụ huynh thêm bài cô giao. Mở `toan-lop-2/index.html`.
