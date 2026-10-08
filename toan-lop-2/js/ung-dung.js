@@ -31,12 +31,36 @@
 
   /* Phiếu: phiếu có sẵn + phiếu phụ huynh thêm trong ứng dụng */
   let PHIEU = { ds: [], loi: [] };
+  /* Nhóm phiếu theo tên (phần trước dấu “·”). */
+  const NHOM_PHIEU = [
+    ['on-he', 'Ôn tập hè', '☀️', /^Ôn hè/],
+    ['nc-he', 'Nâng cao hè', '🌻', /^Nâng cao hè/],
+    ['tuan', 'Phiếu tuần · Kiểm tra cuối tuần', '🗓️', /^(Lớp 2 ·|Lớp 2Q|OLM|Cuối tuần|Kiểm tra cuối tuần)/],
+    ['nc', 'Phiếu nâng cao lớp 2Q', '🚀', /^(Nâng cao lớp 2Q|Nâng cao Khối 2|Tăng cường|Tuần \d|Phiếu tự luận)/],
+    ['cd', 'Chuyên đề', '🎯', /^Chuyên đề/],
+    ['lt', 'Phiếu luyện tập', '✏️', /^(Luyện tập|Mathematics)/],
+    ['td', 'Toán tư duy', '🧩', /^Tư duy/],
+    ['th', 'Ôn tập tổng hợp', '🏆', /^Ôn tập tổng hợp/],
+    ['them', 'Bài bố mẹ thêm', '👪', /./]
+  ];
+  const CO_PHAN = 10;                         // phiếu dài được chia thành từng phần ≤ 10 câu
+  function chiaPhan(p) {
+    const n = p.cau.length, soPhan = Math.max(1, Math.ceil(n / CO_PHAN)), co = Math.ceil(n / soPhan), ds = [];
+    for (let i = 0; i < n; i += co) ds.push([i, Math.min(n, i + co)]);
+    return ds;
+  }
+  function khoaPhan(p, k) { return chiaPhan(p).length > 1 ? `phieu:${p.id}:${k}` : 'phieu:' + p.id; }
+  function saoPhieu(p) { const ph = chiaPhan(p); return { co: ph.reduce((s, _, k) => s + TD.sao(khoaPhan(p, k)), 0), max: ph.length * 3 }; }
+  const tenNgan = p => p.id.startsWith('lop-') ? p.ten.replace(/^[^·]*·\s*/, '') : p.ten;
   function napPhieu() {
+    const lop = VB.phanTich(window.PHIEU_TREN_LOP || '');
     const goc = VB.phanTich(window.PHIEU_CUA_CO || '');
     const them = VB.phanTich(luu.doc('phieuThem', ''));
+    lop.ds.forEach(p => { p.coSan = true; p.id = 'lop-' + p.id; });
     goc.ds.forEach(p => { p.coSan = true; });
-    them.ds.forEach(p => { p.id = 'them-' + p.id; });
-    PHIEU = { ds: goc.ds.concat(them.ds), loi: goc.loi.concat(them.loi) };
+    them.ds.forEach(p => { p.id = 'them-' + p.id; p.nhom = 'them'; });
+    PHIEU = { ds: lop.ds.concat(goc.ds, them.ds), loi: lop.loi.concat(goc.loi, them.loi) };
+    PHIEU.ds.forEach(p => { if (!p.nhom) p.nhom = NHOM_PHIEU.find(n => n[3].test(p.ten))[0]; });
   }
 
   /* ===================================================================
@@ -67,9 +91,13 @@
     <li><b>Hiểu</b>: bài cho biết gì? hỏi gì? Có số đặc biệt nào cần tìm trước không?</li>
     <li><b>Làm</b> từng bước nhỏ. Ra nháp nếu số lớn.</li>
     <li><b>Kiểm tra</b>: thử lại kết quả, xem có hợp lí không.</li></ol></div>`;
+  const nguonNgan = p => (p.nguon || '').split(/\.\s+(?=Kiến thức|Cách giải|Bỏ |Ví dụ|New words|Dạng)/)[0];
+  const kienThucPhieu = p => { const t = (p.nguon || '').slice(nguonNgan(p).length).replace(/^\.\s*/, ''); return /Kiến thức|Cách giải|Ví dụ|New words|Dạng/.test(t) ? t.replace(/Bỏ [^.]*vì cần hình gốc\.?/g, '').trim() : ''; };
   function moBiKip(idDang) {
     const d = CT.dang[idDang];
-    hopThoai(`<h2>📖 Bí kíp${d ? ': ' + d.ten : ''}</h2>${d ? `<div class="bk-noi-dung">${d.ghiNho}</div>` : ''}${BON_BUOC}`, 'bk');
+    const p = !d && P && P.spec.kieu === 'phieu' ? PHIEU.ds.find(x => x.id === P.spec.id) : null;
+    const kt = p ? kienThucPhieu(p) : '';
+    hopThoai(`<h2>📖 Bí kíp${d ? ': ' + d.ten : p ? ': ' + esc(tenNgan(p)) : ''}</h2>${d ? `<div class="bk-noi-dung">${d.ghiNho}</div>` : ''}${kt ? `<div class="bk-noi-dung"><p><b>Kiến thức trên phiếu của cô</b></p><p>${esc(kt)}</p></div>` : ''}${BON_BUOC}`, 'bk');
     if (d) { TD.daXemBK[idDang] = true; TD.ghi(); }
   }
   function capNhatChuoi() {
@@ -128,10 +156,10 @@
         <div class="chi-so"><span title="Sao đã có">⭐ <b>${h.xu}</b></span><span title="Số ngày học liên tiếp">🔥 <b>${h.chuoi.so || 0}</b></span><span title="Thú cưng sưu tập">🎁 <b>${h.sticker.length}</b></span></div>
       </header>
       <section class="hero">
-        <div class="hero-chu"><h1>Hôm nay mình học gì?</h1><p>Chọn một hòn đảo, hoặc làm bài cô giao.</p></div>
+        <div class="hero-chu"><h1>Hôm nay mình học gì?</h1><p>Làm phiếu cô giao trên lớp, hoặc luyện thêm trên các hòn đảo.</p></div>
         <div class="hero-nut">
-          <button class="the-nhanh tt" id="nut-thu-thach"><span class="tn-bieu">🎯</span><b>Thử thách hôm nay</b><small>${daThuThach != null ? 'Đã làm · ' + saoHtml(daThuThach) : '8 câu trộn nhiều dạng'}</small></button>
-          <button class="the-nhanh pc" id="nut-phieu"><span class="tn-bieu">📄</span><b>Bài của cô</b><small>${PHIEU.ds.length} phiếu · ${PHIEU.ds.reduce((s, p) => s + p.cau.length, 0)} câu</small></button>
+          <button class="the-nhanh tt" id="nut-thu-thach"><span class="tn-bieu">🎯</span><b>Thử thách hôm nay</b><small>${daThuThach != null ? 'Đã làm · ' + saoHtml(daThuThach) : '8 câu trộn: dạng bài và đề trên lớp'}</small></button>
+          <button class="the-nhanh pc" id="nut-phieu"><span class="tn-bieu">📄</span><b>Phiếu trên lớp</b><small>${PHIEU.ds.length} phiếu · ${PHIEU.ds.reduce((s, p) => s + p.cau.length, 0)} câu đề thật</small></button>
           <button class="the-nhanh ol" id="nut-loi"><span class="tn-bieu">🩹</span><b>Ôn lỗi sai</b><small>${TD.soLoi.length ? TD.soLoi.length + ' câu cần ôn' : 'Chưa có câu nào'}</small></button>
         </div>
       </section>
@@ -183,14 +211,22 @@
   /* ===================================================================
      MÀN HÌNH: DANH SÁCH PHIẾU CỦA CÔ
      =================================================================== */
-  function veDsPhieu() {
+  function veDsPhieu(moNhom) {
     napPhieu();
+    const nhomCo = NHOM_PHIEU.filter(n => PHIEU.ds.some(p => p.nhom === n[0]));
+    const daMo = moNhom || luu.doc('nhomMo', nhomCo.length ? nhomCo[0][0] : '');
     man(`<div class="khung">
-      <header class="thanh-tren"><button class="nut-ve" id="ve">← Về</button><div class="tt-giua"><b>📄 Bài của cô</b><small>Các phiếu bài tập thật trên lớp</small></div></header>
-      <div class="ds-phieu">${PHIEU.ds.map(p => `<button class="phieu-the" data-id="${p.id}"><span class="ph-chu"><b>${esc(p.ten)}</b><small>${esc(p.nguon || (p.coSan ? '' : 'Phụ huynh thêm'))}</small></span><span class="ph-phai"><span class="sao">${saoHtml(TD.sao('phieu:' + p.id))}</span><small>${p.cau.length} câu</small></span></button>`).join('') || '<p>Chưa có phiếu nào.</p>'}</div>
-      <p class="ghi-chu giua">Bố mẹ thêm phiếu mới ở <b>Góc phụ huynh → Thêm bài</b>, hoặc sửa file <code>noi-dung/phieu-cua-co.js</code>.</p></div>`);
+      <header class="thanh-tren"><button class="nut-ve" id="ve">← Về</button><div class="tt-giua"><b>📄 Phiếu trên lớp</b><small>${PHIEU.ds.length} phiếu · ${PHIEU.ds.reduce((s, p) => s + p.cau.length, 0)} câu · chép đúng đề cô giao</small></div></header>
+      ${nhomCo.map(([id, ten, bieu]) => {
+        const ds = PHIEU.ds.filter(p => p.nhom === id), t = ds.reduce((a, p) => { const x = saoPhieu(p); return { co: a.co + x.co, max: a.max + x.max }; }, { co: 0, max: 0 });
+        return `<details class="nhom-phieu" data-nhom="${id}" ${id === daMo ? 'open' : ''}><summary><span class="np-bieu">${bieu}</span><span class="np-ten"><b>${ten}</b><small>${ds.length} phiếu · ${ds.reduce((s, p) => s + p.cau.length, 0)} câu</small></span><span class="np-sao">★ ${t.co}/${t.max}</span></summary>
+          <div class="ds-phieu">${ds.map(p => { const ph = chiaPhan(p); return `<div class="phieu-the"><span class="ph-chu"><b>${esc(tenNgan(p))}</b><small>${esc(nguonNgan(p) || (p.coSan ? '' : 'Bố mẹ thêm'))}${kienThucPhieu(p) ? ' · 📖 có kiến thức cần nhớ' : ''}</small></span>
+            <span class="ph-phan">${ph.map(([a, b], k) => `<button class="nut-phan" data-id="${p.id}" data-k="${k}" aria-label="${ph.length > 1 ? 'Phần ' + (k + 1) : 'Làm phiếu'}"><span>${ph.length > 1 ? 'Phần ' + (k + 1) : 'Làm bài'}</span><small>${b - a} câu</small><span class="sao">${saoHtml(TD.sao(khoaPhan(p, k)))}</span></button>`).join('')}</span></div>`; }).join('')}</div></details>`;
+      }).join('') || '<p>Chưa có phiếu nào.</p>'}
+      <p class="ghi-chu giua">Đề chép từ phiếu thật trên lớp; gợi ý và cách giải do ứng dụng soạn. Bố mẹ thêm phiếu mới ở <b>Góc phụ huynh → Thêm bài</b>.</p></div>`);
     $('#ve').addEventListener('click', veTrangChu);
-    $$('.phieu-the').forEach(b => b.addEventListener('click', () => batDau({ kieu: 'phieu', id: b.dataset.id })));
+    $$('.nhom-phieu').forEach(d => d.addEventListener('toggle', () => { if (d.open) luu.ghi('nhomMo', d.dataset.nhom); }));
+    $$('.nut-phan').forEach(b => b.addEventListener('click', () => batDau({ kieu: 'phieu', id: b.dataset.id, phan: Number(b.dataset.k) })));
   }
 
   /* ===================================================================
@@ -211,10 +247,12 @@
     const daChoi = dsDang.filter(id => TD.sao(id + ':1') > 0);
     if (daChoi.length >= 4) dsDang = daChoi.concat(T.tron(dsDang).slice(0, 2));
     const ds = [];
-    T.tron(dsDang).slice(0, 8).forEach(id => {
+    const tuPhieu = T.tron(PHIEU.ds.filter(p => p.coSan && saoPhieu(p).co < saoPhieu(p).max).flatMap(p => p.cau.filter(q => q.loai !== 'tuCham'))).slice(0, 3);
+    T.tron(dsDang).slice(0, 8 - tuPhieu.length).forEach(id => {
       const cap = Math.min(3, 1 + [1, 2, 3].filter(c => TD.sao(id + ':' + c) >= 2).length);
       ds.push(CT.sinh(id, cap));
     });
+    tuPhieu.forEach(q => ds.splice(T.n(0, ds.length), 0, sao(q)));
     return ds;
   }
   let P = null;          // lượt chơi hiện tại
@@ -228,7 +266,9 @@
       if (!TD.daXemBK[spec.id]) setTimeout(() => moBiKip(spec.id), 250);
     } else if (spec.kieu === 'phieu') {
       const p = PHIEU.ds.find(x => x.id === spec.id); if (!p) return veDsPhieu();
-      ds = sao(p.cau); ten = p.ten; phu = 'Bài của cô';
+      const ph = chiaPhan(p), [a, b] = ph[spec.phan || 0] || ph[0];
+      if (kienThucPhieu(p) && !(spec.phan || 0) && !TD.daXemBK['phieu:' + p.id]) { TD.daXemBK['phieu:' + p.id] = true; TD.ghi(); setTimeout(() => moBiKip(null), 250); }
+      ds = sao(p.cau.slice(a, b)); ten = tenNgan(p); phu = ph.length > 1 ? `Phần ${(spec.phan || 0) + 1}/${ph.length} · câu ${a + 1}–${b}` : 'Phiếu trên lớp';
     } else if (spec.kieu === 'loi') {
       ds = TD.soLoi.slice(0, 8).map(x => sao(x.q)); ten = 'Ôn lỗi sai'; phu = 'Làm lại cho thật vững';
     } else if (spec.kieu === 'ngay') {
@@ -460,7 +500,7 @@
     const dung = P.kq.filter(k => k.dung).length;
     let khoa = null;
     if (P.spec.kieu === 'dang') khoa = P.spec.id + ':' + P.spec.cap;
-    if (P.spec.kieu === 'phieu') khoa = 'phieu:' + P.spec.id;
+    if (P.spec.kieu === 'phieu') { const p = PHIEU.ds.find(x => x.id === P.spec.id); khoa = p ? khoaPhan(p, P.spec.phan || 0) : 'phieu:' + P.spec.id; }
     let stickerMoi = null, lanDau3 = false;
     if (khoa) {
       const m = TD.man[khoa] || (TD.man[khoa] = { sao: 0, lan: 0, dung: 0, tong: 0 });
@@ -476,6 +516,10 @@
     if (saoMan >= 2) T.am.choi('thang');
 
     let tiep = null;
+    if (P.spec.kieu === 'phieu') {
+      const p = PHIEU.ds.find(x => x.id === P.spec.id);
+      if (p && (P.spec.phan || 0) < chiaPhan(p).length - 1) tiep = { kieu: 'phieu', id: p.id, phan: (P.spec.phan || 0) + 1 };
+    }
     if (P.spec.kieu === 'dang') {
       const d = CT.dang[P.spec.id], dao = CT.timDao(d.dao), vt = dao.dang.indexOf(P.spec.id);
       if (P.spec.cap < 3 && moKhoa(P.spec.id, P.spec.cap + 1)) tiep = { kieu: 'dang', id: P.spec.id, cap: P.spec.cap + 1 };
@@ -490,8 +534,8 @@
       <ol class="kq-ds">${P.kq.map((k, i) => `<li class="${k.dung ? 'd' : 's'}"><span>Câu ${i + 1}</span><span class="sao">${saoHtml(k.sao)}</span></li>`).join('')}</ol>
       <div class="hang-nut">
         <button class="nut nut-phu" id="choi-lai">↻ Chơi lại</button>
-        ${tiep ? `<button class="nut nut-chinh" id="man-tiep">Màn tiếp theo ➜</button>` : ''}
-        <button class="nut nut-phu" id="ve-dao">${P.spec.kieu === 'dang' ? 'Về đảo' : 'Về trang chủ'}</button>
+        ${tiep ? `<button class="nut nut-chinh" id="man-tiep">${tiep.kieu === 'phieu' ? 'Phần tiếp theo ➜' : 'Màn tiếp theo ➜'}</button>` : ''}
+        <button class="nut nut-phu" id="ve-dao">${P.spec.kieu === 'dang' ? 'Về đảo' : P.spec.kieu === 'phieu' ? 'Về danh sách phiếu' : 'Về trang chủ'}</button>
       </div></div></div>`, 'man-ket-qua');
     $('#choi-lai').addEventListener('click', () => batDau(P.spec));
     if (tiep) $('#man-tiep').addEventListener('click', () => batDau(tiep));
@@ -598,8 +642,14 @@
       <div class="bang-cuon"><table class="bang-ph"><thead><tr><th>Dạng bài</th><th>Cơ bản</th><th>Vận dụng</th><th>Nâng cao</th><th>Đúng</th><th>Gợi ý / câu</th></tr></thead><tbody>
       ${CT.dao.map(d => `<tr class="hang-dao"><th colspan="6">${d.bieu} ${d.ten}</th></tr>` + d.dang.map(id => { const x = tk[id]; return `<tr><td>${CT.dang[id].ten}</td>${[1, 2, 3].map(c => `<td class="sao">${saoHtml(TD.sao(id + ':' + c))}</td>`).join('')}<td>${x ? Math.round(x.dung / x.tong * 100) + '% (' + x.tong + ')' : '—'}</td><td>${x ? (x.goiY / x.tong).toFixed(1) : '—'}</td></tr>`; }).join('')).join('')}
       </tbody></table></div>
-      <h3>Bài của cô</h3>
-      <ul class="ds-can">${PHIEU.ds.map(p => { const m = TD.man['phieu:' + p.id]; return `<li><b>${esc(p.ten)}</b> — ${m ? `${saoHtml(m.sao)} · đã làm ${m.lan} lần, đúng ${m.dung}/${m.tong} câu` : 'chưa làm'}</li>`; }).join('')}</ul>
+      <h3>Phiếu trên lớp</h3>
+      <div class="bang-cuon"><table class="bang-ph"><thead><tr><th>Phiếu</th><th>Sao</th><th>Đúng</th></tr></thead><tbody>
+      ${NHOM_PHIEU.filter(n => PHIEU.ds.some(p => p.nhom === n[0])).map(n => `<tr class="hang-dao"><th colspan="3">${n[2]} ${n[1]}</th></tr>` + PHIEU.ds.filter(p => p.nhom === n[0]).map(p => {
+        const ph = chiaPhan(p), ms = ph.map((_, k) => TD.man[khoaPhan(p, k)]).filter(Boolean), x = saoPhieu(p);
+        const d = ms.reduce((a, m) => a + m.dung, 0), t = ms.reduce((a, m) => a + m.tong, 0);
+        return `<tr><td>${esc(tenNgan(p))}</td><td>${ms.length ? `★ ${x.co}/${x.max}` : '—'}</td><td>${t ? Math.round(d / t * 100) + '% (' + t + ' câu)' : 'chưa làm'}</td></tr>`;
+      }).join('')).join('')}
+      </tbody></table></div>
       <h3>Nhật ký gần đây</h3>
       <div class="bang-cuon"><table class="bang-ph"><thead><tr><th>Ngày</th><th>Bài</th><th>Đúng</th><th>Sao</th><th>Thời gian</th></tr></thead><tbody>
       ${TD.nhatKy.slice(0, 30).map(x => `<tr><td>${x.ngay} ${x.gio || ''}</td><td>${esc(x.ten)}<br><small>${esc(x.phu || '')}</small></td><td>${x.dung}/${x.tong}</td><td class="sao">${x.ten === 'Tia chớp' ? '⚡' : saoHtml(x.sao)}</td><td>${Math.floor(x.giay / 60)} phút ${x.giay % 60} giây</td></tr>`).join('') || '<tr><td colspan="5">Chưa có.</td></tr>'}
@@ -626,7 +676,7 @@
       <div class="the-ph">
       <h3>Ô soạn bài</h3>
       <p class="ghi-chu">Viết theo mẫu. Dòng bắt đầu bằng <code>#</code> là tên phiếu mới. Chèn mẫu:
-        ${Object.entries({ so: 'Điền số', o: 'Ô trống trong đề', nhieu: 'Nhiều số', chon: 'Chọn đáp án', giai: 'Bài giải', tuCham: 'Tự chấm' }).map(([k, t]) => `<button class="nut-nho mau" data-m="${k}">${t}</button>`).join(' ')}</p>
+        ${Object.entries({ so: 'Điền số', o: 'Ô trống trong đề', nhieu: 'Nhiều số', chon: 'Chọn đáp án', giai: 'Bài giải', tinh: 'Tính', datTinh: 'Đặt tính', soSanh: 'So sánh', dungSai: 'Đúng/Sai', dienDau: 'Điền dấu', tuCham: 'Tự chấm' }).map(([k, t]) => `<button class="nut-nho mau" data-m="${k}">${t}</button>`).join(' ')}</p>
       <textarea id="soan" rows="14" spellcheck="false" placeholder="# Phiếu tuần 6&#10;&#10;Câu: ...&#10;Đáp án: ...">${esc(nhap)}</textarea>
       <div class="hang-nut trai"><button class="nut nut-phu" id="xem-truoc">Kiểm tra</button><button class="nut nut-chinh" id="luu-bai">Lưu vào ứng dụng</button></div>
       <div id="ket-qua-soan"></div></div>`;

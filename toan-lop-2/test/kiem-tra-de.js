@@ -50,11 +50,13 @@ function kiem(id, cap, q, laBuoc) {
       const k = demTha(q.de);
       if (k !== q.dapAn.length) bao(id, cap, q, `số ô thả (${k}) khác đáp án (${q.dapAn.length})`);
       q.dapAn.forEach(x => { if (!q.luaChon.includes(x)) bao(id, cap, q, 'đáp án không có trong thẻ: ' + x); });
+      (q.dapAnKhac || []).forEach(d => { if (d.length !== q.dapAn.length) bao(id, cap, q, 'dapAnKhac lệch'); });
       break;
     }
     case 'dongHo':
       if (!(q.dapAn.gio >= 0 && q.dapAn.gio <= 24 && q.dapAn.phut >= 0 && q.dapAn.phut < 60)) bao(id, cap, q, 'giờ sai');
       break;
+    case 'tuCham': break;
     case 'chiaDeu':
       if (q.tong % q.dia) bao(id, cap, q, 'chia không đều');
       break;
@@ -80,7 +82,7 @@ for (const id in CT.dang) {
   }
 }
 // Phiếu của cô
-const phieu = VB.phanTich(window.PHIEU_CUA_CO || '');
+const phieu = VB.phanTich((window.PHIEU_TREN_LOP || '') + '\n' + (window.PHIEU_CUA_CO || ''));
 phieu.loi.forEach(e => { console.log('✗ phiếu: ' + e); loi++; });
 phieu.ds.forEach(p => p.cau.forEach(q => kiem('phieu:' + p.ten, 0, q)));
 console.log(`${Object.keys(CT.dang).length} dạng bài, ${tong} câu sinh thử, ${phieu.ds.length} phiếu (${phieu.ds.reduce((s, p) => s + p.cau.length, 0)} câu). Lỗi: ${loi}`);

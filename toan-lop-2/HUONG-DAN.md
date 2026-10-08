@@ -1,6 +1,9 @@
 # Đảo Toán Lớp 2 — Hướng dẫn cho bố mẹ
 
-Ứng dụng giúp bé tự luyện Toán lớp 2, từ cơ bản đến nâng cao, bằng trò chơi qua màn. Nội dung bám theo khung chương trình Toán 2 (Cánh Diều, theo danh sách bài trên olm.vn) và các phiếu bài tập nâng cao bé được giao trên lớp.
+Ứng dụng giúp bé tự luyện Toán lớp 2, từ cơ bản đến nâng cao, bằng trò chơi qua màn. Nội dung gồm hai phần:
+
+- **Phiếu trên lớp**: 91 phiếu với 1 210 câu, chép đúng đề từ tập phiếu Toán lớp 2 của bé (Hệ thống Giáo dục Lý Thái Tổ): ôn tập hè, nâng cao hè, phiếu tuần, kiểm tra cuối tuần, phiếu nâng cao 2Q, chuyên đề, phiếu luyện tập, toán tư duy, ôn tập tổng hợp.
+- **Các hòn đảo**: 54 dạng bài sinh đề ngẫu nhiên, bám khung chương trình Toán 2 (Cánh Diều) và đúng các kiểu đề trên phiếu, để bé luyện thêm không giới hạn.
 
 ## 1. Mở ứng dụng
 
@@ -34,8 +37,8 @@ Cách chấm sao mỗi câu: đúng ngay, không dùng gợi ý → ★★★; d
 
 ### Các khu khác
 
-- **🎯 Thử thách hôm nay**: 8 câu trộn nhiều dạng. Mức khó tự tăng ở những dạng bé đã vững.
-- **📄 Bài của cô**: làm lại đúng các phiếu thật trên lớp, theo đúng thứ tự trên phiếu.
+- **🎯 Thử thách hôm nay**: 8 câu trộn: 5 câu từ các dạng bài (mức khó tự tăng ở dạng bé đã vững) và 3 câu đề thật lấy từ các phiếu bé chưa đạt 3 ★.
+- **📄 Phiếu trên lớp**: các phiếu thật, xếp theo nhóm. Phiếu dài được chia thành từng phần khoảng 10 câu để bé làm từng lúc. Phiếu nào có ô “Kiến thức cần nhớ” thì bí kíp đó tự hiện khi bé bắt đầu và luôn mở lại được bằng nút 📖.
 - **🩹 Ôn lỗi sai**: các câu bé làm sai hoặc phải xem cách giải. Làm đúng ngay ở lần ôn thì câu đó được xoá khỏi sổ.
 - **⚡ Tia chớp**: tính nhẩm 60 giây (trong 20, trong 100, bảng nhân 2 và 5).
 - **🎁 Bộ sưu tập**: lần đầu được 3 ★ ở một màn, bé nhận một bạn thú mới.
@@ -102,23 +105,51 @@ Mỗi cặp `Lời giải:` + `Phép tính:` là một bước giải. Phép tí
 
 Lưu ý: không dùng dấu `` ` `` trong nội dung file `phieu-cua-co.js`.
 
+### Các kiểu câu ứng dụng tự tính đáp án
+
+Với các dạng bài lặp lại nhiều trên phiếu, bố mẹ chỉ cần chép đề, không cần viết đáp án:
+
+| Viết | Bé sẽ làm |
+|---|---|
+| `Câu tính: 73 − 13; 90 − 10 − 20; 16 − 5` | Điền kết quả từng dãy tính (tính từ trái sang phải) |
+| `Câu tính (cm): 20 + 15; 45 − 20` | Như trên, có đơn vị cm |
+| `Câu đặt tính: 38 + 27; 96 − 38` | Đặt tính rồi tính từng phép, điền từng chữ số |
+| `Câu so sánh: 10 + 27 ? 50; 57 ? 10 + 63` | Kéo dấu &lt;, &gt;, = vào chỗ dấu `?` |
+| `Câu đúng sai: 45 − 5 < 12 + 23` | Chọn Đ hoặc S. Câu có đơn vị đo hoặc chữ thì thêm `Đáp án: Đ` / `Đáp án: S` |
+| `Câu điền dấu: 18 ? 4 ? 2 ? 3 = 13` | Kéo dấu + / − vào chỗ dấu `?` (chấp nhận mọi cách điền đúng) |
+| `Câu xếp tăng: …` + `Đáp án: 23, 42, 51, 16` | Chạm các số theo thứ tự từ bé đến lớn (`Câu xếp giảm` thì ngược lại). Đáp án ghi các số theo thứ tự trên phiếu |
+| `Câu đọc số: 38; 99; 100` | Chọn cách đọc đúng |
+| `Câu tách gộp: 8 + 7; 9 + 5` | Tách – gộp để cộng qua 10 (8 + 7 = 8 + 2 + 5 = 10 + 5 = 15) |
+| `Câu chọn nhiều: …` + `Lựa chọn: a \| b \| c` + `Đáp án: a \| c` | Chọn tất cả đáp án đúng |
+
+Thêm hình cho một câu:
+
+- `Đồng hồ: 8:30` vẽ mặt đồng hồ.
+- `Hình JSON: {...}` cho hình phức tạp hơn (tháp số, lưới số, thước kẻ, que tính, tia số, cân…). Xem các ví dụ trong `noi-dung/phieu-tren-lop.js`.
+
 ## 5. Nguồn nội dung
 
-- **Khung chương trình**: `Chuong-trinh-Toan-lop-2.docx` (olm.vn, Toán 2 Cánh Diều). Chủ đề 3 (bài 16–18), Chủ đề 8 (bài 42–45) và phần ôn tập giữa, cuối học kì 2 không có chi tiết trong tài liệu. Các đảo tương ứng soạn theo tên chủ đề và các bài có trong danh sách.
-- **Phiếu nâng cao** (5 phiếu có sẵn trong “Bài của cô”): Tuần 1 số 3, Tuần 2 số 1 (Số hạng – Tổng), Tuần 4 số 2 (Tính số các số hạng trong dãy số), Tuần 5 số 1, và phiếu tự luận (bi, hộp kẹo, đàn gà). **Đề bài chép đúng theo phiếu.** Gợi ý, cách giải và đáp án là do ứng dụng soạn, không phải đáp án của cô.
-- Hai trang cuối của `phieu toan 4.pdf` là phiếu tiếng Anh (Let's practice 3 – Week 1) nên không đưa vào.
+- **Phiếu trên lớp** (`noi-dung/phieu-tren-lop.js`): chép từ hai file PDF tập phiếu Toán lớp 2 (168 trang ảnh chụp). Chỉ chép **đề bài của giáo viên**; không chép tên, chữ viết và bài làm của bé. Đáp án, gợi ý, cách giải do ứng dụng soạn và đã được kiểm tra lại bằng máy (mọi phép tính trong lời giải đều tính lại được).
+  - Những bài **cần hình gốc** mà không vẽ lại được bằng chữ (đếm hình tam giác/vuông trong hình phức tạp, xoay – ghép hình, đường đi trên lưới, chổi phù thuỷ, hạt cườm…) được **bỏ qua**; tên phiếu có ghi rõ bài nào bị bỏ.
+  - Bài nối, bài khoanh được đổi thành câu chọn / chọn nhiều tương đương.
+  - Một số chỗ phiếu in chưa rõ, ứng dụng ghi chú ngay trong đề (ví dụ dãy 0; 2; 4; … 14; …; 20 thiếu một chỗ chấm). Phiếu Tuần 5 số 2, bài 10 (“bớt số trừ … và thêm vào số bị trừ đi 2 đơn vị”) bị bỏ vì câu chữ không rõ thêm hay bớt.
+  - Các phiếu đã có trong file cũ `phieu-cua-co.js` (Nâng cao 2Q Tuần 1 số 3, Tuần 2 số 1, Tuần 4 số 2, Tuần 5 số 1, phiếu tự luận) không chép lại lần hai.
+  - Phiếu “Mathematics – Grade 2” giữ nguyên tiếng Anh, có phần từ mới.
+- **Khung chương trình**: `Chuong-trinh-Toan-lop-2.docx` (olm.vn, Toán 2 Cánh Diều). Chủ đề 3 (bài 16–18), Chủ đề 8 (bài 42–45) và phần ôn tập giữa, cuối học kì 2 không có chi tiết trong tài liệu.
+- **Dạng bài mới theo phiếu** (`js/de-tren-lop.js`): số chẵn – số lẻ; lập số từ các chữ số; số lớn nhất / bé nhất theo tổng, hiệu chữ số; chuỗi phép tính; tìm tổng, hiệu ban đầu; tổng số tuổi; thứ – ngày trong tuần.
 
 ## 6. Cho người sửa mã
 
 ```
 index.html                 vỏ ứng dụng (thứ tự nạp các file)
 css/giao-dien.css          giao diện (sáng: vở ô li; tối: bảng đen)
-noi-dung/phieu-cua-co.js   bài của cô (văn bản theo mục 4)
+noi-dung/phieu-tren-lop.js 91 phiếu chép từ tập phiếu trên lớp (văn bản theo mục 4)
+noi-dung/phieu-cua-co.js   5 phiếu đầu tiên + chỗ để bố mẹ thêm bài lâu dài
 js/tien-ich.js             ngẫu nhiên, lưu trữ, âm thanh, đọc to, đọc số bằng chữ
 js/hinh-ve.js              hình minh họa: khối chục, khung 10, tia số, đồng hồ, lịch, cân, bình, tiền, sơ đồ đoạn thẳng, hình học, biểu đồ tranh
 js/chuong-trinh.js         danh sách đảo, CT.them(), hàm dựng câu Q.* (Q.giaiToan dựng bài giải nhiều bước)
-js/de-*.js                 các dạng bài theo đảo, mỗi dạng 3 hàm sinh đề (Cơ bản, Vận dụng, Nâng cao)
-js/van-ban.js              đọc định dạng “Câu: / Đáp án: / Gợi ý: …”
+js/de-*.js                 các dạng bài theo đảo, mỗi dạng 3 hàm sinh đề (Cơ bản, Vận dụng, Nâng cao); de-tren-lop.js là các dạng soạn theo phiếu
+js/van-ban.js              đọc định dạng “Câu: / Đáp án: / Gợi ý: …” và các kiểu câu tự tính đáp án
 js/kieu-cau.js             các kiểu câu tương tác và bàn phím số
 js/ung-dung.js             màn hình, chấm sao, gợi ý, sổ ôn lỗi, góc phụ huynh
 cong-cu/dong-goi.py        gộp thành một file HTML

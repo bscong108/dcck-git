@@ -130,16 +130,28 @@ async function choiHet(page) {
   }
   console.log('đã chơi hết', soMan, 'màn');
 
-  /* 5. Bài của cô */
-  await page.evaluate(() => __toan2.veTrangChu()); await page.click('#nut-phieu'); await page.waitForSelector('.phieu-the'); await anh('14-ds-phieu');
-  const soPhieu = await page.$$eval('.phieu-the', x => x.length);
-  for (let k = 0; k < soPhieu; k++) {
-    await page.evaluate(() => __toan2.veTrangChu()); await page.click('#nut-phieu');
-    await page.click(`.phieu-the >> nth=${k}`); await page.waitForSelector('#cau-chinh');
-    if (k === 0) await anh('15-phieu-cau');
-    if (!(await choiHet(page))) throw new Error('phiếu ' + k + ' không kết thúc');
+  /* 5. Phiếu trên lớp: mở danh sách, rồi làm hết mọi phần của mọi phiếu */
+  await page.evaluate(() => __toan2.veTrangChu()); await page.click('#nut-phieu'); await page.waitForSelector('.nhom-phieu'); await anh('14-ds-phieu');
+  await page.evaluate(() => { const d = document.querySelector('.nhom-phieu'); if (d) d.open = true; });
+  await page.click('.nhom-phieu[open] .nut-phan >> nth=0'); await page.waitForSelector('#cau-chinh');
+  await page.waitForSelector('.hop-thoai', { timeout: 1500 }).catch(() => null);
+  if (await page.$('.hop-thoai')) { await anh('14b-kien-thuc-phieu'); await page.click('.ht-dong'); }
+  await anh('15-phieu-cau');
+  const phan = await page.evaluate(() => [...document.querySelectorAll('.nut-phan')].map(b => [b.dataset.id, +b.dataset.k]));
+  const chup = { 'cau-dat-tinh': 0, 'cau-so-sanh': 0, 'cau-dung-sai': 0, 'thapSo': 0, 'luoiSo': 0, 'tach': 0, 'thuoc': 0 };
+  let soCauPhieu = 0;
+  for (const [id, k] of phan) {
+    await page.evaluate(([id, k]) => { __toan2.TD.daXemBK['phieu:' + id] = true; __toan2.batDau({ kieu: 'phieu', id, phan: k }); }, [id, k]);
+    await page.waitForSelector('#cau-chinh');
+    for (let i = 0; i < 40; i++) {
+      if (await page.$('.ket-qua')) break;
+      const loai = await page.evaluate(() => { const q = __toan2.S.q, h = JSON.stringify(q.hinh || '') + JSON.stringify(q.buoc ? q.buoc[0].hinh || '' : ''); return /Đặt tính rồi tính từng/.test(q.de) ? 'cau-dat-tinh' : /Kéo dấu &lt;/.test(q.de) ? 'cau-so-sanh' : /Đúng ghi Đ/.test(q.de) ? 'cau-dung-sai' : /thapSo/.test(h) ? 'thapSo' : /luoiSo/.test(h) ? 'luoiSo' : /Tách – gộp/.test(q.de) ? 'tach' : /thuoc/.test(h) ? 'thuoc' : ''; });
+      if (loai && !chup[loai]++) await anh('16-phieu-' + loai);
+      try { await traLoiCau(page); } catch (e) { throw new Error(`phiếu ${id} phần ${k}: ${e.message.split('\n')[0]}\n${await page.evaluate(() => JSON.stringify(__toan2.S.q).slice(0, 500))}`); }
+      soCauPhieu++;
+    }
   }
-  console.log('đã làm hết', soPhieu, 'phiếu');
+  console.log('đã làm hết', phan.length, 'phần phiếu,', soCauPhieu, 'câu');
 
   /* 6. Thử thách hôm nay, ôn lỗi, tia chớp */
   await page.evaluate(() => __toan2.veTrangChu()); await page.click('#nut-thu-thach'); await page.waitForSelector('#cau-chinh'); await choiHet(page);

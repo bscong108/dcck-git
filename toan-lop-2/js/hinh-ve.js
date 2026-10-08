@@ -112,7 +112,7 @@
   };
 
   /* ---- Cân hai đĩa: {trai:['🍉','2kg'], phai:['5kg'], nghieng:-1|0|1} ---- */
-  const quaCan = x => /kg$/.test(x) ? `<span class="qua-can">${x.replace('kg', '')}<small>kg</small></span>` : `<span class="vat-can">${x}</span>`;
+  const quaCan = x => /^\d+$/.test(x) ? `<span class="hop-can">${x}</span>` : /kg$/.test(x) ? `<span class="qua-can">${x.replace('kg', '')}<small>kg</small></span>` : `<span class="vat-can">${x}</span>`;
   VE.can = h => {
     const ng = h.nghieng || 0;          // -1: bên trái nặng hơn (đĩa trái thấp)
     return `<div class="can" style="--ng:${ng * 8}deg">
@@ -200,7 +200,7 @@
       }
     });
     h.diem.forEach(p => {
-      s += `<circle cx="${p.x}" cy="${p.y}" r="5" class="hp-diem"/>`;
+      if (!h.anDiem) s += `<circle cx="${p.x}" cy="${p.y}" r="5" class="hp-diem"/>`;
       if (p.ten) s += `<text x="${p.x + (p.dx || 0)}" y="${p.y + (p.dy || -12)}" text-anchor="middle" class="hp-chu">${p.ten}</text>`;
     });
     return s + '</svg>';
@@ -224,6 +224,30 @@
     let s = '<svg viewBox="0 0 300 110" class="hv-svg"><rect x="20" y="15" width="260" height="80" class="hp-to-nhat"/>';
     for (let i = 1; i < k; i++) { const x = 20 + i * 260 / k; s += `<line x1="${x}" y1="15" x2="${x}" y2="95" class="hp-net"/>`; }
     return s + '</svg>';
+  };
+
+  /* ---- Tháp số: {hang:[['19'],['[[0]]','4'],...]} hàng trên cùng trước; mỗi ô bằng tổng hai ô ngay dưới ---- */
+  VE.thapSo = h => `<div class="thap-so">${h.hang.map(r => `<div class="ts-hang">${r.map(x => `<span class="ts-o">${x}</span>`).join('')}</div>`).join('')}</div>`;
+
+  /* ---- Lưới số (hình vuông kì diệu): {hang:[['14','35','[[0]]'],...]} ---- */
+  VE.luoiSo = h => `<div class="luoi-so" style="--cot:${h.hang[0].length}">${h.hang.map(r => r.map(x => `<span class="ls-o">${x}</span>`).join('')).join('')}</div>`;
+
+  /* ---- Thước kẻ: {max:20, vat:[{tu:0, den:8, nhan:'bút chì'}]} ---- */
+  VE.thuoc = h => {
+    const max = h.max || 10, w = 300, x0 = 15, buoc = (w - 2 * x0) / max;
+    let s = `<svg viewBox="0 0 ${w} 100" class="hv-svg thuoc">`;
+    (h.vat || []).forEach((v, k) => {
+      const y = 22 + k * 14;
+      s += `<rect x="${x0 + v.tu * buoc}" y="${y}" width="${(v.den - v.tu) * buoc}" height="12" rx="6" class="thuoc-vat"/>`;
+      if (v.nhan) s += `<text x="${x0 + (v.tu + v.den) / 2 * buoc}" y="${y - 4}" text-anchor="middle" class="hp-do">${v.nhan}</text>`;
+    });
+    s += `<rect x="4" y="50" width="${w - 8}" height="40" rx="4" class="thuoc-than"/>`;
+    for (let i = 0; i <= max; i++) {
+      const x = x0 + i * buoc;
+      s += `<line x1="${x}" y1="50" x2="${x}" y2="${i % 5 ? 60 : 66}" class="thuoc-vach"/>`;
+      if (max <= 20 || i % 5 === 0) s += `<text x="${x}" y="82" text-anchor="middle" class="thuoc-so">${i}</text>`;
+    }
+    return s + '</svg><div class="hv-nhan">Đơn vị: cm</div>';
   };
 
   /* ---- Biểu đồ tranh: {hang:[{ten, bieu, so}], chuThich} ---- */

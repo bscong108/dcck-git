@@ -278,7 +278,8 @@
       ])(),
       () => c([
         () => {
-          const cong = Math.random() < 0.5, a = n(30, 79), b = n(11, 20), k = cong ? a + b : a - b;
+          const cong = Math.random() < 0.5, b = n(11, 20); let a = n(30, 79); if (!cong && a === 2 * b) a++;
+          const k = cong ? a + b : a - b;
           const de = cong ? `${a} + ${b} = ${k}` : `${a} − ${b} = ${k}`;
           const vai = cong ? c([['tổng', k], ['số hạng thứ hai', b], ['số hạng thứ nhất', a]]) : c([['số bị trừ', a], ['số trừ', b], ['hiệu', k]]);
           const ds = [vai[1]].concat([a, b, k].filter(x => x !== vai[1]));

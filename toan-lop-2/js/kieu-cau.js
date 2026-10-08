@@ -87,7 +87,11 @@
         return { dung: thua === 0 && thieu === 0, trung, thua, thieu };
       }
       case 'sapXep': { const ct = v.map((x, i) => String(x) === String(q.dapAn[i])); return { dung: ct.every(Boolean) && v.length === q.dapAn.length, chiTiet: ct }; }
-      case 'keoTha': { const ct = v.map((x, i) => x === q.dapAn[i]); return { dung: ct.every(Boolean), chiTiet: ct }; }
+      case 'keoTha': {
+        const khop = [q.dapAn].concat(q.dapAnKhac || []).find(d => d.every((x, i) => x === v[i]));
+        if (khop) return { dung: true, chiTiet: v.map(() => true) };
+        const ct = v.map((x, i) => x === q.dapAn[i]); return { dung: false, chiTiet: ct };
+      }
       case 'dongHo': return { dung: (v.gio % 12) === (q.dapAn.gio % 12) && v.phut === q.dapAn.phut };
       case 'tuCham': return { dung: !!v };
       default: return { dung: false };
