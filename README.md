@@ -2,6 +2,8 @@
 
 **Mới dùng lần đầu: đọc [HUONG-DAN-SU-DUNG.md](HUONG-DAN-SU-DUNG.md).**
 
+**Bản trực tuyến (điện thoại, máy tính bảng, tự đồng bộ tiến độ):** https://claude.ai/artifact/EJnXNYjbramUPWCR9nDEgB — tạo bằng `python cong-cu/dong_goi_truc_tuyen.py` (file `ban-truc-tuyen/dcck-hoc.html`), đồng bộ ở `app/sync.js`.
+
 Ứng dụng học tập cho bộ 9 cuốn ĐCCK (464 bài). Chạy hoàn toàn trên máy: mở `index.html` bằng trình duyệt (Chrome, Edge, Firefox), không cần cài đặt, không cần mạng.
 
 Ứng dụng đi theo đúng chu trình trong `PHUONG-PHAP-HOC.md`: truy hồi chủ động, ôn giãn cách, tự giải thích (Feynman).

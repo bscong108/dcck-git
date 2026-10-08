@@ -180,3 +180,70 @@ Trang **Nhật ký**:
 | Nhập `.apkg` báo "định dạng mới" | Trong Anki: File → Export → tích "Support older Anki versions" rồi xuất lại |
 | Không ghi âm được | Bấm biểu tượng ổ khóa/micro bên trái thanh địa chỉ → cho phép Microphone; hoặc ghi âm bằng điện thoại, vẫn dùng đồng hồ của chương trình |
 | Mất tiến độ | Dữ liệu → Khôi phục… từ file sao lưu gần nhất |
+
+## Phần 9. Học trên điện thoại, máy tính bảng, máy tính khác
+
+Có hai bản của cùng một chương trình:
+
+| | Bản trên máy (file ZIP, mở `index.html`) | Bản trực tuyến (đường link claude.ai) |
+|---|---|---|
+| Dùng trên | Máy tính Windows/Mac | Mọi thiết bị: điện thoại, máy tính bảng, máy tính bất kỳ |
+| Cần mạng | Không | Có (lúc mở và lúc đồng bộ) |
+| Tiến độ | Chỉ trong trình duyệt của máy đó | **Tự đồng bộ** qua tài khoản Claude giữa mọi thiết bị |
+| Ghi âm khi giảng lại, in Handout | Có | Không (dùng ứng dụng ghi âm của điện thoại) |
+| Ai xem được | Chỉ người có file | Chỉ tài khoản Claude của anh (riêng tư) |
+
+**Khuyên dùng: học hằng ngày bằng bản trực tuyến** trên mọi thiết bị, để tiến độ luôn khớp nhau. Bản trên máy giữ làm dự phòng khi không có mạng.
+
+### 9.1. Mở bản trực tuyến
+
+Đường link: **https://claude.ai/artifact/EJnXNYjbramUPWCR9nDEgB**
+
+1. Mở link trên thiết bị bất kỳ (trình duyệt hoặc ứng dụng Claude).
+2. Đăng nhập **đúng tài khoản Claude** đang dùng (bscong108@gmail.com). Tài khoản khác không mở được link.
+3. Lần đầu, nếu trang hỏi quyền lưu dữ liệu / tải file: chọn **Allow / Cho phép**.
+4. Góc trên bên phải hiện **☁ đã đồng bộ** là đồng bộ đang chạy.
+
+### 9.2. Đưa link ra màn hình chính để mở nhanh
+
+- **iPhone / iPad (Safari):** mở link → nút Chia sẻ (ô vuông có mũi tên lên) → **Thêm vào MH chính** (Add to Home Screen) → **Thêm**.
+- **Android (Chrome):** mở link → dấu **⋮** góc trên → **Thêm vào màn hình chính** → **Thêm**.
+- **Máy tính:** mở link → `Ctrl + D` để lưu dấu trang. Trong claude.ai, trang cũng nằm trong mục Artifacts; có thể ghim vào thanh bên.
+
+### 9.3. Chuyển tiến độ đã học từ bản trên máy sang bản trực tuyến (làm một lần)
+
+1. Trên máy tính, mở bản trên máy (`index.html`) → **Dữ liệu** → **Tải bản sao lưu** → được file `dcck-tien-do-NGÀY.json`.
+2. Mở bản trực tuyến (link ở 9.1) trên cùng máy tính → **Dữ liệu** → **Khôi phục…** → chọn file vừa tải → **Khôi phục**.
+3. Đợi góc trên hiện **☁ đã đồng bộ**. Từ giờ mở trên điện thoại sẽ thấy đúng tiến độ đó.
+
+### 9.4. Đồng bộ hoạt động thế nào
+
+- Mỗi thao tác (đánh dấu học, chấm thẻ, lưu nhật ký…) được lưu lên tài khoản sau khoảng 4 giây, hoặc ngay khi chuyển sang ứng dụng khác / tắt màn hình.
+- Khi mở trang (hoặc quay lại trang sau hơn 20 giây), chương trình tự tải bản mới nhất và báo "Đã tải tiến độ mới nhất".
+- **Quy tắc an toàn: học lần lượt trên từng thiết bị.** Trước khi đổi sang thiết bị khác, chờ hiện **☁ đã đồng bộ** (hoặc vào **Dữ liệu** → **Đồng bộ ngay**). Nếu học cùng lúc trên hai thiết bị, bản lưu sau cùng sẽ ghi đè bản kia.
+- Hiện **☁ lỗi đồng bộ** màu đỏ: bấm vào để xem lý do; kiểm tra mạng rồi bấm **Đồng bộ ngay**.
+- Vẫn nên **tải bản sao lưu mỗi tuần** (Phần 5) để phòng sự cố.
+
+### 9.5. Thêm bài mới Cowork vừa viết vào bản trực tuyến
+
+1. Trên máy tính có thư mục Cowork, mở bản trực tuyến → **Dữ liệu**.
+2. Kéo thả 3 file của bài (`MÃ_bai.md`, `MÃ_Handout.html`, `MÃ_anki.apkg`) vào ô "Thả file vào đây" (hoặc bấm **chọn file**).
+3. Bài được lưu lên tài khoản. Mở trên điện thoại, bài mới tự xuất hiện, kèm thông báo "Đã tải bài mới từ đám mây".
+
+Cũng làm được trên điện thoại nếu file nằm trong điện thoại (Google Drive, Files): bấm **chọn file** thay cho kéo thả.
+
+Khi đã có nhiều bài, có thể nhờ Claude đóng gói lại toàn bộ nội dung vào bản trực tuyến (giữ nguyên đường link và tiến độ): gửi các file bài mới cho Claude và nói "cập nhật bài mới vào bản trực tuyến ĐCCK, link https://claude.ai/artifact/EJnXNYjbramUPWCR9nDEgB".
+
+### 9.6. Giảng lại (bước 3) trên điện thoại
+
+Bản trực tuyến không dùng được micro. Cách làm:
+
+1. Mở ứng dụng ghi âm của điện thoại (Ghi âm / Voice Memos), bấm ghi.
+2. Trong chương trình, tab **3 · Giảng lại** → **Bắt đầu giảng** (chỉ chạy đồng hồ) → giảng.
+3. Dừng cả hai, nghe lại bản ghi trong ứng dụng ghi âm, rồi điền phần **Tự chấm** và **Lưu lần giảng** như bình thường.
+
+### 9.7. Máy tính khác, không muốn dùng bản trực tuyến
+
+1. Chép thư mục chương trình (hoặc file `DCCK-Hoc.zip`) sang máy kia bằng USB hoặc Google Drive, giải nén, mở `index.html`.
+2. Máy cũ: **Dữ liệu** → **Tải bản sao lưu**. Máy mới: **Dữ liệu** → **Khôi phục…**.
+3. Mỗi lần đổi máy phải làm lại bước 2. Vì vậy bản trực tuyến (9.1) tiện hơn.

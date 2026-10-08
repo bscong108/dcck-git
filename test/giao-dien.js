@@ -29,7 +29,7 @@ const out = process.argv[2] || "/tmp";
   const k = await fr.$$(".k"); console.log("ô handout:", k.length);
   await k[0].click(); await k[1].click(); await k[1].click(); await page.waitForTimeout(300);
   console.log("đếm:", await page.textContent("#ho-dem")); await shot("06-handout");
-  await page.click("#ho-luu"); await page.waitForTimeout(300);
+  await page.click("#ho-luu"); await page.waitForTimeout(200); await shot("06b-hoi"); await page.click(".hop .btn.chinh"); await page.waitForTimeout(300);
   await page.goto(url + "#/bai/YC-01/kiem-tra"); await page.waitForTimeout(300);
   await page.click('.q-card[data-i="0"] .opt[data-c="A"]'); await page.click('.q-card[data-i="1"] .xem'); await page.waitForTimeout(100); await shot("07-kiem-tra");
   await page.goto(url + "#/bai/YC-01/the"); await page.waitForTimeout(300); await page.click("#tt-on"); await page.waitForTimeout(200);

@@ -22,6 +22,8 @@
   }
   let henLuu = null;
   function luu() {
+    try { localStorage.setItem(KHOA + "-sua", String(Date.now())); } catch (e) { /* */ }
+    if (api.sauLuu) api.sauLuu();
     clearTimeout(henLuu);
     henLuu = setTimeout(() => { try { localStorage.setItem(KHOA, JSON.stringify(S)); } catch (e) { console.warn("Không lưu được tiến độ", e); } }, 150);
   }

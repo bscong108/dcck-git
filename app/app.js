@@ -6,6 +6,7 @@
   const $ = (s, el) => (el || document).querySelector(s);
   const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
   const app = $("#app");
+  const TRUC_TUYEN = !!window.claude && location.protocol !== "file:";
 
   /* ================= Nội dung ================= */
   const ND = { mucLuc: null, phuongPhap: "", bai: {}, taoLuc: "" };
@@ -63,7 +64,32 @@
     document.body.appendChild(d);
     setTimeout(() => d.remove(), 2600);
   }
-  function taiFile(ten, noiDung, kieu) {
+  /** Hộp hỏi trong trang (trình xem trực tuyến không hiện confirm/alert). */
+  function hoi(cauHoi, co, khong) {
+    return new Promise((ok) => {
+      const nen = document.createElement("div");
+      nen.className = "hop-nen";
+      nen.innerHTML = '<div class="hop" role="dialog" aria-modal="true"><p></p><div class="row" style="justify-content:flex-end"></div></div>';
+      $("p", nen).textContent = cauHoi;
+      const hang = $(".row", nen);
+      const xong = (v) => { nen.remove(); document.removeEventListener("keydown", phim); ok(v); };
+      if (khong !== null) { const b = document.createElement("button"); b.className = "btn"; b.textContent = khong || "Hủy"; b.onclick = () => xong(false); hang.appendChild(b); }
+      const c = document.createElement("button"); c.className = "btn chinh"; c.textContent = co || "Đồng ý"; c.onclick = () => xong(true); hang.appendChild(c);
+      const phim = (e) => { if (e.key === "Escape") xong(false); };
+      document.addEventListener("keydown", phim);
+      nen.addEventListener("click", (e) => { if (e.target === nen) xong(false); });
+      document.body.appendChild(nen);
+      c.focus();
+    });
+  }
+  const baoLoi = (msg) => hoi(msg, "Đóng", null);
+  async function taiFile(ten, noiDung, kieu) {
+    const dl = window.DCCK.sync && (await window.DCCK.sync.taiVe());
+    if (dl) {
+      try { await dl.save({ filename: ten, data: noiDung instanceof Blob ? noiDung : new Blob([noiDung], { type: kieu || "text/plain;charset=utf-8" }) }); }
+      catch (e) { if (e && e.code !== "declined") toast("Không tải được: " + (e.message || e.code)); }
+      return;
+    }
     const a = document.createElement("a");
     a.href = URL.createObjectURL(noiDung instanceof Blob ? noiDung : new Blob([noiDung], { type: kieu || "text/plain;charset=utf-8" }));
     a.download = ten; document.body.appendChild(a); a.click();
@@ -339,7 +365,7 @@
     on("on-dat", () => { T.ghiOn(ma, true); toast("Đã ghi lần ôn đạt"); lai(); });
     on("on-kho", () => { T.ghiOn(ma, false); toast("Ghi chưa đạt: ôn lại hôm sau"); lai(); });
     on("dat-ngay", () => { const v = $("#ngay-hoc", el).value; if (!v) return; const bb = T.bai(ma); if (!bb.hoc) T.ghiHanhDong("learned", ma); bb.hoc = v; T.luu(); toast("Đã đặt ngày học " + T.hienNgay(v)); lai(); });
-    on("dat-lai", () => { if (!confirm("Xóa lịch chu trình của " + ma + " (giữ nhật ký, câu trả lời, thẻ)?")) return; const bb = T.bai(ma); bb.hoc = null; bb.giang = null; bb.on = []; bb.vaXong = false; T.luu(); lai(); });
+    on("dat-lai", async () => { if (!(await hoi("Xóa lịch chu trình của " + ma + "? Nhật ký, câu trả lời và thẻ được giữ lại.", "Xóa lịch"))) return; const bb = T.bai(ma); bb.hoc = null; bb.giang = null; bb.on = []; bb.vaXong = false; T.luu(); lai(); });
   }
 
   /* ----- Tab: Đọc chủ động ----- */
@@ -442,7 +468,7 @@ window.addEventListener('load',bao);window.addEventListener('resize',bao);setTim
     const lan = b.handout.slice(-5).reverse();
     el.innerHTML = '<div class="card" style="margin-bottom:10px"><b>Cách làm:</b> lấy giấy, vẽ lại sơ đồ và điền ô trống từ trí nhớ (hoặc nhẩm từng ô). Sau đó bấm từng ô gạch để mở đáp án; <b>bấm lần nữa vào ô đã mở</b> nếu mình điền sai (tô đỏ). Cuối cùng lưu kết quả.' +
       (lan.length ? '<div class="small muted" style="margin-top:6px">Các lần trước: ' + lan.map((x) => T.hienNgay(x.ngay) + " (sai " + x.sai + "/" + x.tong + ")").join(" · ") + "</div>" : "") + "</div>" +
-      '<div class="ho-bar row between no-print"><div class="row"><button class="btn nho" id="ho-hien">Hiện tất cả</button><button class="btn nho" id="ho-che">Che lại</button><label class="row small" style="gap:4px"><input type="checkbox" id="ho-key"> Bản Key</label><label class="row small" style="gap:4px"><input type="checkbox" id="ho-vua" checked> Vừa khung</label><button class="btn nho" id="ho-in">In</button></div>' +
+      '<div class="ho-bar row between no-print"><div class="row"><button class="btn nho" id="ho-hien">Hiện tất cả</button><button class="btn nho" id="ho-che">Che lại</button><label class="row small" style="gap:4px"><input type="checkbox" id="ho-key"> Bản Key</label><label class="row small" style="gap:4px"><input type="checkbox" id="ho-vua" checked> Vừa khung</label>' + (TRUC_TUYEN ? "" : '<button class="btn nho" id="ho-in">In</button>') + '</div>' +
       '<div class="row"><span class="small" id="ho-dem">—</span><button class="btn xanh nho" id="ho-luu">Lưu kết quả lần vẽ</button></div></div>' +
       '<iframe class="handout-frame" id="ho-frame" title="Handout ' + ma + '"></iframe>';
     const fr = $("#ho-frame", el);
@@ -470,15 +496,15 @@ window.addEventListener('load',bao);window.addEventListener('resize',bao);setTim
     $("#ho-che", el).onclick = () => gui({ lenh: "che" });
     $("#ho-key", el).onchange = (e) => gui({ lenh: "key", bat: e.target.checked });
     $("#ho-vua", el).onchange = zoom;
-    $("#ho-in", el).onclick = () => { gui({ lenh: "zoom", z: 1 }); setTimeout(() => { fr.contentWindow.print(); zoom(); }, 100); };
-    $("#ho-luu", el).onclick = () => {
+    if ($("#ho-in", el)) $("#ho-in", el).onclick = () => { gui({ lenh: "zoom", z: 1 }); setTimeout(() => { fr.contentWindow.print(); zoom(); }, 100); };
+    $("#ho-luu", el).onclick = async () => {
       if (!kq.mo) { toast("Chưa mở ô nào"); return; }
       b.handout.push({ ngay: T.homNay(), tong: kq.tong, mo: kq.mo, sai: kq.sai });
       T.luu();
       const tt = T.trangThai(ma, true);
-      if (!b.hoc && confirm("Đã lưu (sai " + kq.sai + "/" + kq.tong + ").\nĐánh dấu đã học " + ma + " hôm nay (ngày 0 của chu trình)?")) T.danhDauHoc(ma);
+      if (!b.hoc) { if (await hoi("Đã lưu (sai " + kq.sai + "/" + kq.tong + "). Đánh dấu đã học " + ma + " hôm nay? Đây là ngày 0 của chu trình.", "Đánh dấu đã học", "Chưa")) T.danhDauHoc(ma); }
       else if (tt.buoc === "on" && tt.han <= T.homNay()) {
-        const dat = confirm("Đây là lần ôn " + tt.nhan.toLowerCase() + ". Ghi ôn ĐẠT?\n(OK = đạt · Hủy = chưa đạt, hẹn ôn lại)");
+        const dat = await hoi("Đây là lần " + tt.nhan.toLowerCase() + " (sai " + kq.sai + "/" + kq.tong + "). Lần ôn này đạt chưa?", "✓ Đạt", "Chưa đạt, ôn lại mai");
         T.ghiOn(ma, dat);
       } else toast("Đã lưu kết quả: sai " + kq.sai + "/" + kq.tong);
       route();
@@ -560,7 +586,7 @@ window.addEventListener('load',bao);window.addEventListener('resize',bao);setTim
         $("#g-dot", el).innerHTML = '<span class="rec-dot"></span>';
         $("#g-mic", el).textContent = "Đang ghi âm…";
       } catch (e) {
-        $("#g-mic", el).textContent = "Không ghi âm được (" + (e.name || e) + "). Vẫn có thể giảng theo đồng hồ; dùng điện thoại để ghi âm.";
+        $("#g-mic", el).textContent = TRUC_TUYEN ? "Bản trực tuyến không dùng được micro. Vẫn giảng theo đồng hồ; ghi âm bằng ứng dụng ghi âm của điện thoại (hoặc dùng bản trên máy tính)." : "Không ghi âm được (" + (e.name || e) + "). Vẫn có thể giảng theo đồng hồ; dùng điện thoại để ghi âm.";
       }
     };
     $("#g-dung", el).onclick = dung;
@@ -573,20 +599,21 @@ window.addEventListener('load',bao);window.addEventListener('resize',bao);setTim
         const url = URL.createObjectURL(r.blob);
         donDep.push(() => URL.revokeObjectURL(url));
         const duoi = (r.mime || "").includes("mp4") ? "m4a" : (r.mime || "").includes("ogg") ? "ogg" : "webm";
-        return '<div style="margin:8px 0"><div class="row between"><span>' + T.hienNgay(r.ngay) + " · " + Math.floor(r.giay / 60) + " ph " + (r.giay % 60) + ' s</span><span class="row"><a class="btn nho" download="' + ma + "_giang_" + r.ngay + "." + duoi + '" href="' + url + '">Tải</a><button class="btn nho" data-xoa="' + esc(r.id) + '">Xóa</button></span></div><audio controls preload="none" src="' + url + '" style="width:100%"></audio></div>';
+        return '<div style="margin:8px 0"><div class="row between"><span>' + T.hienNgay(r.ngay) + " · " + Math.floor(r.giay / 60) + " ph " + (r.giay % 60) + ' s</span><span class="row"><button class="btn nho" data-tai="' + esc(r.id) + '" data-ten="' + ma + "_giang_" + r.ngay + "." + duoi + '">Tải</button><button class="btn nho" data-xoa="' + esc(r.id) + '">Xóa</button></span></div><audio controls preload="none" src="' + url + '" style="width:100%"></audio></div>';
       }).join("");
-      $$("[data-xoa]", box).forEach((x) => x.onclick = async () => { if (confirm("Xóa bản ghi này?")) { await T.idb.xoaGhiAm(x.dataset.xoa); veGhiAm(); } });
+      $$("[data-tai]", box).forEach((x) => x.onclick = () => { const r = ds.find((y) => y.id === x.dataset.tai); if (r) taiFile(x.dataset.ten, r.blob); });
+      $$("[data-xoa]", box).forEach((x) => x.onclick = async () => { if (await hoi("Xóa bản ghi âm này?", "Xóa")) { await T.idb.xoaGhiAm(x.dataset.xoa); veGhiAm(); } });
     }
     veGhiAm();
 
-    $("#g-luu", el).onclick = () => {
+    $("#g-luu", el).onclick = async () => {
       const tieuChi = $$("[data-tc]", el).map((c) => c.checked);
       const vap = $("#g-vap", el).value.trim(), tn = $("#g-tn", el).value.trim(), ch = $("#g-ch", el).value.trim(), ban = $("#g-ban", el).value.trim();
       b.feynman.push({ ngay: T.homNay(), giay, tieuChi, vap, thuatNgu: tn, ban });
       if (vap) T.ghiNhatKy(ma, "lo-hong", "Chỗ vấp khi giảng: " + vap);
       if (tn) T.ghiNhatKy(ma, "lo-hong", "Thuật ngữ lấp chỗ chưa hiểu: " + tn);
       ch.split("\n").map((x) => x.trim()).filter(Boolean).forEach((x) => T.ghiNhatKy(ma, "cau-hoi", x));
-      if (!b.hoc && confirm("Bài chưa được đánh dấu đã học. Đánh dấu học hôm nay?")) T.danhDauHoc(ma);
+      if (!b.hoc && (await hoi("Bài chưa được đánh dấu đã học. Đánh dấu học hôm nay?", "Đánh dấu đã học", "Chưa"))) T.danhDauHoc(ma);
       if (b.hoc) T.danhDauGiang(ma);
       T.luu();
       toast("Đã lưu lần giảng" + (tieuChi.every(Boolean) ? " — đạt đủ 4 tiêu chí" : ""));
@@ -808,7 +835,7 @@ window.addEventListener('load',bao);window.addEventListener('resize',bao);setTim
       T.ghiNhatKy(ma || $("#nk-ma", el).value, $("#nk-loai", el).value, t);
       toast("Đã thêm"); lai();
     };
-    $$("[data-xoa-nk]", el).forEach((x) => x.onclick = () => { if (!confirm("Xóa ghi chép này?")) return; T.S.nhatKy = T.S.nhatKy.filter((n) => n.id !== x.dataset.xoaNk); T.luu(); lai(); });
+    $$("[data-xoa-nk]", el).forEach((x) => x.onclick = async () => { if (!(await hoi("Xóa ghi chép này?", "Xóa"))) return; T.S.nhatKy = T.S.nhatKy.filter((n) => n.id !== x.dataset.xoaNk); T.luu(); lai(); });
   }
   function tNhatKyBai(ma, el) {
     const b = T.bai(ma);
@@ -888,8 +915,8 @@ window.addEventListener('load',bao);window.addEventListener('resize',bao);setTim
     for (const f of files) {
       const ten = f.name;
       try {
-        if (/^MUC-LUC-9-CUON\.md$/i.test(ten)) { await T.idb.luuBai({ ma: "__MUC_LUC__", md: await f.text() }); kq.push("Mục lục"); continue; }
-        if (/^PHUONG-PHAP-HOC\.md$/i.test(ten)) { await T.idb.luuBai({ ma: "__PHUONG_PHAP__", md: await f.text() }); kq.push("Phương pháp"); continue; }
+        if (/^MUC-LUC-9-CUON\.md$/i.test(ten)) { gom.__MUC_LUC__ = { ma: "__MUC_LUC__", md: await f.text() }; kq.push("Mục lục"); continue; }
+        if (/^PHUONG-PHAP-HOC\.md$/i.test(ten)) { gom.__PHUONG_PHAP__ = { ma: "__PHUONG_PHAP__", md: await f.text() }; kq.push("Phương pháp"); continue; }
         const m = ten.match(/^([A-Z]{2,4}-\d{2,3})_(bai\.md|handout\.html|anki\.apkg)$/i);
         if (!m) { kq.push("Bỏ qua " + ten + " (tên không đúng mẫu MÃ_bai.md / MÃ_Handout.html / MÃ_anki.apkg)"); continue; }
         const ma = m[1].toUpperCase(), loai = m[2].toLowerCase();
@@ -900,7 +927,11 @@ window.addEventListener('load',bao);window.addEventListener('resize',bao);setTim
         kq.push(ma + ": " + (loai === "anki.apkg" ? r.anki.length + " note Anki" : loai));
       } catch (e) { kq.push("Lỗi " + ten + ": " + e.message); }
     }
-    for (const ma in gom) await T.idb.luuBai(gom[ma]);
+    for (const ma in gom) {
+      gom[ma].capNhatLuc = Date.now();
+      await T.idb.luuBai(gom[ma]);
+      if (window.DCCK.sync) { const kqDb = await window.DCCK.sync.dayBai(gom[ma]); if (kqDb !== "ok" && kqDb !== "tat") kq.push(kqDb); }
+    }
     await napNoiDung();
     return kq;
   }
@@ -913,11 +944,12 @@ window.addEventListener('load',bao);window.addEventListener('resize',bao);setTim
       '<p class="small muted">Cách khác (khuyên dùng khi có nhiều bài): sửa thư mục nguồn trong <code>cong-cu/cau-hinh.json</code> rồi chạy <code>cap-nhat-noi-dung.bat</code> — đóng gói toàn bộ bài vào <code>data/noi-dung.js</code>.</p></div>' +
       '<div class="card"><h2>Nội dung đang dùng</h2><p class="small">Gói đóng sẵn: ' + Object.keys((window.DCCK_NOI_DUNG || {}).bai || {}).length + " bài" + (ND.taoLuc ? " (" + esc(ND.taoLuc.replace("T", " ")) + ")" : "") + " · nhập trong trình duyệt: " + nhap.filter((x) => !x.ma.startsWith("__")).length + " bài</p>" +
       (nhap.length ? '<ul class="list-plain small">' + nhap.map((x) => '<li class="row between"><span><b>' + esc(x.ma.replace(/^__|__$/g, "")) + "</b> " + ["md", "handout", "anki"].filter((k) => x[k]).join(", ") + '</span><button class="btn nho" data-xoa-bai="' + esc(x.ma) + '">Xóa</button></li>').join("") + "</ul>" : "") + "</div></div>" +
-      '<div class="stack"><div class="card"><h2>Cài đặt</h2><div class="stack"><label class="row between">Thẻ mới mỗi ngày <input type="number" id="cd-moi" min="0" max="200" value="' + cd.theMoiMoiNgay + '" style="width:90px"></label>' +
+      '<div class="stack">' + theDongBo() + '<div class="card"><h2>Cài đặt</h2><div class="stack"><label class="row between">Thẻ mới mỗi ngày <input type="number" id="cd-moi" min="0" max="200" value="' + cd.theMoiMoiNgay + '" style="width:90px"></label>' +
       '<label class="check"><input type="checkbox" id="cd-dahoc"' + (cd.chiTheBaiDaHoc ? " checked" : "") + "><span>Thẻ mới chỉ lấy từ bài đã đánh dấu học (học bài trước, ôn thẻ sau)</span></label>" +
       '<label class="check"><input type="checkbox" id="cd-chot"' + (cd.anChot ? " checked" : "") + "><span>Che khối CHỐT LẠI khi đọc</span></label></div></div>" +
       '<div class="card"><h2>Sao lưu tiến độ</h2><p class="small muted">Tiến độ lưu trong trình duyệt này. Sao lưu định kỳ, hoặc để chuyển sang máy khác.</p><div class="row"><button class="btn chinh" id="sl-xuat">Tải bản sao lưu</button><label class="btn">Khôi phục…<input type="file" id="sl-nhap" accept=".json" hidden></label></div></div>' +
       '<div class="card nguy"><h2>Xóa tiến độ</h2><p class="small muted">Xóa toàn bộ lịch học, thẻ, nhật ký (không xóa nội dung bài).</p><button class="btn do" id="xoa-het">Xóa tiến độ</button></div></div></div>';
+    if ($("#db-ngay")) $("#db-ngay").onclick = async () => { $("#db-ngay").disabled = true; await window.DCCK.sync.dongBoNgay(); toast(window.DCCK.sync.trang() === "ok" ? "Đã đồng bộ" : "Đồng bộ lỗi"); vDuLieu(); };
     const xuLy = async (files) => {
       $("#kq-nhap").innerHTML = "Đang nhập…";
       const kq = await nhapFiles(Array.from(files));
@@ -930,7 +962,7 @@ window.addEventListener('load',bao);window.addEventListener('resize',bao);setTim
     dr.ondragleave = () => dr.classList.remove("over");
     dr.ondrop = (e) => { e.preventDefault(); dr.classList.remove("over"); xuLy(e.dataTransfer.files); };
     $("#file").onchange = (e) => xuLy(e.target.files);
-    $$("[data-xoa-bai]").forEach((x) => x.onclick = async () => { if (!confirm("Xóa bản nhập " + x.dataset.xoaBai + " khỏi trình duyệt?")) return; await T.idb.xoaBai(x.dataset.xoaBai); await napNoiDung(); vDuLieu(); });
+    $$("[data-xoa-bai]").forEach((x) => x.onclick = async () => { if (!(await hoi("Xóa bài nhập " + x.dataset.xoaBai + "? Bài cũng bị xóa khỏi đám mây nếu đang đồng bộ.", "Xóa"))) return; await T.idb.xoaBai(x.dataset.xoaBai); if (window.DCCK.sync) await window.DCCK.sync.xoaBaiNhap(x.dataset.xoaBai); await napNoiDung(); vDuLieu(); });
     $("#cd-moi").onchange = (e) => { cd.theMoiMoiNgay = Math.max(0, +e.target.value || 0); T.luu(); };
     $("#cd-dahoc").onchange = (e) => { cd.chiTheBaiDaHoc = e.target.checked; T.luu(); };
     $("#cd-chot").onchange = (e) => { cd.anChot = e.target.checked; T.luu(); };
@@ -941,11 +973,33 @@ window.addEventListener('load',bao);window.addEventListener('resize',bao);setTim
       try {
         const d = JSON.parse(await f.text());
         if (!d.bai || !d.the) throw new Error("không đúng định dạng");
-        if (!confirm("Thay toàn bộ tiến độ hiện tại bằng bản sao lưu này?")) return;
-        T.S = Object.assign(T.MAC_DINH(), d); T.luuNgay(); toast("Đã khôi phục"); route();
-      } catch (er) { alert("Không đọc được file: " + er.message); }
+        if (!(await hoi("Thay toàn bộ tiến độ hiện tại bằng bản sao lưu này?", "Khôi phục"))) return;
+        T.S = Object.assign(T.MAC_DINH(), d); T.luu(); T.luuNgay(); toast("Đã khôi phục"); route();
+      } catch (er) { baoLoi("Không đọc được file: " + er.message); }
     };
-    $("#xoa-het").onclick = () => { if (confirm("Xóa toàn bộ tiến độ học?") && confirm("Chắc chắn? Không hoàn tác được.")) { T.S = T.MAC_DINH(); T.luuNgay(); toast("Đã xóa tiến độ"); route(); } };
+    $("#xoa-het").onclick = async () => { if ((await hoi("Xóa toàn bộ tiến độ học?", "Xóa")) && (await hoi("Chắc chắn? Không hoàn tác được. Bản trên đám mây cũng bị thay.", "Xóa hẳn"))) { T.S = T.MAC_DINH(); T.luu(); T.luuNgay(); toast("Đã xóa tiến độ"); route(); } };
+  }
+
+  function theDongBo() {
+    const sy = window.DCCK.sync;
+    if (!sy || !sy.bat()) {
+      return '<div class="card"><h2>Đồng bộ giữa các thiết bị</h2><p class="small">' + (TRUC_TUYEN ? "Chưa bật được đồng bộ (cần đăng nhập claude.ai)." :
+        "Bản đang mở là bản trên máy này: tiến độ chỉ lưu trong trình duyệt này. Để học trên điện thoại, máy tính bảng, máy khác và tự đồng bộ, dùng <b>bản trực tuyến</b> trên claude.ai (xem HUONG-DAN-SU-DUNG.md, Phần 9). Chuyển tiến độ: tải bản sao lưu ở đây rồi khôi phục ở bản trực tuyến.") + "</p></div>";
+    }
+    const tt = sy.trang();
+    return '<div class="card ' + (tt === "loi" ? "nguy" : "xanh") + '"><h2>Đồng bộ giữa các thiết bị</h2><p class="small">' +
+      (tt === "ok" ? "Đã đồng bộ lúc " + new Date(sy.lucOk()).toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }) + "." : tt === "dang" ? "Đang đồng bộ…" : "Lỗi: " + esc(sy.loi())) +
+      ' Tiến độ, thẻ, nhật ký và bài nhập thêm được lưu vào tài khoản Claude, tự tải về khi mở trên thiết bị khác.</p><button class="btn nho" id="db-ngay">Đồng bộ ngay</button></div>';
+  }
+  function capNhatDongBo() {
+    const el = $("#dong-bo");
+    const sy = window.DCCK.sync;
+    if (!el || !sy) return;
+    const tt = sy.trang();
+    el.hidden = tt === "tat";
+    el.className = "dong-bo " + (tt === "ok" ? "ok" : tt === "loi" ? "loi" : "");
+    el.textContent = tt === "ok" ? "☁ đã đồng bộ" : tt === "dang" ? "☁ đang đồng bộ…" : "☁ lỗi đồng bộ";
+    el.title = tt === "loi" ? sy.loi() : "Đồng bộ qua tài khoản Claude";
   }
 
   /* ================= Khởi động ================= */
@@ -969,6 +1023,13 @@ window.addEventListener('load',bao);window.addEventListener('resize',bao);setTim
     window.addEventListener("beforeunload", T.luuNgay);
     document.addEventListener("visibilitychange", () => { if (document.hidden) T.luuNgay(); });
     route();
+    const sy = window.DCCK.sync;
+    if (sy) {
+      sy.onTrangThai = capNhatDongBo;
+      sy.onTienDo = () => { toast("Đã tải tiến độ mới nhất"); route(); };
+      sy.onNoiDung = async () => { await napNoiDung(); toast("Đã tải bài mới từ đám mây"); route(); };
+      sy.batDau();
+    }
   }
   khoiDong();
 })();
