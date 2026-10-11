@@ -192,6 +192,7 @@
 
     app.innerHTML =
       '<div class="row between" style="margin-bottom:12px"><div><h1>Hôm nay · ' + T.hienNgay(nay) + '</h1><div class="muted small">' + dsCoBai().length + " bài đã có nội dung / " + tongBai + " bài trong mục lục" + (ND.taoLuc ? " · gói nội dung " + esc(ND.taoLuc.replace("T", " ")) : "") + "</div></div></div>" +
+      ((window.DCCK_NOI_DUNG || {}).laMau && !TRUC_TUYEN ? '<div class="card bay" style="margin-bottom:10px"><b>Đang dùng gói nội dung mẫu (chỉ bài YC-01).</b> Bấm đúp <code>cap-nhat-noi-dung.bat</code> trong thư mục chương trình để nạp các bài Cowork đã viết, rồi tải lại trang.</div>' : "") +
       canhBao +
       '<div class="grid g3" style="margin:14px 0">' +
       '<div class="card lam"><div class="muted small">Thẻ Anki đến hạn</div><div class="stat">' + theDen + '</div><div class="small muted">+ ' + theMoi + ' thẻ mới hôm nay</div><div style="margin-top:8px"><a class="btn chinh nho" href="#/on-the">Ôn thẻ</a></div></div>' +

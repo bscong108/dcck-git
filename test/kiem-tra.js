@@ -48,8 +48,8 @@ const goc = path.join(__dirname, "..", "noi-dung");
   const cloze = the.filter((t) => t.loai === "cloze");
   console.log("Anki (đọc trong JS):", notes.length, "note →", the.length, "thẻ (", cloze.length, "cloze )");
   // so với bản Python
-  const data = fs.readFileSync(path.join(__dirname, "..", "data", "noi-dung.js"), "utf8");
-  const nd = JSON.parse(data.slice(data.indexOf("=") + 1).trim().replace(/;$/, ""));
+  const data = fs.readFileSync(path.join(__dirname, "..", "data", "noi-dung-mau.js"), "utf8");
+  const w = {}; new Function("window", data)(w); const nd = w.DCCK_NOI_DUNG;
   assert.deepStrictEqual(notes.map((n) => n.truong), nd.bai["YC-01"].anki.map((n) => n.truong), "JS và Python đọc giống nhau");
   assert.strictEqual(P.hienCloze("A {{c1::x}} B {{c2::y::gợi ý}}", 2, false), 'A x B <span class="cloze">[gợi ý]</span>');
   console.log("TẤT CẢ ĐẠT");

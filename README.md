@@ -23,7 +23,7 @@ Ngoài ra: **Mục lục** 9 cuốn có lọc theo cuốn, ưu tiên, giai đo�
 
 Mỗi bài nhận 3 file theo tên: `MÃ_bai.md`, `MÃ_Handout.html`, `MÃ_anki.apkg` (ví dụ `YC-01_bai.md`). Có hai cách:
 
-1. **Đóng gói (khuyên dùng):** sửa `cong-cu/cau-hinh.json`, thêm thư mục chứa bài (ví dụ `"G:/Cowork/ĐCCK"`), rồi chạy `cap-nhat-noi-dung.bat` (Windows) hoặc `python cong-cu/dong_goi.py`. Công cụ quét đệ quy, lấy bản sửa gần nhất của mỗi file, ghi vào `data/noi-dung.js` rồi mở ứng dụng. Cần Python 3.
+1. **Đóng gói (khuyên dùng):** công cụ tự quét `noi-dung/`, `G:/Cowork/ĐCCK` và thư mục `ĐCCK` cạnh thư mục ứng dụng; thư mục khác thêm vào `cong-cu/cau-hinh.json` (riêng từng máy, không nằm trong ZIP). Chạy `cap-nhat-noi-dung.bat` (Windows) hoặc `python cong-cu/dong_goi.py`. Công cụ quét đệ quy, lấy bản sửa gần nhất của mỗi file, ghi vào `data/noi-dung.js` rồi mở ứng dụng. Cần Python 3.
 2. **Kéo thả:** trang **Dữ liệu** → thả file vào. Nội dung lưu trong trình duyệt đó (kể cả `.apkg`, đọc trực tiếp không cần thư viện ngoài).
 
 `.apkg` phải là định dạng cũ (`collection.anki2`/`anki21`). Nếu Anki xuất dạng mới, chọn “Support older Anki versions”.
@@ -39,7 +39,8 @@ Giả định của ứng dụng (tracker.py gốc không có ở đây): các m
 ```
 index.html              ứng dụng
 app/                    md.js (hiển thị Markdown), parse.js (mục lục, bài, Anki, đọc .apkg), store.js (tiến độ, lịch, SM-2), app.js (giao diện)
-data/noi-dung.js        nội dung đã đóng gói (tạo tự động)
+data/noi-dung.js        nội dung đã đóng gói (tạo tự động, không đưa vào git/ZIP)
+data/noi-dung-mau.js    gói mẫu (YC-01), dùng khi chưa đóng gói
 noi-dung/               file nguồn mẫu: mục lục, phương pháp, YC-01
 cong-cu/dong_goi.py     công cụ đóng gói
 test/                   kiem-tra.js (bộ phân tích), giao-dien.js (Playwright)

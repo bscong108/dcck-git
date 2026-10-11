@@ -48,21 +48,26 @@ Mỗi bài Cowork tạo gồm 3 file, tên bắt đầu bằng mã bài:
 
 ### Cách 1. Tự động quét thư mục Cowork (khuyên dùng)
 
-Làm một lần:
+Công cụ **tự quét** các thư mục: `noi-dung` (bài mẫu), `G:\Cowork\ĐCCK`, và thư mục `ĐCCK` nằm cạnh thư mục chương trình. Nếu bài Cowork nằm ở một trong các chỗ đó thì không cần cài gì.
 
-1. Trong thư mục chương trình, vào `cong-cu`, chuột phải `cau-hinh.json` → **Open with** → **Notepad**.
-2. Sửa dòng `"nguon"` thành (thay bằng thư mục thật Cowork lưu bài trên máy):
+Chỉ khi bài nằm ở thư mục khác, làm một lần:
+
+1. Chạy `cap-nhat-noi-dung.bat` một lần để công cụ tự tạo file `cong-cu/cau-hinh.json`.
+2. Chuột phải `cong-cu/cau-hinh.json` → **Open with** → **Notepad**.
+3. Thêm thư mục vào dòng `"nguon"`, ví dụ:
    ```
-   "nguon": ["noi-dung", "G:/Cowork/ĐCCK"]
+   "nguon": ["D:/TaiLieu/ĐCCK"]
    ```
-   Lưu ý: dùng dấu `/` thay cho `\`, giữ nguyên dấu ngoặc kép và dấu phẩy.
-3. `Ctrl + S` để lưu, đóng Notepad.
+   Dùng dấu `/` thay cho `\`, giữ nguyên dấu ngoặc kép; nhiều thư mục thì cách nhau bằng dấu phẩy.
+4. `Ctrl + S` để lưu, đóng Notepad.
+
+File `cau-hinh.json` là cấu hình riêng của máy anh: **không có trong file ZIP**, nên cập nhật chương trình không ghi đè nó.
 
 Mỗi khi Cowork viết xong bài mới:
 
 1. Đóng trang chương trình (nếu đang mở).
 2. Bấm đúp `cap-nhat-noi-dung.bat`.
-3. Cửa sổ đen hiện danh sách bài đã đọc được, rồi chương trình tự mở. Bài mới xuất hiện ở trang **Hôm nay** mục "Bài mới viết, chờ học" và trong **Mục lục**.
+3. Cửa sổ đen hiện các thư mục đã quét (`+ Quét: …`) và danh sách bài đọc được, rồi chương trình tự mở. Bài mới xuất hiện ở trang **Hôm nay** mục "Bài mới viết, chờ học" và trong **Mục lục**.
 
 Chương trình quét cả các thư mục con. Nếu có nhiều bản của cùng một file, lấy bản sửa gần nhất.
 
@@ -165,17 +170,20 @@ Trang **Nhật ký**:
 ## Phần 7. Cập nhật khi có phiên bản chương trình mới
 
 1. Sao lưu tiến độ (Phần 5).
-2. Tải bản mới (ZIP), giải nén **đè vào đúng thư mục cũ** (chọn "Replace" khi được hỏi). File `cong-cu/cau-hinh.json` của anh sẽ bị thay: mở lại và sửa như Phần 2.
-3. Chạy `cap-nhat-noi-dung.bat` để nạp lại bài.
+2. Tải bản mới (ZIP), giải nén **đè vào đúng thư mục cũ** (chọn "Replace" khi được hỏi). Cấu hình (`cong-cu/cau-hinh.json`) và nội dung đã nạp (`data/noi-dung.js`) không nằm trong ZIP nên được giữ nguyên.
+3. Chạy `cap-nhat-noi-dung.bat` nếu có bài mới.
+
+Bài đã nạp ở lần trước mà lần này công cụ không tìm thấy file (ví dụ ổ G chưa cắm) vẫn được giữ lại, không bị mất khỏi chương trình.
 
 ## Phần 8. Gặp sự cố
 
 | Hiện tượng | Cách xử lý |
 |---|---|
 | Bấm đúp `index.html` mở ra Notepad hoặc trình duyệt lạ | Chuột phải → Open with → Chrome. Hoặc kéo file `index.html` thả vào cửa sổ Chrome |
-| Trang trắng hoặc "Đang tải…" mãi | Kiểm tra thư mục `data` có file `noi-dung.js`; chạy lại `cap-nhat-noi-dung.bat` |
+| Trang trắng hoặc "Đang tải…" mãi | Kiểm tra thư mục `data` có file `noi-dung-mau.js`; chạy lại `cap-nhat-noi-dung.bat` |
+| Trang Hôm nay chỉ hiện 1 bài, có khung vàng "Đang dùng gói nội dung mẫu" | Chưa nạp bài Cowork: chạy `cap-nhat-noi-dung.bat`. Nếu cửa sổ đen không có dòng `+ Quét:` trỏ tới thư mục bài, thêm thư mục đó vào `cong-cu/cau-hinh.json` (Phần 2) |
 | Chạy `.bat` báo "python is not recognized" hoặc mở Microsoft Store | Cài lại Python, nhớ tích "Add python.exe to PATH" (Phần 1, Bước 4) |
-| Cửa sổ `.bat` báo "Không thấy thư mục" | Đường dẫn trong `cau-hinh.json` sai; mở thư mục đó trong File Explorer, chép đường dẫn trên thanh địa chỉ, đổi `\` thành `/` |
+| Cửa sổ `.bat` báo "Bỏ qua (không có trên máy này)" đúng thư mục chứa bài | Đường dẫn trong `cau-hinh.json` sai; mở thư mục đó trong File Explorer, chép đường dẫn trên thanh địa chỉ, đổi `\` thành `/` |
 | Bài mới không hiện | Tên file phải đúng mẫu `MÃ_bai.md`, `MÃ_Handout.html`, `MÃ_anki.apkg` (mã viết hoa, gạch dưới) |
 | Nhập `.apkg` báo "định dạng mới" | Trong Anki: File → Export → tích "Support older Anki versions" rồi xuất lại |
 | Không ghi âm được | Bấm biểu tượng ổ khóa/micro bên trái thanh địa chỉ → cho phép Microphone; hoặc ghi âm bằng điện thoại, vẫn dùng đồng hồ của chương trình |

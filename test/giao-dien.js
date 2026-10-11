@@ -8,7 +8,7 @@ const out = process.argv[2] || "/tmp";
   const page = await ctx.newPage();
   const loi = [];
   page.on("pageerror", (e) => loi.push("pageerror: " + e.message));
-  page.on("console", (m) => { if (m.type() === "error") loi.push("console: " + m.text()); });
+  page.on("console", (m) => { if (m.type() === "error" && !/ERR_FILE_NOT_FOUND/.test(m.text())) loi.push("console: " + m.text()); });
   page.on("dialog", (d) => d.accept());
   const url = "file://" + path.resolve(__dirname, "..", "index.html");
   const shot = (n) => page.screenshot({ path: path.join(out, n + ".png"), fullPage: false });

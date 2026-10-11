@@ -25,6 +25,9 @@ def main():
     def nhung_js(m):
         js = doc(m.group(1)).replace("</script", "<\\/script")
         return "<script>\n" + js + "\n</script>"
+    # nội dung: dùng gói thật nếu có, không thì gói mẫu (chỉ nhúng một gói)
+    co_that = os.path.exists(os.path.join(GOC, "data/noi-dung.js"))
+    body = body.replace('<script src="data/noi-dung-mau.js"></script>\n' if co_that else '<script src="data/noi-dung.js"></script>', "")
     body = re.sub(r'<script src="([^"]+)"></script>', nhung_js, body)
     out = title + "\n<style>\n" + css + "\n</style>\n" + body.strip() + "\n"
     os.makedirs(os.path.dirname(DAU_RA), exist_ok=True)
