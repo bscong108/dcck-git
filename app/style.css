@@ -2,8 +2,10 @@
   --co-che: #1F5AA6; --nguy: #C0392B; --dieu-tri: #2E7D32; --bay: #D9822B;
   --nen: #FBFAF6; --nen-2: #F3F1EA; --the: #FFFFFF; --chu: #2B2B2B; --chu-nhat: #6B6860; --vien: #DDD8CB;
   --nhan: #FFF3C4; --nhan-vien: #E8C547; --bong: 0 1px 2px rgba(0,0,0,.05), 0 2px 8px rgba(0,0,0,.04);
-  --r: 10px; --font: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
-  --doc: Georgia, "Times New Roman", serif;
+  /* Chỉ dùng phông có đủ bộ chữ tiếng Việt; Georgia thiếu ơ, ư, ạ, ả… nên chữ có dấu bị lệch khoảng cách */
+  --r: 10px; --font: "Segoe UI", Arial, system-ui, -apple-system, Roboto, "Noto Sans", "Helvetica Neue", sans-serif;
+  --doc: var(--font);
+  --mono: Consolas, "Cascadia Mono", "Courier New", "DejaVu Sans Mono", monospace;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -121,7 +123,7 @@ kbd { border: 1px solid var(--vien); border-bottom-width: 2px; border-radius: 4p
 .toc a { display: block; padding: 3px 6px; color: var(--chu-nhat); text-decoration: none; border-radius: 5px; }
 .toc a:hover { background: var(--nen-2); color: var(--chu); }
 .toc a.l3 { padding-left: 18px; font-size: 12.5px; }
-.prose { font-family: var(--doc); font-size: 17px; line-height: 1.65; max-width: 780px; min-width: 0; overflow-wrap: break-word; }
+.prose { font-family: var(--doc); font-size: 16.5px; line-height: 1.7; max-width: 780px; min-width: 0; overflow-wrap: break-word; }
 .prose > h1:first-child { display: none; }
 .prose h1, .prose h2, .prose h3, .prose h4 { font-family: var(--font); scroll-margin-top: 70px; }
 .prose h2 { font-size: 21px; margin: 32px 0 10px; padding-top: 10px; border-top: 2px solid var(--chu); }
@@ -129,8 +131,8 @@ kbd { border: 1px solid var(--vien); border-bottom-width: 2px; border-radius: 4p
 .prose p { margin: 0 0 12px; }
 .prose ul, .prose ol { padding-left: 24px; margin: 0 0 12px; }
 .prose li { margin: 4px 0; }
-.prose pre { font-family: Consolas, "Cascadia Mono", "DejaVu Sans Mono", "Liberation Mono", monospace; font-size: 13px; line-height: 1.45; background: var(--nen-2); border: 1px solid var(--vien); border-radius: 8px; padding: 12px; overflow-x: auto; }
-.prose code { font-family: ui-monospace, Consolas, monospace; font-size: .88em; }
+.prose pre { font-family: var(--mono); font-size: 13px; line-height: 1.45; background: var(--nen-2); border: 1px solid var(--vien); border-radius: 8px; padding: 12px; overflow-x: auto; }
+.prose code { font-family: var(--mono); font-size: .88em; }
 .table-wrap { overflow-x: auto; margin: 0 0 14px; }
 .prose table, .card table { border-collapse: collapse; width: 100%; font-family: var(--font); font-size: 14px; line-height: 1.4; }
 .prose th, .prose td, .card th, .card td { border: 1px solid var(--vien); padding: 6px 8px; text-align: left; vertical-align: top; }
