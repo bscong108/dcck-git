@@ -5,7 +5,7 @@ import os
 import zipfile
 
 GOC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DUA_VAO = ["index.html", "app", "data", "noi-dung", "cong-cu", "cap-nhat-noi-dung.bat", "README.md", "HUONG-DAN-SU-DUNG.md"]
+DUA_VAO = ["index.html", "app", "ecg", "data", "noi-dung", "cong-cu", "cap-nhat-noi-dung.bat", "README.md", "HUONG-DAN-SU-DUNG.md"]
 BO_QUA = {os.path.join("cong-cu", "cau-hinh.json"), os.path.join("data", "noi-dung.js")}
 
 with zipfile.ZipFile(os.path.join(GOC, "DCCK-Hoc.zip"), "w", zipfile.ZIP_DEFLATED) as z:

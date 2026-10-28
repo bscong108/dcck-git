@@ -19,6 +19,21 @@
 
 Ngoài ra: **Mục lục** 9 cuốn có lọc theo cuốn, ưu tiên, giai đoạn, trạng thái; cảnh báo khi số bài đã viết chưa học vượt 8; **Vấn đáp** rút câu hỏi xen kẽ giữa các bài đã học; xuất lệnh đồng bộ `tracker.py`.
 
+## ECG Cấp cứu (`ecg/`)
+
+Phần mềm học và thực hành đọc điện tâm đồ cho bác sĩ cấp cứu, đi theo mục lục **Cuốn 2** (ECG-01 → ECG-47). Mở `ecg/index.html` (hoặc menu **ECG Cấp cứu** trong ứng dụng chính); chạy hoàn toàn trên máy, không cần mạng.
+
+| Mục | Nội dung |
+|---|---|
+| Bài học | 47 bài, 7 phần; tiêu chuẩn chẩn đoán, bảng phân biệt, cảnh báo, mẹo, ECG minh hoạ, câu tự kiểm tra, liên kết tra cứu LITFL |
+| Atlas | Các mẫu ECG 12 chuyển đạo mô phỏng theo nhóm; thước đo (ms, mm, tần số), phóng to, dải nhịp DII/V1, toàn màn hình |
+| Ca lâm sàng | 30 ca cấp cứu, trả lời từng bước (nhận diện → chẩn đoán → xử trí) có giải thích |
+| Luyện nhanh | Nhận diện ECG có tính giờ, thống kê mẫu hay sai |
+| Thẻ ôn | Ôn giãn cách các tiêu chuẩn, ngưỡng, liều thuốc |
+| Công cụ | QTc, tần số, trục, Sgarbossa (Smith), tắc LAD vs tái cực sớm (công thức Smith), LVH, thuật toán Brugada và aVR |
+
+ECG được **mô phỏng** bằng `ecg/js/engine.js` (chuyển đạo chi chiếu từ vector mặt phẳng trán, giấy 25 mm/s – 10 mm/mV); mẫu ở `ecg/js/patterns.js`, bài ở `ecg/js/lessons-*.js`, ca ở `ecg/js/cases.js`. Bản một file: `python cong-cu/dong_goi_ecg.py` → `ban-truc-tuyen/ecg-cap-cuu.html`. Kiểm tra: `node test/ecg.js`.
+
 ## Thêm bài mới do Cowork tạo
 
 Mỗi bài nhận 3 file theo tên: `MÃ_bai.md`, `MÃ_Handout.html`, `MÃ_anki.apkg` (ví dụ `YC-01_bai.md`). Có hai cách:
