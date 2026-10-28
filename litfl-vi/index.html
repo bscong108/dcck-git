@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5c63">
+<meta name="robots" content="noindex, nofollow">
+<title>LITFL Tiếng Việt</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="app/style.css">
+</head>
+<body>
+<header class="dau">
+  <div class="dau-trong">
+    <a class="logo" href="#/">LITFL<span>·VI</span></a>
+    <form class="o-tim" id="o-tim" role="search">
+      <input id="tim" type="search" placeholder="Tìm bài (Việt hoặc Anh)…" autocomplete="off" aria-label="Tìm bài">
+    </form>
+    <nav class="nav" id="nav">
+      <a href="#/" data-r="">Trang chủ</a>
+      <a href="#/tim" data-r="tim">Tìm</a>
+      <a href="#/on" data-r="on">Ôn tập<span class="dem" id="dem-on" hidden></span></a>
+      <a href="#/dau" data-r="dau">Đánh dấu</a>
+      <a href="#/cd" data-r="cd">Cài đặt</a>
+    </nav>
+  </div>
+  <div class="tien-trinh" id="tien-trinh"></div>
+</header>
+<main id="app"><div class="trong">Đang tải…</div></main>
+<div class="phong" id="phong" hidden><img alt=""></div>
+<script src="app/kho.js"></script>
+<script src="app/app.js"></script>
+</body>
+</html>
