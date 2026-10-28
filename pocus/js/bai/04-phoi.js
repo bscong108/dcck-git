@@ -21,7 +21,7 @@ POCUS.them({
 <li>Thấy điểm phổi → xác định tràn khí.</li>
 </ol>
 <p><b>Mất trượt không phải tràn khí</b>: ngừng thở/thở rất nông, đặt nội khí quản vào phế quản gốc bên đối diện, dính màng phổi (sau viêm, làm dính), ARDS hoặc viêm phổi nặng, xơ phổi, kén khí lớn, sau cắt phổi.</p>`,
-  chuanBi: { dauDo: "Thẳng (độ sâu 4–8 cm) để đánh giá màng phổi; cong hoặc tim (độ sâu 12–16 cm) khi đếm đường B toàn phổi.", cheDo: "Preset phổi nếu có; tắt lọc ảnh (harmonic, compound) nếu máy cho phép. Tiêu điểm ngang màng phổi.", tuThe: "Nằm ngửa (khí lên trước). Có thể nửa ngồi khi đánh giá phù phổi.", khac: "" },
+  chuanBi: { dauDo: "Thẳng (độ sâu 4–8 cm) để đánh giá màng phổi; cong hoặc tim (độ sâu 12–16 cm) khi đếm đường B toàn phổi.", cheDo: "Preset phổi nếu có; tắt lọc ảnh (harmonic, compound) nếu máy cho phép. Tiêu điểm ngang màng phổi.", tuThe: "Nằm ngửa (khí lên trước). Có thể nửa ngồi khi đánh giá phù phổi.", tth: ["ngua", "nuaNgoi"], khac: "" },
   buoc: [
     { ten: "Tìm hình con dơi", hinh: { than: "nguc", dd: [{ x: 70, y: 62, a: -90, n: 1 }] }, sim: { c: "phoi", p: {} },
       lam: ["Đầu dò thẳng, cắt dọc ở khoang liên sườn 2–3 đường giữa đòn, dấu về phía đầu.", "Đặt hai xương sườn ở hai bên, đường màng phổi ở giữa.", "Giảm độ sâu 4–6 cm; tiêu điểm ngang màng phổi."],
@@ -29,11 +29,11 @@ POCUS.them({
     { ten: "Đánh giá trượt bằng B-mode và M-mode", hinh: { than: "nguc", dd: [{ x: 70, y: 62, a: -90 }] }, sim: { c: "mPhoi", p: {} },
       lam: ["Giữ đầu dò thật yên, quan sát ít nhất 3–5 nhịp thở.", "Bật M-mode, đặt đường M giữa hai xương sườn, qua màng phổi.", "Đọc: bờ biển (có trượt) hay mã vạch (không trượt)."],
       dat: "Đường M không đi qua bóng xương sườn.", meo: "Bệnh nhân cử động/thở mạnh có thể tạo hình giả bờ biển: đối chiếu với B-mode." },
-    { ten: "Tìm điểm phổi", hinh: { than: "nguc", dd: [{ x: 70, y: 62, a: -90, n: 1, mv: "truot" }, { x: 52, y: 112, a: -90, n: 2 }, { x: 30, y: 130, a: -90, n: 3 }] }, sim: { c: "phoi", p: { diem: 1 } },
+    { ten: "Tìm điểm phổi", hinh: { than: "nguc", dd: [{ x: 70, y: 62, a: -90, n: 1, mv: "truot", ten: "Vùng trước: không trượt, chỉ đường A", sim: { c: "phoi", p: { truot: false } } }, { x: 52, y: 112, a: -90, n: 2, ten: "Ra ngoài – xuống dưới: điểm phổi", sim: { c: "phoi", p: { diem: 1 } } }, { x: 30, y: 130, a: -90, n: 3, ten: "Vùng bên: phổi áp thành, trượt bình thường", sim: { c: "phoi", p: {} } }] }, sim: { c: "phoi", p: { diem: 1 } },
       lam: ["Khi không có trượt ở vùng trước: trượt đầu dò dần ra ngoài và xuống dưới theo từng khoang liên sườn.", "Dừng ở chỗ thấy trượt xuất hiện rồi mất theo nhịp thở ở cùng một vị trí.", "Ghi clip/M-mode: xen kẽ bờ biển và mã vạch."],
       dat: "Ranh giới trượt/không trượt nằm trong hình và di chuyển theo nhịp thở.", meo: "" },
-    { ten: "Đếm đường B 8 vùng", hinh: { than: "nguc", dd: [{ x: 70, y: 62, a: -90, n: 1 }, { x: 66, y: 104, a: -90, n: 2 }, { x: 36, y: 70, a: -90, n: 3 }, { x: 32, y: 112, a: -90, n: 4 }, { x: 130, y: 62, a: -90, n: 5 }, { x: 134, y: 104, a: -90, n: 6 }, { x: 164, y: 70, a: -90, n: 7 }, { x: 168, y: 112, a: -90, n: 8 }] }, sim: { c: "phoi", p: { b: 4 } },
-      lam: ["Mỗi bên chia 4 vùng: trước trên, trước dưới, bên trên, bên dưới (ranh giới: đường cạnh ức – nách trước – nách sau).", "Ở mỗi vùng, đếm số đường B trong khoang liên sườn tốt nhất.", "Vùng dương tính: ≥ 3 đường B.", "Hội chứng kẽ lan tỏa: ≥ 2 vùng dương tính mỗi bên."],
+    { ten: "Đếm đường B 8 vùng", hinh: { than: "nguc", dd: [{ x: 70, y: 62, a: -90, n: 1, ten: "P1 trước trên: 3 đường B (dương tính)", sim: { c: "phoi", p: { b: 3 } } }, { x: 66, y: 104, a: -90, n: 2, ten: "P2 trước dưới: 5 đường B", sim: { c: "phoi", p: { b: 5 } } }, { x: 36, y: 70, a: -90, n: 3, ten: "P3 bên trên: 4 đường B", sim: { c: "phoi", p: { b: 4 } } }, { x: 32, y: 112, a: -90, n: 4, ten: "P4 bên dưới: đường B hợp lưu", sim: { c: "phoi", p: { b: 9 } } }, { x: 130, y: 62, a: -90, n: 5, ten: "T1 trước trên: đường A, không đường B (âm tính)", sim: { c: "phoi", p: {} } }, { x: 134, y: 104, a: -90, n: 6, ten: "T2 trước dưới: 4 đường B", sim: { c: "phoi", p: { b: 4 } } }, { x: 164, y: 70, a: -90, n: 7, ten: "T3 bên trên: 3 đường B", sim: { c: "phoi", p: { b: 3 } } }, { x: 168, y: 112, a: -90, n: 8, ten: "T4 bên dưới: 6 đường B", sim: { c: "phoi", p: { b: 6 } } }] }, sim: { c: "phoi", p: { b: 4 } },
+      lam: ["Ví dụ minh họa dưới đây là một bệnh nhân phù phổi: 7/8 vùng dương tính.", "Mỗi bên chia 4 vùng: trước trên, trước dưới, bên trên, bên dưới (ranh giới: đường cạnh ức – nách trước – nách sau).", "Ở mỗi vùng, đếm số đường B trong khoang liên sườn tốt nhất.", "Vùng dương tính: ≥ 3 đường B.", "Hội chứng kẽ lan tỏa: ≥ 2 vùng dương tính mỗi bên."],
       dat: "Ghi nhận bảng 8 vùng.", meo: "Dùng đầu dò cong độ sâu ~12–16 cm giúp thấy rõ đường B chạy đến đáy." },
   ],
   ketQua: [
@@ -85,12 +85,12 @@ POCUS.them({
 <li><b>Dịch phế quản đồ</b>: ống trống âm phân nhánh không có dòng Doppler, gợi ý tắc nghẽn.</li>
 <li>Xẹp phổi: giảm thể tích, cơ hoành nâng, cấu trúc kéo lại; thường có mạch phổi.</li>
 </ul>`,
-  chuanBi: { dauDo: "Cong hoặc tim.", cheDo: "Bụng hoặc phổi, độ sâu 12–18 cm.", tuThe: "Nằm ngửa: khám đường nách giữa – sau. Ngồi: khám từ phía lưng (khi chuẩn bị chọc dịch).", khac: "" },
+  chuanBi: { dauDo: "Cong hoặc tim.", cheDo: "Bụng hoặc phổi, độ sâu 12–18 cm.", tuThe: "Nằm ngửa: khám đường nách giữa – sau. Ngồi: khám từ phía lưng (khi chuẩn bị chọc dịch).", tth: ["ngua", "ngoiCui"], khac: "" },
   buoc: [
-    { ten: "Tìm dịch ở điểm PLAPS", hinh: { than: "nguc", dd: [{ x: 28, y: 130, a: -90, n: 1 }, { x: 172, y: 124, a: -90, n: 2 }] }, sim: { c: "ruq", p: { mp: 1 } },
+    { ten: "Tìm dịch ở điểm PLAPS", hinh: { than: "nguc", dd: [{ x: 28, y: 130, a: -90, n: 1, ten: "PLAPS phải: dịch trên cơ hoành, dấu cột sống", sim: { c: "ruq", p: { mp: 1 } } }, { x: 172, y: 124, a: -90, n: 2, ten: "PLAPS trái: dịch trên cơ hoành quanh lách", sim: { c: "luq", p: { mp: 1 } } }] }, sim: { c: "ruq", p: { mp: 1 } },
       lam: ["Bắt đầu như cửa sổ FAST hạ sườn, tìm cơ hoành.", "Trượt lên trên một – hai khoang liên sườn, đầu dò ra sau tối đa (sát giường).", "Xác định cơ hoành trước, rồi mới gọi tên dịch ở phía trên nó.", "Tìm dấu cột sống, phổi xẹp bập bềnh."],
       dat: "Thấy cơ hoành, gan/lách, dịch phía trên cơ hoành và nhu mô phổi.", meo: "Luôn xác định cơ hoành: dịch dưới hoành (cổ trướng, máu) dễ bị gọi nhầm là dịch màng phổi." },
-    { ten: "Ước lượng thể tích", hinh: { than: "nguc", dd: [{ x: 28, y: 130, a: -90 }] }, sim: { c: "ruq", p: { mp: 2 } },
+    { ten: "Ước lượng thể tích", tth: ["ngua"], hinh: { than: "nguc", dd: [{ x: 28, y: 130, a: -90 }] }, sim: { c: "ruq", p: { mp: 2 } },
       lam: ["Bệnh nhân nằm ngửa, đầu dò ở đường nách sau, ngang đáy phổi.", "Cuối thì thở ra, đo khoảng cách lớn nhất giữa màng phổi thành và tạng (mm).", "Thể tích ≈ 20 × Sep (mL). Dùng công cụ tính trong ứng dụng."],
       dat: "Đo vuông góc thành ngực ở vị trí khoảng cách lớn nhất.", meo: "Công thức là ước lượng; dùng để theo dõi và quyết định, không thay đo chính xác." },
     { ten: "Đánh giá đông đặc", hinh: { than: "nguc", dd: [{ x: 30, y: 112, a: -90, n: 1 }] }, sim: { c: "dongDac", p: {} },

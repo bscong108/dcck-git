@@ -170,11 +170,21 @@
     const cb = b.chuanBi || {};
     let h = `<section class="the"><h2>Chuẩn bị</h2><div class="chuan-bi" style="margin-top:8px">
       <div><b>Đầu dò</b>${esc(cb.dauDo || "")}</div><div><b>Chế độ máy</b>${esc(cb.cheDo || "")}</div><div><b>Tư thế</b>${esc(cb.tuThe || "")}</div>${cb.khac ? `<div><b>Lưu ý</b>${esc(cb.khac)}</div>` : ""}</div>
+      ${cb.tth ? `<div class="tu-the-ds">${cb.tth.map(FIG.tuThe).join("")}</div>` : ""}
       <p class="nho" style="margin:10px 0 0">Hình vị trí: bệnh nhân nằm ngửa nhìn từ phía chân, bên phải bệnh nhân (P) ở bên trái hình. Chấm cam là dấu đầu dò; trên màn hình mô phỏng, chấm cam cho biết bên tương ứng.</p></section>`;
     b.buoc.forEach((x, i) => {
+      const dd = (x.hinh && x.hinh.dd) || [], nhieu = dd.length > 1;
+      const tth = x.tth ? `<div class="tu-the-ds">${x.tth.map(FIG.tuThe).join("")}</div>` : "";
+      const chu = `${x.dat ? `<div class="dat"><b>Đạt khi:</b> ${esc(x.dat)}</div>` : ""}${x.meo ? `<div class="meo" style="margin-top:8px"><b>Mẹo:</b> ${esc(x.meo)}</div>` : ""}`;
+      if (nhieu) {
+        h += `<section class="the buoc rong" style="margin-top:14px"><div><div class="buoc-so">Bước ${i + 1}/${b.buoc.length} · ${dd.length} vị trí đầu dò</div><h2>${esc(x.ten)}</h2>
+          <div class="buoc-trai">${FIG.viTri(x.hinh)}<ol>${x.lam.map((l) => `<li>${l}</li>`).join("")}</ol></div>${tth}${chu}
+          <div class="vt-luoi">${dd.map((d, j) => `<div class="vt"><div class="vt-dau">${FIG.viTri(Object.assign({}, x.hinh, { chon: j }))}<div><b>Vị trí ${esc(d.n != null ? d.n : j + 1)}</b><span>${esc(d.ten || "")}</span></div></div>${htmlSim(d.sim || x.sim, "")}</div>`).join("")}</div></div></section>`;
+        return;
+      }
       h += `<section class="the buoc" style="margin-top:14px"><div><div class="buoc-so">Bước ${i + 1}/${b.buoc.length}</div><h2>${esc(x.ten)}</h2>
         <div class="buoc-trai">${x.hinh ? FIG.viTri(x.hinh) : "<span></span>"}<ol>${x.lam.map((l) => `<li>${l}</li>`).join("")}</ol></div>
-        ${x.dat ? `<div class="dat"><b>Đạt khi:</b> ${esc(x.dat)}</div>` : ""}${x.meo ? `<div class="meo" style="margin-top:8px"><b>Mẹo:</b> ${esc(x.meo)}</div>` : ""}</div>
+        ${tth}${chu}</div>
         <div>${htmlSim(x.sim, x.sim && x.sim.dk ? "Kéo thanh Gain và Độ sâu để thấy hình thay đổi." : "Hình mong đợi khi đặt đầu dò đúng. Bấm vào hình để dừng/chạy.")}</div></section>`;
     });
     h += `<section class="the" style="margin-top:14px"><h2>Bảng kiểm kỹ năng</h2><p class="nho" style="margin:4px 0 10px">Tự đánh dấu khi làm được trên người mẫu hoặc bệnh nhân. Lưu trong trình duyệt này.</p><ul class="ds-kiem" id="ds-kiem">${b.kiemTra.map((k, i) => `<li><label><input type="checkbox" id="ck-${b.id}-${i}" data-i="${i}"><span>${esc(k)}</span></label></li>`).join("")}</ul></section>`;
@@ -184,9 +194,14 @@
     const s = tt(b.id);
     $$("#ds-kiem input", nd).forEach((c) => { c.checked = !!s.ck[c.dataset.i]; c.onchange = () => { s.ck[c.dataset.i] = c.checked; luu(); }; });
   }
+  function htmlCap(c) {
+    return `<section class="cap-the"><h3>${esc(c.benh)}</h3><div class="cap">${htmlSim(c.bt[0], `<span class="nhan-bt">Bình thường</span><br>${esc(c.bt[1])}`)}${htmlSim(c.bl[0], `<span class="nhan-bl">Bệnh lý</span><br>${esc(c.bl[1])}`)}</div></section>`;
+  }
   function tabKetQua(b) {
-    return `<p class="muted" style="margin-top:0">So sánh bình thường và bất thường. Tắt "Chú thích" để tự đọc trước.</p>
-      <div class="luoi">${b.ketQua.map((k) => htmlSim(k.sim, `<b>${esc(k.ten)}</b>${esc(k.mo || "")}`)).join("")}</div>
+    const than = b.cap
+      ? `<p class="muted" style="margin-top:0">Mỗi mặt bệnh có một cặp hình cùng mặt cắt: bình thường bên trái, bệnh lý bên phải. Tắt "Chú thích" để tự đọc trước.</p>${b.cap.map(htmlCap).join("")}`
+      : `<p class="muted" style="margin-top:0">So sánh các hình. Tắt "Chú thích" để tự đọc trước.</p><div class="luoi">${b.ketQua.map((k) => htmlSim(k.sim, `<b>${esc(k.ten)}</b>${esc(k.mo || "")}`)).join("")}</div>`;
+    return `${than}
       ${b.bang ? `<section style="margin-top:18px"><h2>Diễn giải và quyết định</h2>${b.bang}</section>` : ""}
       <section class="the clip-toi" style="margin-top:18px"><h2>Clip của tôi</h2><p class="nho" style="margin:4px 0 10px">Thêm video hoặc ảnh siêu âm anh/chị tự ghi (đã ẩn thông tin người bệnh) để ôn cùng bài này. Chỉ lưu trong trình duyệt của thiết bị này.</p>
       <div class="hang"><label class="nut" for="clip-file">Thêm clip/ảnh</label><input id="clip-file" type="file" accept="video/*,image/*" multiple class="an-in"></div><div class="luoi" id="clip-ds" style="margin-top:12px"></div></section>`;
@@ -271,6 +286,11 @@
       q = (q || "").toLowerCase().trim();
       let out = "";
       for (const b of BAI) {
+        if (b.cap) {
+          const ds = b.cap.filter((c) => !q || (b.ten + " " + c.benh + " " + c.bt[1] + " " + c.bl[1]).toLowerCase().includes(q));
+          if (ds.length) out += `<section style="margin-top:18px"><div class="gd-dau"><h2>${esc(b.ten)}</h2><a class="nho" href="#b-${b.id}">Mở bài</a></div>${ds.map(htmlCap).join("")}</section>`;
+          continue;
+        }
         const ds = b.ketQua.filter((k) => !q || (b.ten + " " + k.ten + " " + (k.mo || "")).toLowerCase().includes(q));
         if (!ds.length) continue;
         out += `<section style="margin-top:18px"><div class="gd-dau"><h2>${esc(b.ten)}</h2><a class="nho" href="#b-${b.id}">Mở bài</a></div><div class="luoi">${ds.map((k) => htmlSim(k.sim, `<b>${esc(k.ten)}</b>${esc(k.mo || "")}`)).join("")}</div></section>`;

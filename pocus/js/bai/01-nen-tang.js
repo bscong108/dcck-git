@@ -59,7 +59,7 @@ POCUS.them({
 <li>Khử khuẩn đầu dò giữa các bệnh nhân theo quy định của cơ sở; bọc vô khuẩn và gel vô khuẩn khi làm thủ thuật.</li>
 <li>Siêu âm tại giường trả lời một câu hỏi tập trung. Kết quả âm tính không loại trừ bệnh nằm ngoài câu hỏi đó; khi nghi ngờ vượt khả năng, cần siêu âm chuyên khoa hoặc phương tiện khác.</li>
 </ul>`,
-  chuanBi: { dauDo: "Bắt đầu với đầu dò cong; thử lại với đầu dò thẳng và đầu dò tim trên cùng một vùng.", cheDo: "Preset bụng (Abdomen).", tuThe: "Người mẫu khỏe mạnh nằm ngửa; máy đặt đối diện người khám, màn hình ngang tầm mắt.", khac: "Gel, khăn lau; giảm ánh sáng phòng." },
+  chuanBi: { dauDo: "Bắt đầu với đầu dò cong; thử lại với đầu dò thẳng và đầu dò tim trên cùng một vùng.", cheDo: "Preset bụng (Abdomen).", tuThe: "Người mẫu khỏe mạnh nằm ngửa; máy đặt đối diện người khám, màn hình ngang tầm mắt.", tth: ["ngua"], khac: "Gel, khăn lau; giảm ánh sáng phòng." },
   buoc: [
     { ten: "Kiểm tra định hướng", hinh: { than: "nguc", dd: [{ x: 30, y: 140, a: -90, n: 1 }] }, sim: { c: "ruq", p: {} },
       lam: ["Bôi gel lên đầu dò cong.", "Chạm ngón tay vào đầu mặt đầu dò phía có dấu; xác định bên tương ứng trên màn hình (chấm cam).", "Đặt đầu dò đường nách giữa bên phải, khoang liên sườn 8–9, dấu hướng về đầu bệnh nhân."],
@@ -119,7 +119,7 @@ POCUS.them({
 <tr><td><b>Thùy bên / độ dày lát cắt</b></td><td>Năng lượng ngoài chùm chính hoặc lát cắt có độ dày</td><td>Hồi âm mờ trong lòng cấu trúc dịch</td><td>Giả bùn mật, giả cặn bàng quang → đổi góc, đổi tư thế: ảnh giả biến mất</td></tr>
 </table></div>
 <p>Hai nguyên tắc chung: (1) ảnh giả thường <b>đổi hoặc mất</b> khi đổi góc đầu dò, cấu trúc thật thì không; (2) ở phổi, ta không nhìn nhu mô mà đọc <b>hệ thống ảnh giả</b> có quy luật.</p>`,
-  chuanBi: { dauDo: "Cong cho bụng; thẳng cho phổi.", cheDo: "Bụng; phổi (tắt harmonic/compound nếu máy cho phép).", tuThe: "Nằm ngửa.", khac: "Người mẫu nên uống nước trước để bàng quang đầy." },
+  chuanBi: { dauDo: "Cong cho bụng; thẳng cho phổi.", cheDo: "Bụng; phổi (tắt harmonic/compound nếu máy cho phép).", tuThe: "Nằm ngửa.", tth: ["ngua"], khac: "Người mẫu nên uống nước trước để bàng quang đầy." },
   buoc: [
     { ten: "Đường A: dội lại ở phổi", hinh: { than: "nguc", dd: [{ x: 70, y: 62, a: -90, n: 1 }] }, sim: { c: "phoi", p: {} },
       lam: ["Đầu dò thẳng, cắt dọc khoang liên sườn 2–3 đường giữa đòn.", "Tìm hình 'con dơi': 2 xương sườn và đường màng phổi ở giữa.", "Đếm khoảng cách da – màng phổi; đường A nằm ở bội số khoảng cách đó."],

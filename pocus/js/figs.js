@@ -51,19 +51,20 @@
     },
   };
 
-  function dauDo(d, i) {
+  function dauDo(d, i, chon) {
     const so = d.n ? `<g transform="translate(${d.x + (d.nx || 0)} ${d.y + (d.ny == null ? -16 : d.ny)})"><circle class="fg-so" r="7.5"/><text class="fg-so-chu" y="3.4">${d.n}</text></g>` : "";
     const dt = d.mv ? ` class="mv-${d.mv}"` : "";
+    const mo = chon != null && chon !== i ? ' opacity=".22"' : "";
     const dai = d.l || 30, ngan = d.w || 9;
-    return `<g transform="translate(${d.x} ${d.y}) rotate(${d.a || 0})"><g${dt}>
+    return `<g${mo}><g transform="translate(${d.x} ${d.y}) rotate(${d.a || 0})"><g${dt}>
       <rect class="fg-dd" x="${-dai / 2}" y="${-ngan / 2}" width="${dai}" height="${ngan}" rx="3"/>
-      <circle class="fg-mau" cx="${dai / 2 + 2.5}" cy="0" r="3"/></g></g>${so}`;
+      <circle class="fg-mau" cx="${dai / 2 + 2.5}" cy="0" r="3"/></g></g>${so}</g>`;
   }
 
   /** Hình vị trí đầu dò. spec: {than, dd:[{x,y,a,n,mv}], chu} */
   function viTri(spec) {
     const t = THAN[spec.than || "nguc"];
-    const ds = (spec.dd || []).map(dauDo).join("");
+    const ds = (spec.dd || []).map((d, i) => dauDo(d, i, spec.chon)).join("");
     const chu = spec.chu ? `<text class="fg-chu" x="100" y="${spec.chuY || 14}" text-anchor="middle">${spec.chu}</text>` : "";
     return `<svg class="fig-than" viewBox="${t.vb}" role="img" aria-label="Vị trí đặt đầu dò${spec.alt ? ": " + spec.alt : ""}">${t.ve}${ds}${chu}</svg>`;
   }
@@ -95,5 +96,31 @@
     return `<div class="loai-dd">${o.map((x) => `<figure><svg viewBox="0 0 98 92" aria-hidden="true">${x[3]}</svg><figcaption><b>${x[0]}</b><span>${x[1]}</span><span class="muted">${x[2]}</span></figcaption></figure>`).join("")}</div>`;
   }
 
-  window.POCUS_FIG = { viTri, dongTac, DONG_TAC, loaiDauDo };
+  /* Tư thế bệnh nhân (nhìn nghiêng, đầu bên trái) */
+  const NGUOI = (o) => {
+    const t = o.than, l = o.chan, h = o.dau, ta = o.tay;
+    return `<circle class="tt-dau" cx="${h[0]}" cy="${h[1]}" r="9"/>
+      <path class="tt-than" d="M${t.map((q) => q.join(" ")).join(" L")}"/>
+      <path class="tt-chan" d="M${l.map((q) => q.join(" ")).join(" L")}"/>
+      ${ta ? `<path class="tt-tay" d="M${ta.map((q) => q.join(" ")).join(" L")}"/>` : ""}`;
+  };
+  const GIUONG = (goc) => `<g transform="rotate(${goc || 0} 100 80)"><rect class="tt-giuong" x="14" y="78" width="172" height="6" rx="2"/></g><path class="tt-chan-giuong" d="M30 84 L30 104 M170 84 L170 104"/>`;
+  const TU_THE = {
+    ngua: { ten: "Nằm ngửa", ve: () => GIUONG() + NGUOI({ dau: [28, 64], than: [[42, 68], [108, 68]], chan: [[108, 70], [176, 70]], tay: [[48, 66], [98, 63]] }) },
+    gapGoi: { ten: "Nằm ngửa, gập gối (chùng cơ bụng)", ve: () => GIUONG() + NGUOI({ dau: [28, 64], than: [[42, 68], [108, 68]], chan: [[108, 70], [138, 44], [168, 70]], tay: [[48, 66], [98, 63]] }) },
+    nghiengTrai: { ten: "Nghiêng trái 30–45°, tay trái lên đầu", ve: () => GIUONG() + `<ellipse class="tt-than-day" cx="76" cy="62" rx="36" ry="14"/>` + NGUOI({ dau: [28, 60], than: [[42, 64], [44, 64]], chan: [[108, 68], [140, 60], [174, 70]], tay: [[46, 56], [30, 38], [14, 40]] }) + `<path class="tt-mui" d="M84 30 C70 22 58 26 52 36"/><text class="fg-chu" x="86" y="30">nghiêng trái</text>` },
+    nuaNgoi: { ten: "Nửa ngồi 30–45°", ve: () => `<path class="tt-giuong-n" d="M20 82 L120 82 L176 82 M120 82 L64 38"/>` + GIUONG() + NGUOI({ dau: [56, 26], than: [[66, 38], [112, 72]], chan: [[112, 72], [176, 72]], tay: [[72, 44], [104, 60]] }) },
+    ngoiCui: { ten: "Ngồi mép giường, cúi ra trước tì lên bàn", ve: () => `<rect class="tt-giuong" x="20" y="72" width="96" height="6" rx="2"/><path class="tt-chan-giuong" d="M30 78 L30 104 M108 78 L108 104"/><rect class="tt-ban" x="138" y="50" width="52" height="5" rx="2"/><path class="tt-chan-giuong" d="M182 55 L182 104"/>` + NGUOI({ dau: [138, 28], than: [[96, 68], [128, 38]], chan: [[96, 70], [122, 72], [120, 104]], tay: [[124, 42], [150, 50]] }) + `<text class="fg-chu" x="22" y="56">lưng (vị trí chọc)</text>` },
+    trend: { ten: "Đầu thấp (Trendelenburg) 10–15°", ve: () => `<g transform="rotate(-10 100 80)">` + GIUONG() + NGUOI({ dau: [28, 64], than: [[42, 68], [108, 68]], chan: [[108, 70], [176, 70]], tay: [[48, 66], [98, 63]] }) + `</g><text class="fg-chu" x="10" y="104">đầu thấp</text>` },
+    trendNguoc: { ten: "Đầu cao (Trendelenburg ngược) cho tĩnh mạch chân đầy", ve: () => `<g transform="rotate(10 100 80)">` + GIUONG() + NGUOI({ dau: [28, 64], than: [[42, 68], [108, 68]], chan: [[108, 70], [176, 70]], tay: [[48, 66], [98, 63]] }) + `</g><text class="fg-chu" x="10" y="20">đầu cao</text>` },
+    ech: { ten: "Tư thế ếch: đùi xoay ngoài, gối gập nhẹ", ve: () => GIUONG() + NGUOI({ dau: [28, 64], than: [[42, 68], [108, 68]], chan: [[108, 70], [140, 54], [170, 72]], tay: [[48, 66], [98, 63]] }) + `<path class="tt-mui" d="M132 40 C146 32 158 38 160 50"/><text class="fg-chu" x="120" y="30">xoay ngoài</text>` },
+    sapKhoeo: { ten: "Nằm sấp hoặc nghiêng, gối gập 20–30° (khám khoeo)", ve: () => GIUONG() + NGUOI({ dau: [28, 66], than: [[42, 66], [108, 66]], chan: [[108, 68], [146, 68], [176, 52]], tay: [[46, 72], [36, 76]] }) + `<text class="fg-chu" x="128" y="44">gối gập</text>` },
+    plr: { ten: "Nâng chân thụ động: nửa ngồi 45° → thân nằm, chân nâng 45°", ve: () => `<g transform="translate(0 0) scale(.5)"><path class="tt-giuong-n" d="M20 82 L120 82 L176 82 M120 82 L64 38"/>${GIUONG()}${NGUOI({ dau: [56, 26], than: [[66, 38], [112, 72]], chan: [[112, 72], [176, 72]] })}</g><path class="tt-mui" d="M92 40 L108 40"/><path class="tt-mui-dau" d="M108 40 L102 36 L102 44 Z"/><g transform="translate(100 0) scale(.5)"><path class="tt-giuong-n" d="M20 82 L120 82 M120 82 L170 36"/>${GIUONG()}${NGUOI({ dau: [28, 64], than: [[42, 68], [112, 70]], chan: [[118, 72], [168, 36]] })}</g><text class="fg-chu" x="10" y="70">trước</text><text class="fg-chu" x="112" y="70">trong 60–90 giây</text>` },
+  };
+  function tuThe(k) {
+    const t = TU_THE[k]; if (!t) return "";
+    return `<figure class="tu-the"><svg viewBox="0 0 200 108" role="img" aria-label="Tư thế: ${t.ten}">${t.ve()}</svg><figcaption>${t.ten}</figcaption></figure>`;
+  }
+
+  window.POCUS_FIG = { viTri, dongTac, DONG_TAC, loaiDauDo, tuThe, TU_THE };
 })();

@@ -15,9 +15,9 @@ POCUS.them({
 <tr><td>Dưới mũi ức (SX)</td><td>Dưới mũi ức, đầu dò gần như nằm phẳng; dấu về bên trái bệnh nhân, chùm âm hướng vai trái</td><td>Dịch màng tim, ngừng tuần hoàn, thở máy, phổi khí phế thũng (khi cạnh ức không thấy)</td></tr>
 <tr><td>TMC dưới</td><td>Từ dưới mũi ức xoay dấu về phía đầu, quạt sang phải bệnh nhân</td><td>Ước tính áp lực nhĩ phải, gợi ý thể tích, ép tim</td></tr>
 </table></div>`,
-  chuanBi: { dauDo: "Tim (phased array).", cheDo: "Preset tim (chấm định hướng bên phải màn hình). Độ sâu ban đầu 16–20 cm.", tuThe: "Nằm ngửa hoặc nghiêng trái 30–45°, tay trái đưa lên đầu để mở khoang liên sườn.", khac: "Gắn điện tim của máy nếu có để biết thì tâm thu – tâm trương." },
+  chuanBi: { dauDo: "Tim (phased array).", cheDo: "Preset tim (chấm định hướng bên phải màn hình). Độ sâu ban đầu 16–20 cm.", tuThe: "Nằm ngửa hoặc nghiêng trái 30–45°, tay trái đưa lên đầu để mở khoang liên sườn. Dưới mũi ức: nằm ngửa, gập gối.", tth: ["nghiengTrai", "ngua", "gapGoi"], khac: "Gắn điện tim của máy nếu có để biết thì tâm thu – tâm trương." },
   buoc: [
-    { ten: "Cạnh ức trục dọc", hinh: { than: "nguc", dd: [{ x: 112, y: 78, a: -140, n: 1 }] }, sim: { c: "canhUcDoc", p: {} },
+    { ten: "Cạnh ức trục dọc", tth: ["nghiengTrai"], hinh: { than: "nguc", dd: [{ x: 112, y: 78, a: -140, n: 1 }] }, sim: { c: "canhUcDoc", p: {} },
       lam: ["Đặt đầu dò sát bờ trái xương ức, khoang liên sườn 3–4.", "Dấu hướng vai phải bệnh nhân (khoảng 10 giờ).", "Chùm âm vuông góc thành ngực.", "Trượt lên/xuống một khoang và ra/vào để tìm cửa sổ tốt nhất.", "Xoay nhẹ đến khi vách liên thất và thành sau nằm gần như ngang, thấy cùng lúc van ĐMC và van hai lá.", "Tăng độ sâu đến khi thấy ĐMC ngực xuống sau nhĩ trái."],
       dat: "Thất phải ở trên, vách liên thất và thành sau song song, van ĐMC và van hai lá cùng thấy, ĐMC ngực xuống ở rãnh nhĩ thất.", meo: "Thấy thất trái tròn: đang chéo sang trục ngắn, xoay ngược lại. Hình bị phổi che: thở ra hết, nghiêng trái, trượt gần xương ức hơn." },
     { ten: "Cạnh ức trục ngắn", hinh: { than: "nguc", dd: [{ x: 112, y: 78, a: -40, n: 2 }] }, sim: { c: "canhUcNgang", p: {} },
@@ -26,7 +26,7 @@ POCUS.them({
     { ten: "Mỏm 4 buồng", hinh: { than: "nguc", dd: [{ x: 142, y: 98, a: 0, n: 3 }] }, sim: { c: "mom4", p: {} },
       lam: ["Sờ mỏm tim hoặc đặt dưới vú trái, khoảng đường nách trước (nghiêng trái giúp nhiều).", "Dấu hướng 3 giờ (về bên trái bệnh nhân).", "Chùm âm hướng về vai phải.", "Trượt đến khi mỏm tim nằm ở đỉnh hình và vách liên thất thẳng đứng giữa màn.", "Nếu thấy đường ra ĐMC: đó là 5 buồng, quạt chùm âm xuống dưới để về 4 buồng."],
       dat: "Mỏm ở đỉnh hình, đủ 4 buồng, vách liên thất – liên nhĩ thẳng đứng, thấy van hai lá và van ba lá.", meo: "Thất trái ngắn và mỏm tròn (foreshortening): đầu dò đang đặt quá cao/quá trong, trượt xuống một khoang và ra ngoài." },
-    { ten: "Dưới mũi ức", hinh: { than: "nguc", dd: [{ x: 100, y: 124, a: 0, n: 4 }] }, sim: { c: "duoiUc", p: {} },
+    { ten: "Dưới mũi ức", tth: ["gapGoi"], hinh: { than: "nguc", dd: [{ x: 100, y: 124, a: 0, n: 4 }] }, sim: { c: "duoiUc", p: {} },
       lam: ["Cầm đầu dò từ phía trên (lòng bàn tay úp), đặt ngay dưới mũi ức hơi lệch phải.", "Đầu dò gần như nằm phẳng sát bụng, dấu hướng về bên trái bệnh nhân.", "Ấn nhẹ, chĩa chùm âm về vai trái.", "Tăng độ sâu 18–24 cm. Bảo bệnh nhân gập gối, hít sâu và nín."],
       dat: "Gan ở trường gần, thất phải ngay dưới gan, đủ 4 buồng, màng ngoài tim sáng bao quanh.", meo: "Mặt cắt quan trọng nhất trong ngừng tuần hoàn vì không cản trở ép tim." },
     { ten: "Tĩnh mạch chủ dưới", hinh: { than: "nguc", dd: [{ x: 104, y: 130, a: -90, n: 5 }] }, sim: { c: "ivc", p: {} },
@@ -75,9 +75,9 @@ POCUS.them({
 <li><b>TAPSE</b> &lt; 17 mm: rối loạn chức năng tâm thu thất phải.</li>
 <li><b>Cấp hay mạn</b>: thành tự do thất phải dày &gt; 5 mm gợi ý quá tải mạn (tăng áp phổi mạn), thất phải cấp thường thành mỏng. Áp lực tâm thu thất phải rất cao (ước từ dòng hở ba lá) cũng gợi ý bệnh mạn vì thất phải bình thường không tạo được áp lực cao đột ngột.</li>
 </ul>`,
-  chuanBi: { dauDo: "Tim.", cheDo: "Preset tim; M-mode cho EPSS/MAPSE/TAPSE.", tuThe: "Nghiêng trái nếu được.", khac: "" },
+  chuanBi: { dauDo: "Tim.", cheDo: "Preset tim; M-mode cho EPSS/MAPSE/TAPSE.", tuThe: "Nghiêng trái nếu được.", tth: ["nghiengTrai"], khac: "" },
   buoc: [
-    { ten: "Ước lượng thất trái bằng mắt", hinh: { than: "nguc", dd: [{ x: 112, y: 78, a: -140, n: 1 }, { x: 142, y: 98, a: 0, n: 2 }] }, sim: { c: "canhUcDoc", p: {} },
+    { ten: "Ước lượng thất trái bằng mắt", hinh: { than: "nguc", dd: [{ x: 112, y: 78, a: -140, n: 1, ten: "Cạnh ức trục dọc", sim: { c: "canhUcDoc", p: {} } }, { x: 112, y: 78, a: -40, n: 2, nx: 14, ten: "Cạnh ức trục ngắn mức cơ nhú", sim: { c: "canhUcNgang", p: {} } }, { x: 142, y: 98, a: 0, n: 3, ten: "Mỏm 4 buồng", sim: { c: "mom4", p: {} } }] }, sim: { c: "canhUcDoc", p: {} },
       lam: ["Lấy PSLA, PSSA mức cơ nhú, A4C.", "Ở mỗi mặt cắt, quan sát 3 thành phần: dày lên, di chuyển vào trong, van hai lá chạm vách.", "Xếp vào 1 trong 4 mức; so với các clip mẫu."],
       dat: "Kết luận nhất quán ở ít nhất hai mặt cắt.", meo: "Xem clip chậm hoặc từng khung hình nếu tim nhanh." },
     { ten: "Đo EPSS", hinh: { than: "nguc", dd: [{ x: 112, y: 78, a: -140 }] }, sim: { c: "canhUcDoc", p: { ef: "giam" } },
@@ -86,7 +86,7 @@ POCUS.them({
     { ten: "MAPSE và TAPSE", hinh: { than: "nguc", dd: [{ x: 142, y: 98, a: 0 }] }, sim: { c: "mom4", p: { do: 1 } },
       lam: ["Ở A4C, đặt đường M-mode qua vòng van ba lá thành bên (TAPSE) rồi vòng van hai lá thành bên (MAPSE).", "Đường M-mode song song với hướng di chuyển của vòng van (dọc trục tim).", "Đo biên độ di chuyển từ cuối tâm trương đến cuối tâm thu."],
       dat: "Vòng van chạy dọc đường M-mode, đường cong đều.", meo: "Góc lệch lớn làm đo thấp hơn thật." },
-    { ten: "So sánh thất phải và thất trái", hinh: { than: "nguc", dd: [{ x: 142, y: 98, a: 0, n: 3 }, { x: 112, y: 78, a: -40, n: 4 }] }, sim: { c: "mom4", p: { rv: 1 } },
+    { ten: "So sánh thất phải và thất trái", hinh: { than: "nguc", dd: [{ x: 142, y: 98, a: 0, n: 1, ten: "Mỏm 4 buồng: so thất phải/thất trái", sim: { c: "mom4", p: { rv: 1 } } }, { x: 112, y: 78, a: -40, n: 2, ten: "Cạnh ức trục ngắn: dấu D", sim: { c: "canhUcNgang", p: { rv: 1 } } }] }, sim: { c: "mom4", p: { rv: 1 } },
       lam: ["A4C không mỏm ngắn: so đường kính đáy thất phải và thất trái cuối tâm trương.", "Xem ai tạo mỏm tim.", "Chuyển PSSA mức cơ nhú: tìm dấu D, xem thì tâm thu hay tâm trương.", "Quan sát thành tự do thất phải: giảm động đoạn giữa với mỏm còn co (McConnell)."],
       dat: "Thấy rõ thất phải và vách liên thất ở hai mặt cắt.", meo: "A4C xoay lệch có thể làm thất phải trông to hoặc nhỏ giả: xác nhận bằng PSSA và dưới mũi ức." },
   ],
@@ -136,12 +136,12 @@ POCUS.them({
 <tr><td>Tim "đong đưa" trong dịch lớn</td><td>Gặp trong dịch lượng lớn; tương ứng điện thế luân phiên trên ECG</td></tr>
 </table></div>
 <p>Các dấu xẹp buồng tim có thể không xuất hiện khi áp lực buồng tim phải cao (tăng áp phổi, thất phải phì đại) hoặc ép tim khu trú (sau mổ tim).</p>`,
-  chuanBi: { dauDo: "Tim.", cheDo: "Preset tim, độ sâu đủ thấy toàn bộ tim và phía sau.", tuThe: "Nằm ngửa hoặc nửa ngồi.", khac: "M-mode để xác định thì tâm thu – tâm trương khi đánh giá xẹp buồng tim." },
+  chuanBi: { dauDo: "Tim.", cheDo: "Preset tim, độ sâu đủ thấy toàn bộ tim và phía sau.", tuThe: "Nằm ngửa hoặc nửa ngồi.", tth: ["ngua", "nuaNgoi"], khac: "M-mode để xác định thì tâm thu – tâm trương khi đánh giá xẹp buồng tim." },
   buoc: [
-    { ten: "Tìm dịch ở dưới mũi ức và PSLA", hinh: { than: "nguc", dd: [{ x: 100, y: 124, a: 0, n: 1 }, { x: 112, y: 78, a: -140, n: 2 }] }, sim: { c: "duoiUc", p: { dich: 1 } },
+    { ten: "Tìm dịch ở dưới mũi ức và PSLA", hinh: { than: "nguc", dd: [{ x: 100, y: 124, a: 0, n: 1, ten: "Dưới mũi ức: dải dịch quanh tim", sim: { c: "duoiUc", p: { dich: 1 } } }, { x: 112, y: 78, a: -140, n: 2, ten: "Cạnh ức trục dọc: dịch trước ĐMC xuống", sim: { c: "canhUcDoc", p: { dich: 1 } } }] }, sim: { c: "duoiUc", p: { dich: 1 } },
       lam: ["Dưới mũi ức: tìm dải đen giữa màng ngoài tim và thất phải/thất trái.", "PSLA: tăng độ sâu, tìm ĐMC ngực xuống, xác định dịch ở trước hay sau ĐMC.", "Đo bề dày dịch lớn nhất cuối tâm trương."],
       dat: "Dịch thấy ở ít nhất hai mặt cắt.", meo: "" },
-    { ten: "Tìm dấu hiệu ép tim", hinh: { than: "nguc", dd: [{ x: 142, y: 98, a: 0, n: 3 }, { x: 104, y: 130, a: -90, n: 4 }] }, sim: { c: "duoiUc", p: { dich: 2, chen: 1 } },
+    { ten: "Tìm dấu hiệu ép tim", hinh: { than: "nguc", dd: [{ x: 100, y: 124, a: 0, n: 1, ten: "Dưới mũi ức: thất phải xẹp thì tâm trương", sim: { c: "duoiUc", p: { dich: 2, chen: 1 } } }, { x: 142, y: 98, a: 0, n: 2, ten: "Mỏm 4 buồng: dịch quanh tim", sim: { c: "mom4", p: { dich: 1 } } }, { x: 104, y: 130, a: -90, n: 3, nx: 12, ten: "TMC dưới căng, không xẹp", sim: { c: "ivc", p: { kieu: "gian" } } }] }, sim: { c: "duoiUc", p: { dich: 2, chen: 1 } },
       lam: ["A4C hoặc dưới mũi ức: quan sát thành tự do thất phải trong tâm trương và nhĩ phải trong tâm thu.", "M-mode qua thành tự do thất phải ở PSLA để xác định thì xẹp.", "Đánh giá TMC dưới.", "Nếu có kinh nghiệm Doppler: đo biến thiên dòng qua van hai lá theo hô hấp."],
       dat: "Xác định rõ thì xẹp so với điện tim hoặc so với van mở/đóng.", meo: "Thất phải xẹp khi van hai lá đang mở = tâm trương." },
   ],
@@ -191,7 +191,7 @@ POCUS.them({
 <h3>VTI đường ra thất trái</h3>
 <p>Tích phân vận tốc – thời gian (VTI) là quãng đường cột máu đi được trong một nhát bóp (cm). Thể tích nhát bóp = VTI × diện tích đường ra thất trái (π × (đường kính/2)²; đường kính đo ở PSLA giữa tâm thu, thường khoảng 2 cm). Cung lượng tim = thể tích nhát bóp × tần số. VTI người lớn bình thường khoảng 18–22 cm.</p>
 <p><b>Đáp ứng dịch</b>: VTI (hoặc thể tích nhát bóp) tăng ≥ 10–15% khi nâng chân thụ động (PLR) hoặc sau nghiệm pháp truyền nhanh lượng nhỏ gợi ý đáp ứng. PLR là nghiệm pháp đảo ngược được, dùng được ở bệnh nhân tự thở và loạn nhịp (Monnet 2016).</p>`,
-  chuanBi: { dauDo: "Tim (cong cũng dùng được cho TMC dưới).", cheDo: "Preset tim; M-mode cho TMC dưới; Doppler xung cho VTI.", tuThe: "Nằm ngửa. PLR bắt đầu ở tư thế nửa ngồi 45°.", khac: "Ghi điện tim của máy nếu có." },
+  chuanBi: { dauDo: "Tim (cong cũng dùng được cho TMC dưới).", cheDo: "Preset tim; M-mode cho TMC dưới; Doppler xung cho VTI.", tuThe: "Nằm ngửa. PLR bắt đầu ở tư thế nửa ngồi 45°.", tth: ["ngua", "plr"], khac: "Ghi điện tim của máy nếu có." },
   buoc: [
     { ten: "Đo TMC dưới", hinh: { than: "nguc", dd: [{ x: 104, y: 130, a: -90, n: 1 }] }, sim: { c: "ivc", p: {} },
       lam: ["Lấy trục dọc TMC dưới đổ vào nhĩ phải, có tĩnh mạch gan.", "Lắc/quạt để mặt cắt đi qua giữa mạch (đường kính lớn nhất).", "Đặt điểm đo cách chỗ đổ vào nhĩ phải 1–2 cm.", "Ghi cine loop hoặc M-mode qua ít nhất 2 chu kỳ thở; đo Dmax, Dmin.", "Nếu xẹp không rõ, bảo bệnh nhân hít mạnh (sniff)."],
@@ -199,7 +199,7 @@ POCUS.them({
     { ten: "Đo VTI đường ra thất trái", hinh: { than: "nguc", dd: [{ x: 142, y: 98, a: 0, n: 2 }] }, sim: { c: "vti", p: {} },
       lam: ["Từ A4C quạt chùm âm lên trên để thấy van ĐMC (mỏm 5 buồng).", "Đặt cửa sổ mẫu Doppler xung trong đường ra thất trái, khoảng 5 mm dưới van ĐMC.", "Đường Doppler song song với dòng máu (góc lệch &lt; 20°).", "Ghi phổ: dòng tâm thu đi xa đầu dò (dưới đường gốc), đường bao rõ, có 'cửa sổ' trống giữa phổ.", "Vẽ theo đường bao 3 nhịp (5 nhịp nếu rung nhĩ), lấy trung bình."],
       dat: "Phổ hẹp, đường bao sắc, có tiếng click đóng van ĐMC ở cuối phổ.", meo: "Thấy click mở và đóng van: cửa sổ mẫu đặt quá sát van; lùi về phía mỏm." },
-    { ten: "Nâng chân thụ động", hinh: { than: "nguc", dd: [{ x: 142, y: 98, a: 0, n: 3 }] }, sim: { c: "vti", p: { vti: 17 } },
+    { ten: "Nâng chân thụ động", tth: ["plr"], hinh: { than: "nguc", dd: [{ x: 142, y: 98, a: 0, n: 3 }] }, sim: { c: "vti", p: { vti: 17 } },
       lam: ["Bệnh nhân nửa ngồi 45°: đo VTI nền.", "Dùng giường hạ thân xuống phẳng và nâng chân 45° (không nâng chân bằng tay gây đau).", "Đo lại VTI trong 30–90 giây (hiệu ứng tối đa thường trong khoảng 1 phút).", "Tính % thay đổi; đưa bệnh nhân về tư thế ban đầu."],
       dat: "Giữ cùng một vị trí cửa sổ mẫu và góc ở hai lần đo.", meo: "Đau, ho, kích thích làm tăng giao cảm, sai kết quả. Tăng áp lực ổ bụng làm giảm độ tin cậy." },
   ],

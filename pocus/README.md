@@ -21,8 +21,10 @@ Ngoài ra: Thư viện hình động, 7 ca lâm sàng tích hợp, 6 công cụ 
 
 ## Hình ảnh
 
-- Hình siêu âm là **mô phỏng canvas** (`js/sim.js`, 20 cảnh có tham số, có chuyển động tim, nhịp thở, trượt màng phổi, ép tĩnh mạch, M-mode, Doppler), có nút bật/tắt chú thích để tự đọc. Không phải ảnh người bệnh.
-- Hình vị trí đầu dò và 5 động tác đầu dò là SVG (`js/figs.js`).
+- Hình siêu âm là **mô phỏng canvas** (`js/sim.js`, 22 cảnh có tham số: tim đập, nhịp thở, trượt màng phổi, ép tĩnh mạch, M-mode kèm ảnh tham chiếu, Doppler). Màn hình dựng giống máy thật: thanh thông số (đầu dò, preset, tần số, MI/TI), thang xám, thước độ sâu, dấu tiêu điểm, TGC, trạng thái trực tiếp/đóng băng; ảnh có hạt speckle thô dần theo độ sâu, suy giảm theo độ sâu, nhiễu nền. Có nút bật/tắt chú thích để tự đọc. Không phải ảnh người bệnh.
+- Bước thực hành có nhiều vị trí đầu dò: mỗi vị trí có hình vị trí riêng (vị trí đang xét được làm nổi, các vị trí khác mờ) và ảnh mong đợi riêng (59 vị trí).
+- Phần Đọc kết quả của mỗi bài ứng dụng: cặp ảnh **bình thường – bệnh lý** cùng mặt cắt cho từng mặt bệnh (86 cặp, `js/bai/09-doi-chieu.js`).
+- Hình tư thế bệnh nhân (nằm ngửa, gập gối, nghiêng trái, nửa ngồi, ngồi cúi, Trendelenburg, Trendelenburg ngược, tư thế ếch, khám khoeo, nâng chân thụ động), hình vị trí đầu dò và 5 động tác đầu dò là SVG (`js/figs.js`).
 - Clip thật: người học tự thêm vào mục "Clip của tôi" (lưu IndexedDB trên thiết bị) và liên kết thư viện mở trong mục Thư viện hình động.
 
 ## Nguồn

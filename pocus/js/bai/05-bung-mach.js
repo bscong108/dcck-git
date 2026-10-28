@@ -15,15 +15,15 @@ POCUS.them({
 <tr><td>Hình dạng</td><td>Tròn, đập theo mạch</td><td>Bầu dục/dẹt, thay đổi theo hô hấp, đẩy xẹp được</td></tr>
 <tr><td>Nhánh</td><td>Thân tạng, MTTT, ĐM thận</td><td>Tĩnh mạch gan đổ vào</td></tr>
 </table></div>`,
-  chuanBi: { dauDo: "Cong.", cheDo: "Bụng, độ sâu 15–20 cm (tùy thể trạng).", tuThe: "Nằm ngửa, gập gối. Nếu khí nhiều: nghiêng trái và dùng gan làm cửa sổ (mặt cắt đứng ngang bên phải).", khac: "Bệnh nhân nhịn ăn lý tưởng nhưng không bắt buộc trong cấp cứu." },
+  chuanBi: { dauDo: "Cong.", cheDo: "Bụng, độ sâu 15–20 cm (tùy thể trạng).", tuThe: "Nằm ngửa, gập gối. Nếu khí nhiều: nghiêng trái và dùng gan làm cửa sổ (mặt cắt đứng ngang bên phải).", tth: ["gapGoi", "nghiengTrai"], khac: "Bệnh nhân nhịn ăn lý tưởng nhưng không bắt buộc trong cấp cứu." },
   buoc: [
     { ten: "Tìm ĐMC ở mũi ức (cắt ngang)", hinh: { than: "nguc", dd: [{ x: 100, y: 128, a: 180, n: 1 }] }, sim: { c: "dmc", p: { ep: 1 } },
       lam: ["Đặt đầu dò ngay dưới mũi ức, cắt ngang, dấu về bên phải bệnh nhân.", "Tìm thân đốt sống (vòm sáng với bóng lưng phía sau).", "ĐMC: vòng tròn trống âm ngay trước thân đốt sống, hơi lệch trái; TMC dưới bên phải.", "Chỉnh độ sâu để ĐMC ở giữa màn hình."],
       dat: "Thấy thân đốt sống, ĐMC tròn và TMC dưới cùng lúc.", meo: "Khí ruột che: ép đầu dò đều, từ từ và giữ vài giây để đẩy khí; hoặc dời đầu dò sang trái/phải và nghiêng chùm âm về ĐMC." },
-    { ten: "Quét xuống đến chỗ chia đôi", hinh: { than: "nguc", dd: [{ x: 100, y: 128, a: 180, mv: "truot" }, { x: 100, y: 170, a: 180, n: 2 }] }, sim: { c: "dmc", p: {} },
+    { ten: "Quét xuống đến chỗ chia đôi", hinh: { than: "nguc", dd: [{ x: 100, y: 128, a: 180, n: 1, mv: "truot", ten: "Đoạn trên: ngang ĐM mạc treo tràng trên", sim: { c: "dmc", p: {} } }, { x: 100, y: 170, a: 180, n: 2, ten: "Ngang rốn: chỗ chia đôi thành 2 ĐM chậu chung", sim: { c: "dmc", p: { chia: 1 } } }] }, sim: { c: "dmc", p: {} },
       lam: ["Trượt đầu dò từ từ xuống rốn, giữ ĐMC ở giữa hình.", "Nhận ra thân tạng, ĐM mạc treo tràng trên, ĐM thận khi đi qua.", "Tiếp tục đến chỗ chia đôi; quét thêm đoạn đầu ĐM chậu chung hai bên.", "Đo đường kính lớn nhất trước – sau và ngang, ngoài – ngoài."],
       dat: "Không bỏ đoạn nào; đo ở ít nhất 3 mức: gần, giữa, xa.", meo: "" },
-    { ten: "Xác nhận trên mặt cắt dọc", hinh: { than: "nguc", dd: [{ x: 104, y: 140, a: -90, n: 3 }] }, sim: { c: "dmc", p: { phinh: 1 } },
+    { ten: "Xác nhận trên mặt cắt dọc", hinh: { than: "nguc", dd: [{ x: 104, y: 140, a: -90, n: 3 }] }, sim: { c: "dmcDoc", p: {} },
       lam: ["Xoay 90°, dấu về phía đầu.", "Đi dọc ĐMC, đo đường kính trước – sau vuông góc trục mạch.", "Tìm đoạn phình hình thoi hoặc túi."],
       dat: "Trục dọc thấy được ĐMC liên tục.", meo: "Cắt chéo làm đường kính lớn giả (hiệu ứng hình trụ): luôn đo vuông góc trục mạch." },
   ],
@@ -61,15 +61,15 @@ POCUS.them({
 <li>Siêu âm do bác sĩ cấp cứu thực hiện có độ nhạy và độ đặc hiệu gộp khoảng 96% và 97% (tổng quan Pomero 2013).</li>
 <li>Không khảo sát tĩnh mạch cẳng chân: huyết khối đoạn xa có thể bị bỏ sót.</li>
 </ul>`,
-  chuanBi: { dauDo: "Thẳng 5–10 MHz (cong nếu chân to/phù).", cheDo: "Mạch máu (vascular/venous), độ sâu 3–5 cm.", tuThe: "Nằm ngửa, đầu cao (Trendelenburg ngược) để tĩnh mạch đầy; đùi xoay ngoài, gối gập nhẹ (tư thế ếch). Khoeo: gập gối, hoặc nằm nghiêng/sấp.", khac: "" },
+  chuanBi: { dauDo: "Thẳng 5–10 MHz (cong nếu chân to/phù).", cheDo: "Mạch máu (vascular/venous), độ sâu 3–5 cm.", tuThe: "Nằm ngửa, đầu cao (Trendelenburg ngược) để tĩnh mạch đầy; đùi xoay ngoài, gối gập nhẹ (tư thế ếch). Khoeo: gập gối, hoặc nằm nghiêng/sấp.", tth: ["trendNguoc", "ech", "sapKhoeo"], khac: "" },
   buoc: [
-    { ten: "Tĩnh mạch đùi chung ở bẹn", hinh: { than: "chan", dd: [{ x: 62, y: 70, a: 180, n: 1 }] }, sim: { c: "dvt", p: { tmh: 1 } },
+    { ten: "Tĩnh mạch đùi chung ở bẹn", tth: ["ech"], hinh: { than: "chan", dd: [{ x: 62, y: 70, a: 180, n: 1 }] }, sim: { c: "dvt", p: { tmh: 1 } },
       lam: ["Đặt đầu dò ngang ngay dưới nếp bẹn, dấu về bên phải bệnh nhân.", "Tìm ĐM đùi chung (tròn, đập, thành dày) và TM đùi chung nằm phía trong.", "Trượt lên đến dây chằng bẹn, rồi xuống: thấy TM hiển lớn đổ vào (hình 'chuột Mickey').", "Ép thẳng đứng đến khi ĐM bắt đầu biến dạng: TM phải xẹp hoàn toàn (hai thành chạm nhau).", "Trượt xuống mỗi 1–2 cm và ép lại, đến chỗ chia TM đùi sâu."],
       dat: "Mặt cắt ngang, thấy cả ĐM và TM, ép đủ lực.", meo: "Ép trên mặt cắt dọc dễ trượt mạch ra khỏi mặt cắt và tạo hình 'xẹp giả'." },
     { ten: "Tĩnh mạch đùi đoạn giữa (3 điểm)", hinh: { than: "chan", dd: [{ x: 70, y: 130, a: 180, n: 2 }] }, sim: { c: "dvt", p: {} },
       lam: ["Trượt dọc mặt trong đùi theo bó mạch.", "Ép mỗi 1–2 cm."],
       dat: "", meo: "TM đùi đoạn ống cơ khép nằm sâu: dùng đầu dò cong nếu cần." },
-    { ten: "Tĩnh mạch khoeo", hinh: { than: "khoeo", dd: [{ x: 100, y: 124, a: 180, n: 3 }] }, sim: { c: "dvt", p: { vt: "khoeo" } },
+    { ten: "Tĩnh mạch khoeo", tth: ["sapKhoeo"], hinh: { than: "khoeo", dd: [{ x: 100, y: 124, a: 180, n: 3 }] }, sim: { c: "dvt", p: { vt: "khoeo" } },
       lam: ["Gập gối, đặt đầu dò ngang ở hõm khoeo.", "TM khoeo nằm <b>nông hơn</b> (gần đầu dò hơn) ĐM khoeo.", "Ép; trượt xuống đến chỗ chia ba."],
       dat: "Thấy TM nông, ĐM sâu, ép xẹp hoàn toàn TM.", meo: "Ép quá mạnh ngay từ đầu có thể làm TM khoeo xẹp trước khi nhìn thấy: tìm trước khi ép." },
   ],
@@ -107,15 +107,15 @@ POCUS.them({
 <tr><td>Nặng</td><td>Hệ góp giãn lớn dạng bóng, vỏ thận mỏng</td></tr>
 </table></div>
 <p><b>Thể tích bàng quang</b> ≈ ngang × trước – sau × dọc × 0,52 (cm → mL). Hệ số thay đổi theo hình dạng bàng quang; kết quả là ước lượng.</p>`,
-  chuanBi: { dauDo: "Cong.", cheDo: "Bụng/thận, độ sâu 14–18 cm.", tuThe: "Nằm ngửa; nghiêng sang bên đối diện nếu khó thấy.", khac: "Khám bàng quang trước khi bệnh nhân đi tiểu, rồi sau tiểu nếu cần." },
+  chuanBi: { dauDo: "Cong.", cheDo: "Bụng/thận, độ sâu 14–18 cm.", tuThe: "Nằm ngửa; nghiêng sang bên đối diện nếu khó thấy.", tth: ["ngua"], khac: "Khám bàng quang trước khi bệnh nhân đi tiểu, rồi sau tiểu nếu cần." },
   buoc: [
     { ten: "Thận phải", hinh: { than: "nguc", dd: [{ x: 30, y: 148, a: -90, n: 1 }] }, sim: { c: "than", p: {} },
       lam: ["Đầu dò đường nách giữa – trước bên phải, dùng gan làm cửa sổ, dấu về phía đầu.", "Xoay nhẹ theo trục dọc thận (cực trên hướng ra sau – vào trong).", "Quạt qua toàn bộ thận; xoay 90° để có trục ngang.", "Bảo bệnh nhân hít vào sâu để thận đi xuống khỏi xương sườn."],
       dat: "Thấy trọn thận từ cực trên đến cực dưới trên trục dọc.", meo: "" },
-    { ten: "Thận trái", hinh: { than: "nguc", dd: [{ x: 172, y: 130, a: -90, n: 2 }] }, sim: { c: "than", p: { do: 1 } },
+    { ten: "Thận trái", tth: ["ngua"], hinh: { than: "nguc", dd: [{ x: 172, y: 130, a: -90, n: 2 }] }, sim: { c: "than", p: { do: 1 } },
       lam: ["Đầu dò cao và sau hơn bên phải: đường nách sau, mu bàn tay chạm giường.", "Dùng lách làm cửa sổ.", "So sánh với thận phải."],
       dat: "", meo: "" },
-    { ten: "Bàng quang và thể tích", hinh: { than: "nguc", dd: [{ x: 100, y: 222, a: 180, n: 3 }, { x: 100, y: 234, a: -90, ny: 14 }] }, sim: { c: "bangQuang", p: {} },
+    { ten: "Bàng quang và thể tích", hinh: { than: "nguc", dd: [{ x: 100, y: 222, a: 180, n: "a", ten: "Cắt ngang: đo ngang và trước – sau", sim: { c: "bangQuang", p: {} } }, { x: 100, y: 234, a: -90, n: "b", ny: 16, ten: "Cắt dọc: đo chiều dọc", sim: { c: "bangQuang", p: { doc: 1 } } }] }, sim: { c: "bangQuang", p: {} },
       lam: ["Cắt ngang trên xương mu: đo chiều ngang lớn nhất và trước – sau.", "Xoay sang cắt dọc: đo chiều dọc lớn nhất.", "Tính thể tích (có công cụ tính trong ứng dụng).", "Xem có tia nước tiểu từ niệu quản bằng Doppler màu (nâng cao)."],
       dat: "Đo ở mặt cắt lớn nhất mỗi chiều.", meo: "" },
   ],
@@ -160,12 +160,12 @@ POCUS.them({
 <li><b>Ống mật chủ</b>: ở bộ ba cửa ("chuột Mickey": TM cửa, ĐM gan, ống mật chủ). &gt; 6 mm gợi ý giãn (người cao tuổi hoặc đã cắt túi mật có thể lớn hơn bình thường). Đo trong – trong.</li>
 </ul>
 <p>Sỏi + Murphy siêu âm dương tính có giá trị dự báo dương tính cao cho viêm túi mật cấp (Ralls 1985). Thành dày đơn độc không đặc hiệu: suy tim, cổ trướng, viêm gan, giảm albumin, sau ăn, viêm tụy.</p>`,
-  chuanBi: { dauDo: "Cong.", cheDo: "Bụng, độ sâu 12–16 cm.", tuThe: "Nằm ngửa; nghiêng trái 45° hoặc ngồi nếu khó thấy.", khac: "Nhịn ăn giúp túi mật căng (sau ăn túi mật co, thành trông dày)." },
+  chuanBi: { dauDo: "Cong.", cheDo: "Bụng, độ sâu 12–16 cm.", tuThe: "Nằm ngửa; nghiêng trái 45° hoặc ngồi nếu khó thấy.", tth: ["ngua", "nghiengTrai"], khac: "Nhịn ăn giúp túi mật căng (sau ăn túi mật co, thành trông dày)." },
   buoc: [
-    { ten: "Tìm túi mật dưới bờ sườn", hinh: { than: "nguc", dd: [{ x: 72, y: 142, a: -90, n: 1 }, { x: 60, y: 120, a: -60, n: 2, mv: "truot" }] }, sim: { c: "tuiMat", p: {} },
+    { ten: "Tìm túi mật dưới bờ sườn", hinh: { than: "nguc", dd: [{ x: 72, y: 142, a: -90, n: 1, ten: "Dưới bờ sườn, cắt dọc", sim: { c: "tuiMat", p: {} } }, { x: 42, y: 122, a: -60, n: 2, mv: "truot", ten: "Liên sườn đường nách trước (khi dưới sườn không thấy)", sim: { c: "tuiMat", p: {} } }] }, sim: { c: "tuiMat", p: {} },
       lam: ["Đặt đầu dò dọc dưới bờ sườn phải, đường giữa đòn, dấu về phía đầu.", "Bảo hít sâu và nín: gan và túi mật đi xuống.", "Trượt dọc bờ sườn ra ngoài (quét 'cần gạt nước') đến khi thấy túi mật.", "Nếu không thấy: đặt liên sườn ở đường nách trước, hoặc cho nghiêng trái."],
       dat: "Trục dọc túi mật từ đáy đến cổ, thấy khe thùy chính và TM cửa.", meo: "" },
-    { ten: "Quét toàn bộ túi mật", hinh: { than: "nguc", dd: [{ x: 72, y: 142, a: -90 }, { x: 72, y: 142, a: 0, ny: 14 }] }, sim: { c: "tuiMat", p: { soi: 1 } },
+    { ten: "Quét toàn bộ túi mật", hinh: { than: "nguc", dd: [{ x: 72, y: 142, a: -90, n: 1, ten: "Trục dọc: sỏi ở vùng thấp", sim: { c: "tuiMat", p: { soi: 1 } } }, { x: 72, y: 142, a: 0, n: 2, ny: 14, ten: "Trục ngang: xác nhận sỏi trong lòng túi mật", sim: { c: "tuiMat", p: { soi: 1, ngang: 1 } } }] }, sim: { c: "tuiMat", p: { soi: 1 } },
       lam: ["Quạt qua toàn bộ trục dọc.", "Xoay 90°, quạt từ đáy đến cổ trên trục ngang.", "Chú ý cổ túi mật (sỏi kẹt).", "Cho bệnh nhân nghiêng trái: sỏi lăn."],
       dat: "Hai mặt cắt, thấy cả cổ túi mật.", meo: "" },
     { ten: "Dấu hiệu viêm", hinh: { than: "nguc", dd: [{ x: 72, y: 142, a: -90, mv: "ep" }] }, sim: { c: "tuiMat", p: { viem: 1 } },
@@ -204,15 +204,15 @@ POCUS.them({
 <p><b>Túi thai giả</b>: dịch/máu trong lòng tử cung, ở giữa buồng, bờ không có vòng màng rụng kép, không có túi noãn hoàng, thay đổi hình dạng. Túi thai thật nằm lệch tâm trong màng rụng.</p>
 <p>Qua đường âm đạo thấy túi noãn hoàng sớm hơn (khoảng tuần 5,5) so với đường bụng. Ngưỡng phân biệt hCG (khoảng 1.500–3.500 mUI/mL cho siêu âm đầu dò âm đạo) thay đổi theo tài liệu và không được dùng để loại trừ thai ngoài.</p>
 <p>Tim thai: ghi bằng <b>M-mode</b>, không dùng Doppler ở thai sớm (nguyên tắc ALARA).</p>`,
-  chuanBi: { dauDo: "Cong (đường bụng). Đầu dò âm đạo nếu được đào tạo.", cheDo: "Sản/bụng.", tuThe: "Nằm ngửa; bàng quang đầy giúp làm cửa sổ.", khac: "Có người đi kèm khi khám vùng chậu; tôn trọng riêng tư." },
+  chuanBi: { dauDo: "Cong (đường bụng). Đầu dò âm đạo nếu được đào tạo.", cheDo: "Sản/bụng.", tuThe: "Nằm ngửa; bàng quang đầy giúp làm cửa sổ.", tth: ["ngua"], khac: "Có người đi kèm khi khám vùng chậu; tôn trọng riêng tư." },
   buoc: [
     { ten: "Mặt cắt dọc giữa", hinh: { than: "nguc", dd: [{ x: 100, y: 224, a: -90, n: 1 }] }, sim: { c: "tuCung", p: { iup: 1 } },
       lam: ["Đặt đầu dò trên xương mu, cắt dọc, dấu về phía đầu.", "Tìm bàng quang (trường gần), tử cung phía sau.", "Đi theo đường nội mạc từ cổ tử cung đến đáy.", "Quạt sang hai bên qua toàn bộ tử cung.", "Tìm túi thai, túi noãn hoàng, phôi; ghi M-mode tim thai nếu có phôi."],
       dat: "Thấy tử cung từ cổ đến đáy, đường nội mạc liên tục.", meo: "Tử cung ngả sau khó thấy qua đường bụng: chuyển đường âm đạo hoặc siêu âm chuyên khoa." },
-    { ten: "Mặt cắt ngang", hinh: { than: "nguc", dd: [{ x: 100, y: 224, a: 180, n: 2 }] }, sim: { c: "tuCung", p: { iup: 1 } },
+    { ten: "Mặt cắt ngang", hinh: { than: "nguc", dd: [{ x: 100, y: 224, a: 180, n: 2 }] }, sim: { c: "chauNgang", p: { nu: 1, iup: 1 } },
       lam: ["Xoay 90°, dấu về bên phải bệnh nhân.", "Quạt từ đáy xuống cổ tử cung.", "Xác nhận túi thai nằm trong tử cung và đo lớp cơ bao quanh."],
       dat: "", meo: "" },
-    { ten: "Khoang Morison và túi cùng", hinh: { than: "nguc", dd: [{ x: 30, y: 142, a: -90, n: 3 }, { x: 100, y: 224, a: -90, n: 4 }] }, sim: { c: "ruq", p: { dich: 1 } },
+    { ten: "Khoang Morison và túi cùng", hinh: { than: "nguc", dd: [{ x: 30, y: 142, a: -90, n: 3, ten: "Khoang Morison: dịch tự do (máu)", sim: { c: "ruq", p: { dich: 1 } } }, { x: 100, y: 224, a: -90, n: 4, ten: "Túi cùng: dịch có hồi âm, tử cung rỗng", sim: { c: "tuCung", p: { ngoai: 1 } } }] }, sim: { c: "ruq", p: { dich: 1 } },
       lam: ["Luôn khám khoang Morison khi không thấy IUP hoặc bệnh nhân đau/tụt huyết áp.", "Tìm dịch ở túi cùng sau tử cung, nhất là dịch có hồi âm (máu)."],
       dat: "", meo: "Dịch ở khoang Morison ở phụ nữ có thai nghi ngoài tử cung là dấu hiệu nặng." },
   ],

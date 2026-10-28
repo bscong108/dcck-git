@@ -26,7 +26,7 @@ POCUS.them({
 </ul>
 <h3>Sau tái lập tuần hoàn</h3>
 <p>Đánh giá co bóp thất trái/phải, dịch màng tim, vị trí ống nội khí quản (trượt màng phổi hai bên), tràn khí do ép tim/đặt catheter, TMC dưới và đáp ứng dịch.</p>`,
-  chuanBi: { dauDo: "Tim (cong nếu không có).", cheDo: "Preset tim; chế độ ghi clip sẵn sàng (lùi lại/ghi hồi cứu).", tuThe: "Nằm ngửa trên nền cứng.", khac: "Phân vai: người siêu âm, người bấm giờ, người bắt mạch, trưởng nhóm quyết định." },
+  chuanBi: { dauDo: "Tim (cong nếu không có).", cheDo: "Preset tim; chế độ ghi clip sẵn sàng (lùi lại/ghi hồi cứu).", tuThe: "Nằm ngửa trên nền cứng.", tth: ["ngua"], khac: "Phân vai: người siêu âm, người bấm giờ, người bắt mạch, trưởng nhóm quyết định." },
   buoc: [
     { ten: "Chuẩn bị trong lúc ép tim", hinh: { than: "nguc", dd: [{ x: 100, y: 124, a: 0, n: 1 }] }, sim: { c: "duoiUc", p: { ngung: "dung" } },
       lam: ["Bôi gel, đặt đầu dò dưới mũi ức khi đồng đội đang ép tim.", "Chỉnh độ sâu 20–24 cm.", "Chuẩn bị nút ghi clip.", "Thống nhất người đếm 10 giây."],
@@ -74,16 +74,16 @@ POCUS.them({
 </table></div>
 <p>Thử nghiệm ngẫu nhiên SHoC-ED (Atkinson 2018) ở bệnh nhân tụt huyết áp không rõ nguyên nhân tại cấp cứu không cho thấy siêu âm theo quy trình cải thiện tử vong. Giá trị của RUSH nằm ở việc <b>định hướng chẩn đoán nhanh</b> và phát hiện các nguyên nhân cần can thiệp ngay; kết quả phải được tích hợp với lâm sàng.</p>
 <p>Các quy trình tương tự: ACES, SIMPLE, FALLS (Lichtenstein: truyền dịch có giới hạn theo đường B), SESAME.</p>`,
-  chuanBi: { dauDo: "Tim (cho tim, phổi sâu, TMC dưới, bụng); thẳng cho màng phổi và tĩnh mạch.", cheDo: "Chuyển preset theo vùng nếu có thời gian.", tuThe: "Nằm ngửa.", khac: "Làm song song với hồi sức; lặp lại sau mỗi can thiệp." },
+  chuanBi: { dauDo: "Tim (cho tim, phổi sâu, TMC dưới, bụng); thẳng cho màng phổi và tĩnh mạch.", cheDo: "Chuyển preset theo vùng nếu có thời gian.", tuThe: "Nằm ngửa.", tth: ["ngua"], khac: "Làm song song với hồi sức; lặp lại sau mỗi can thiệp." },
   buoc: [
-    { ten: "Bơm: tim", hinh: { than: "nguc", dd: [{ x: 100, y: 124, a: 0, n: 1 }, { x: 112, y: 78, a: -140, n: 2 }, { x: 142, y: 98, a: 0, n: 3 }] }, sim: { c: "canhUcDoc", p: { ef: "tang" } },
+    { ten: "Bơm: tim", hinh: { than: "nguc", dd: [{ x: 100, y: 124, a: 0, n: 1, ten: "Dưới mũi ức: có dịch màng tim không?", sim: { c: "duoiUc", p: {} } }, { x: 112, y: 78, a: -140, n: 2, ten: "Cạnh ức trục dọc: co bóp (ví dụ tăng động)", sim: { c: "canhUcDoc", p: { ef: "tang" } } }, { x: 142, y: 98, a: 0, n: 3, ten: "Mỏm 4 buồng: thất phải so với thất trái", sim: { c: "mom4", p: {} } }] }, sim: { c: "canhUcDoc", p: { ef: "tang" } },
       lam: ["Dưới mũi ức: dịch màng tim?", "Cạnh ức trục dọc: co bóp thất trái (tăng/bình thường/giảm), gốc ĐMC (&gt; 4 cm gợi ý bệnh ĐMC ngực).", "Mỏm 4 buồng: thất phải so với thất trái."],
       dat: "", meo: "" },
-    { ten: "Bể: thể tích và các khoang", hinh: { than: "nguc", dd: [{ x: 104, y: 130, a: -90, n: 1 }, { x: 30, y: 142, a: -90, n: 2 }, { x: 170, y: 120, a: -90, n: 3 }, { x: 100, y: 222, a: -90, n: 4 }, { x: 70, y: 62, a: -90, n: 5 }, { x: 130, y: 62, a: -90, n: 6 }] }, sim: { c: "ivc", p: { kieu: "xep" } },
+    { ten: "Bể: thể tích và các khoang", hinh: { than: "nguc", dd: [{ x: 104, y: 130, a: -90, n: 1, ten: "TMC dưới (ví dụ nhỏ, xẹp)", sim: { c: "ivc", p: { kieu: "xep" } } }, { x: 30, y: 142, a: -90, n: 2, ten: "Hạ sườn phải: dịch, dịch màng phổi", sim: { c: "ruq", p: {} } }, { x: 170, y: 120, a: -90, n: 3, ten: "Hạ sườn trái", sim: { c: "luq", p: {} } }, { x: 100, y: 222, a: -90, n: 4, ten: "Chậu hông", sim: { c: "chau", p: {} } }, { x: 70, y: 62, a: -90, n: 5, ten: "Phổi trước phải: trượt, đường B", sim: { c: "phoi", p: {} } }, { x: 130, y: 62, a: -90, n: 6, ten: "Phổi trước trái", sim: { c: "phoi", p: {} } }] }, sim: { c: "ivc", p: { kieu: "xep" } },
       lam: ["TMC dưới: kích thước, mức xẹp.", "E-FAST: dịch ổ bụng, dịch màng phổi.", "Phổi trước: trượt màng phổi (tràn khí), đường B (phù phổi)."],
       dat: "", meo: "" },
-    { ten: "Ống: mạch máu", hinh: { than: "nguc", dd: [{ x: 100, y: 128, a: 180, n: 1 }, { x: 100, y: 170, a: 180, n: 2 }] }, sim: { c: "dmc", p: {} },
-      lam: ["ĐMC bụng từ mũi ức đến chỗ chia đôi.", "Ép tĩnh mạch đùi chung và khoeo hai bên."],
+    { ten: "Ống: mạch máu", hinh: { than: "nguc", dd: [{ x: 100, y: 128, a: 180, n: 1, ten: "ĐMC bụng đoạn trên", sim: { c: "dmc", p: {} } }, { x: 100, y: 170, a: 180, n: 2, ten: "ĐMC chỗ chia đôi", sim: { c: "dmc", p: { chia: 1 } } }] }, sim: { c: "dmc", p: {} },
+      lam: ["ĐMC bụng từ mũi ức đến chỗ chia đôi.", "Ép tĩnh mạch đùi chung và khoeo hai bên (hình ở bài Huyết khối tĩnh mạch sâu)."],
       dat: "", meo: "" },
   ],
   ketQua: [
@@ -140,15 +140,15 @@ POCUS.them({
 </div>
 </div>
 <p>Kết hợp siêu âm tim (thất trái, thất phải, dịch màng tim, TMC dưới) giúp phân biệt phù phổi do tim với nguyên nhân khác của đường B (ARDS, viêm phổi kẽ).</p>`,
-  chuanBi: { dauDo: "Cong hoặc tim (Lichtenstein dùng đầu dò vi lồi); thẳng cho màng phổi khi cần.", cheDo: "Phổi; không lọc ảnh.", tuThe: "Nửa ngồi hoặc nằm, không di chuyển bệnh nhân nặng.", khac: "Thời gian mục tiêu < 3 phút." },
+  chuanBi: { dauDo: "Cong hoặc tim (Lichtenstein dùng đầu dò vi lồi); thẳng cho màng phổi khi cần.", cheDo: "Phổi; không lọc ảnh.", tuThe: "Nửa ngồi hoặc nằm, không di chuyển bệnh nhân nặng.", tth: ["nuaNgoi", "ngua"], khac: "Thời gian mục tiêu < 3 phút." },
   buoc: [
-    { ten: "Điểm BLUE trên và dưới hai bên", hinh: { than: "nguc", dd: [{ x: 70, y: 60, a: -90, n: 1 }, { x: 64, y: 104, a: -90, n: 2 }, { x: 130, y: 60, a: -90, n: 1, nx: 0 }, { x: 136, y: 104, a: -90, n: 2 }] }, sim: { c: "phoi", p: {} },
+    { ten: "Điểm BLUE trên và dưới hai bên", hinh: { than: "nguc", dd: [{ x: 70, y: 60, a: -90, n: "P1", ten: "BLUE trên phải", sim: { c: "phoi", p: {} } }, { x: 64, y: 104, a: -90, n: "P2", ten: "BLUE dưới phải", sim: { c: "phoi", p: {} } }, { x: 130, y: 60, a: -90, n: "T1", ten: "BLUE trên trái", sim: { c: "phoi", p: {} } }, { x: 136, y: 104, a: -90, n: "T2", ten: "BLUE dưới trái (cả 4 điểm như vậy = hồ sơ A)", sim: { c: "mPhoi", p: {} } }] }, sim: { c: "phoi", p: {} },
       lam: ["Xác định điểm bằng hai bàn tay.", "Ở mỗi điểm: trượt? đường A hay B? đông đặc?", "Ghi hồ sơ vùng trước hai bên."],
       dat: "", meo: "" },
-    { ten: "Siêu âm tĩnh mạch (khi hồ sơ A)", hinh: { than: "chan", dd: [{ x: 62, y: 70, a: 180, n: 1 }, { x: 138, y: 70, a: 180, n: 2 }] }, sim: { c: "dvt", p: { hk: 1 } },
+    { ten: "Siêu âm tĩnh mạch (khi hồ sơ A)", hinh: { than: "chan", dd: [{ x: 62, y: 70, a: 180, n: 1, ten: "TM đùi chung phải: không xẹp (huyết khối)", sim: { c: "dvt", p: { hk: 1 } } }, { x: 138, y: 70, a: 180, n: 2, ten: "TM đùi chung trái: xẹp hoàn toàn", sim: { c: "dvt", p: {} } }] }, sim: { c: "dvt", p: { hk: 1 } },
       lam: ["Ép tĩnh mạch đùi chung, đùi, khoeo hai bên."],
       dat: "", meo: "" },
-    { ten: "Điểm PLAPS", hinh: { than: "nguc", dd: [{ x: 26, y: 110, a: -90, n: 3 }, { x: 174, y: 110, a: -90, n: 3 }] }, sim: { c: "dongDac", p: {} },
+    { ten: "Điểm PLAPS", hinh: { than: "nguc", dd: [{ x: 26, y: 110, a: -90, n: "P", ten: "PLAPS phải: đông đặc (PLAPS dương tính)", sim: { c: "dongDac", p: {} } }, { x: 174, y: 110, a: -90, n: "T", ten: "PLAPS trái: dịch màng phổi", sim: { c: "luq", p: { mp: 1 } } }] }, sim: { c: "dongDac", p: {} },
       lam: ["Đường nách sau ngang điểm BLUE dưới, đầu dò hướng ra sau.", "Tìm đông đặc hoặc dịch màng phổi."],
       dat: "", meo: "Ở bệnh nhân nằm, luồn đầu dò sát giường." },
   ],
