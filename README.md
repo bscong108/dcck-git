@@ -1,5 +1,7 @@
 # ĐCCK · Học sâu
 
+**Ứng dụng tự học siêu âm POCUS cấp cứu:** thư mục [`pocus/`](pocus/README.md) (mở `pocus/index.html`).
+
 **Mới dùng lần đầu: đọc [HUONG-DAN-SU-DUNG.md](HUONG-DAN-SU-DUNG.md).**
 
 **Bản trực tuyến (điện thoại, máy tính bảng, tự đồng bộ tiến độ):** https://claude.ai/artifact/EJnXNYjbramUPWCR9nDEgB — tạo bằng `python cong-cu/dong_goi_truc_tuyen.py` (file `ban-truc-tuyen/dcck-hoc.html`), đồng bộ ở `app/sync.js`.
