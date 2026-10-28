@@ -32,7 +32,7 @@ Phần mềm học và thực hành đọc điện tâm đồ cho bác sĩ cấp
 | Thẻ ôn | Ôn giãn cách các tiêu chuẩn, ngưỡng, liều thuốc |
 | Công cụ | QTc, tần số, trục, Sgarbossa (Smith), tắc LAD vs tái cực sớm (công thức Smith), LVH, thuật toán Brugada và aVR |
 
-ECG được **mô phỏng** bằng `ecg/js/engine.js` (chuyển đạo chi chiếu từ vector mặt phẳng trán, giấy 25 mm/s – 10 mm/mV); mẫu ở `ecg/js/patterns.js`, bài ở `ecg/js/lessons-*.js`, ca ở `ecg/js/cases.js`. Bản một file: `python cong-cu/dong_goi_ecg.py` → `ban-truc-tuyen/ecg-cap-cuu.html`. Kiểm tra: `node test/ecg.js`.
+ECG được **mô phỏng** bằng `ecg/js/engine.js` (chuyển đạo chi chiếu từ vector mặt phẳng trán, giấy 25 mm/s – 10 mm/mV); mẫu ở `ecg/js/patterns.js`, bài ở `ecg/js/lessons-*.js`, ca ở `ecg/js/cases.js`. Bản trực tuyến: https://claude.ai/artifact/8XktUxxMupeRfjmLkMPYgB (tiến độ lưu riêng trong trình duyệt; nút sao lưu chỉ hoạt động ở bản chạy trên máy). Bản một file: `python cong-cu/dong_goi_ecg.py` → `ban-truc-tuyen/ecg-cap-cuu.html`. Kiểm tra: `node test/ecg.js`.
 
 ## Thêm bài mới do Cowork tạo
 

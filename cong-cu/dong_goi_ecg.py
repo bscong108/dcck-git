@@ -24,6 +24,11 @@ def main():
         js = doc(m.group(1)).replace("</script", "<\\/script")
         return "<script>\n" + js + "\n</script>"
     html = re.sub(r'<script src="([^"]+)"></script>', nhung_js, html)
+    # Bỏ khung doctype/html/head/body: trang trực tuyến tự bọc khung khi đăng
+    head = re.search(r"<head>(.*?)</head>", html, re.S).group(1)
+    body = re.search(r"<body>(.*?)</body>", html, re.S).group(1)
+    giu = [re.search(r"<title>.*?</title>", head, re.S).group(0), re.search(r"<style>.*?</style>", head, re.S).group(0)]
+    html = "\n".join(giu) + "\n" + body.strip() + "\n"
     os.makedirs(os.path.dirname(DAU_RA), exist_ok=True)
     with open(DAU_RA, "w", encoding="utf-8") as f:
         f.write(html)

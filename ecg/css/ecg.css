@@ -45,7 +45,7 @@ section { margin: 16px 0; }
 .card.xanh { border-left: 4px solid var(--xanh); }
 
 /* Thanh trên */
-.topbar { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--nen) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--vien); }
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: color-mix(in srgb, var(--nen) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--vien); }
 .topbar-in { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; gap: 6px; padding: 8px 16px; overflow-x: auto; scrollbar-width: none; }
 .topbar-in::-webkit-scrollbar { display: none; }
 .logo { display: flex; align-items: center; gap: 8px; font-weight: 800; text-decoration: none; color: var(--chu); white-space: nowrap; margin-right: 10px; font-size: 16px; }
